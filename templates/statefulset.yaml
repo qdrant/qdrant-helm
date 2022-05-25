@@ -86,12 +86,12 @@ spec:
         labels:
           app: {{ template "qdrant.name" . }}
       spec:
-        storageClassName: local-path
+        storageClassName: {{ .Values.persistence.storageClassName }} 
         accessModes:
         {{- range .Values.persistence.accessModes }}
           - {{ . | quote }}
         {{- end }}
         resources:
           requests:
-            storage: {{ .Values.persistence.size | quote }}
-           
+            storage: {{ .Values.persistence.size | quote }} 
+         

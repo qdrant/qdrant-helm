@@ -59,6 +59,7 @@ affinity: {}
 persistence:
   accessModes: [ "ReadWriteOnce" ]  
   size: 1Gi
+  #storageClassName: local-path
 
 config:
   debug: false
