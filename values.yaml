@@ -1,0 +1,93 @@
+replicaCount: 1
+
+image:
+  repository: qdrant/qdrant
+  pullPolicy: IfNotPresent
+  tag: latest
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+ports:
+  - name: http
+    containerPort: 6333
+    protocol: TCP
+
+livenessProbe:
+  enabled: true
+  path: /
+  port: 6333
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 3
+  successThreshold: 1
+
+readinessProbe:
+  enabled: true
+  path: /
+  port: 6333
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 3
+  successThreshold: 1
+
+podAnnotations: {}
+
+service:
+  type: ClusterIP
+  name: http
+  port: 6333
+  targetPort: 6333
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+persistence:
+  accessModes: [ "ReadWriteOnce" ]  
+  size: 1Gi
+  #storageClassName: local-path
+
+config:
+  debug: false
+  log_level: INFO
+  storage:
+    storage_path: ./storage
+    wal:
+      wal_capacity_mb: 32
+      wal_segments_ahead: 0
+    performance:
+      max_search_threads: 0
+    optimizers:
+      deleted_threshold: 0.2
+      vacuum_min_vector_number: 1000
+      default_segment_number: 5
+      max_segment_size: 200000
+      memmap_threshold: 50000
+      indexing_threshold: 20000
+      payload_indexing_threshold: 10000
+      flush_interval_sec: 1
+      max_optimization_threads: 0
+    hnsw_index:
+      m: 16
+      ef_construct: 100
+      full_scan_threshold: 10000
+  service:
+    max_request_size_mb: 32
+    max_workers: 0
+    host: 0.0.0.0
+    http_port: 6333
+    grpc_port: null
