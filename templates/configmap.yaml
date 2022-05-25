@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: qdrant-config
+data:
+  config.yaml: |
+    {{- toYaml .Values.config | nindent 4 }}

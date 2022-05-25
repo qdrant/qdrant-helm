@@ -60,6 +60,9 @@ spec:
           volumeMounts:
           - name: qdrant-storage
             mountPath: /qdrant/storage
+          - name: qdrant-config
+            mountPath: /qdrant/config
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -72,6 +75,11 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: qdrant-config
+          configMap:
+            name: qdrant-config
+
   volumeClaimTemplates:
     - metadata:
         name: qdrant-storage
