@@ -7,7 +7,7 @@
 Checkout the repository and
 
 ```bash
-helm install your_qdrant_installation_name .
+helm install your-qdrant-installation-name .
 ```
 
 ## Description
@@ -29,19 +29,19 @@ Increasing replicas does not have the intended effect right now
 You can install the chart via:
 
 ```bash
-helm install your_qdrant_installation_name .
+helm install your-qdrant-installation-name .
 ```
 
 Unistall via:
 
 ```bash
-helm delete your_qdrant_installation_name .
+helm delete your-qdrant-installation-name .
 ```
 
 Delete the volume with
 
 ```bash
-kubectl delete pvc -l kubectl delete pvc -l app.kubernetes.io/instance=your_qdrant_installation_name
+kubectl delete pvc -l kubectl delete pvc -l app.kubernetes.io/instance=your-qdrant-installation-name
 ```
 
 ## Configuration
