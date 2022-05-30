@@ -9,15 +9,24 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-ports:
-  - name: http
-    containerPort: 6333
-    protocol: TCP
+# checks - Readiness and liveness checks can only be enabled for either rest or grpc (multiple checks not supported)
+# grpc checks are only available from k8s 1.24+ so as of per default we check rest
+service:
+  type: ClusterIP
+  ports:
+    - name: rest
+      port: 6333
+      targetPort: 6333
+      protocol: TCP
+      checksEnabled: true
+    - name: grpc
+      port: 6334
+      targetPort: 6334
+      protocol: TCP
+      checksEnabled: false
 
 livenessProbe:
   enabled: true
-  path: /
-  port: 6333
   initialDelaySeconds: 5
   periodSeconds: 10
   timeoutSeconds: 1
@@ -26,8 +35,6 @@ livenessProbe:
 
 readinessProbe:
   enabled: true
-  path: /
-  port: 6333
   initialDelaySeconds: 5
   periodSeconds: 10
   timeoutSeconds: 1
@@ -35,12 +42,6 @@ readinessProbe:
   successThreshold: 1
 
 podAnnotations: {}
-
-service:
-  type: ClusterIP
-  name: http
-  port: 6333
-  targetPort: 6333
 
 resources: {}
   # limits:
@@ -90,4 +91,5 @@ config:
     max_workers: 0
     host: 0.0.0.0
     http_port: 6333
-    grpc_port: null
+    grpc_port: 6334
+    enable_cors: true

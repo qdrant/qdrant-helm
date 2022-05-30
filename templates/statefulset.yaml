@@ -28,32 +28,48 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-          {{- range .Values.ports }}
+          {{- range .Values.service.ports }}
             - name: {{ .name }}
-              containerPort: {{ .containerPort }}
+              containerPort: {{ .targetPort }}
               protocol: {{ .protocol }}
           {{- end }}
-          {{- if .Values.livenessProbe.enabled }}
+
+          {{- $values := .Values -}}
+          {{- range .Values.service.ports }}
+          {{- if and $values.livenessProbe.enabled .checksEnabled }}
           livenessProbe:
+            {{- if eq .name "grpc"}}
+            grpc:
+              port: {{ .targetPort }}
+            {{- end }}
+            {{- if eq .name "rest"}}
             httpGet:
-              path: {{ .Values.livenessProbe.path }}
-              port: {{ .Values.livenessProbe.port }}
-            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
-            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
-            successThreshold: {{ .Values.livenessProbe.successThreshold }}
-            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+              path: /
+              port: {{ .targetPort }}
+            {{- end }}
+            initialDelaySeconds: {{ $values.livenessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ $values.livenessProbe.timeoutSeconds }}
+            periodSeconds: {{ $values.livenessProbe.periodSeconds }}
+            successThreshold: {{ $values.livenessProbe.successThreshold }}
+            failureThreshold: {{ $values.livenessProbe.failureThreshold }}
           {{- end }}
-          {{- if .Values.readinessProbe.enabled }}
+          {{- if and $values.readinessProbe.enabled .checksEnabled }}
           readinessProbe:
+            {{- if eq .name "grpc"}}
+            grpc:
+              port: {{ .targetPort }}
+            {{- end }}
+            {{- if eq .name "rest"}}
             httpGet:
-              path: {{ .Values.readinessProbe.path }}
-              port: {{ .Values.readinessProbe.port }}
-            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
-            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
-            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-            successThreshold: {{ .Values.readinessProbe.successThreshold }}
-            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+              path: /
+              port: {{ .targetPort }}
+            {{- end }}
+            initialDelaySeconds: {{ $values.readinessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ $values.readinessProbe.timeoutSeconds }}
+            periodSeconds: {{ $values.readinessProbe.periodSeconds }}
+            successThreshold: {{ $values.readinessProbe.successThreshold }}
+            failureThreshold: {{ $values.readinessProbe.failureThreshold }}
+          {{- end }}
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

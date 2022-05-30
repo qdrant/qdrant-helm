@@ -5,11 +5,13 @@ metadata:
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.service.type | default "ClusterIP" }}
   ports:
-    - name: {{ .Values.service.name }}
-      port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort }}
-      protocol: {{ .Values.service.protocol | default "TCP" }}
+    {{- range .Values.service.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ .protocol | default "TCP" }}
+    {{- end }}
   selector:
     {{- include "qdrant.selectorLabels" . | nindent 4 }}
