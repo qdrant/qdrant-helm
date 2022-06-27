@@ -3,5 +3,14 @@ kind: ConfigMap
 metadata:
   name: qdrant-config
 data:
+  initialize.sh: |
+    #!/bin/sh
+    SET_INDEX=${HOSTNAME##*-}
+    echo "Starting initializing for pod $SET_INDEX"
+    if [ "$SET_INDEX" = "0" ]; then
+      ./qdrant --uri 'http://qdrant-0.qdrant-headless:6335'
+    else
+      ./qdrant --bootstrap 'http://qdrant-0.qdrant-headless:6335'
+    fi
   config.yaml: |
     {{- toYaml .Values.config | nindent 4 }}
