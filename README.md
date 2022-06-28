@@ -14,9 +14,6 @@ helm install your-qdrant-installation-name .
 
 This chart installs and bootstraps a Qdrant instance.
 
-### Disclaimer
-The current version (0.7.0) does not yet support a distributed setup or replication. 
-Increasing replicas does not have the intended effect right now
 
 ## Prerequisites
 
@@ -47,4 +44,14 @@ kubectl delete pvc -l kubectl delete pvc -l app.kubernetes.io/instance=your-qdra
 ## Configuration
 
 For documentation of the settings please refer to [Qdrant Configuration File](https://github.com/qdrant/qdrant/blob/master/config/config.yaml)
-All of these configuration options are available in `values.yaml`.
+All of these configuration options are available in `values.yaml`. 
+*Important* - if you change anything within the config key aka Qdrant config in the values.yaml, you have to provide 
+*all* config params in your overwrite, as everything that is in config is applied put into one configmap value.
+
+### Distributed setup
+
+Running a distributed cluster just needs a few changes in your `values.yaml` file.
+Increase the number of replicas to the desired number of nodes and set `config.cluster.enabled` to true.
+
+Depending on your environment or cloud provider you might need to change the service in the `values.yaml` as well.
+For example on AWS EKS you would need to change the `cluster.type` to `NodePort`.
