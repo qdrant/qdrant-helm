@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   qdrant:
   - apiVersion: v2
+    appVersion: 0.8.2
+    created: "2022-06-28T12:15:24.652198+02:00"
+    description: A Helm chart for Kubernetes
+    digest: 61983b05b196e979c3feff280c49fb8b0a452b7ea26aeae3dc316174ec32d0f1
+    name: qdrant
+    type: application
+    urls:
+    - qdrant-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: 0.7.0
     created: "2022-06-02T14:34:30.709943+02:00"
     description: A Helm chart for Kubernetes
@@ -9,6 +19,6 @@ entries:
     name: qdrant
     type: application
     urls:
-    - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
-    version: 0.1.0
-generated: "2022-06-02T14:34:30.707626+02:00"
+    - https://qdrant.github.io/qdrant-helm/qdrant-0.2.0.tgz
+    version: 0.2.0
+generated: "2022-06-28T12:15:24.648261+02:00"
