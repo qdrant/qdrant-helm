@@ -44,9 +44,8 @@ kubectl delete pvc -l kubectl delete pvc -l app.kubernetes.io/instance=your-qdra
 ## Configuration
 
 For documentation of the settings please refer to [Qdrant Configuration File](https://github.com/qdrant/qdrant/blob/master/config/config.yaml)
-All of these configuration options are available in `values.yaml`. 
-*Important* - if you change anything within the config key aka Qdrant config in the values.yaml, you have to provide 
-*all* config params in your overwrite, as everything that is in config is applied put into one configmap value.
+All of these configuration options could be overwritten under config in `values.yaml`. 
+A modifcation example is provided there.
 
 ### Distributed setup
 

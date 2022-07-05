@@ -12,5 +12,5 @@ data:
     else
       ./qdrant --bootstrap 'http://{{ include "qdrant.fullname" . }}-0.{{ include "qdrant.fullname" . }}-headless:6335' --uri 'http://{{ include "qdrant.fullname" . }}-'"$SET_INDEX"'.{{ include "qdrant.fullname" . }}-headless:6335'
     fi
-  config.yaml: |
+  production.yaml: |
     {{- toYaml .Values.config | nindent 4 }}

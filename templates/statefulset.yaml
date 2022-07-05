@@ -28,7 +28,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
-          args: ["./config/initialize.sh" ]
+          args: ["./config/initialize.sh"]
           ports:
           {{- range .Values.service.ports }}
             - name: {{ .name }}
@@ -79,7 +79,11 @@ spec:
           - name: qdrant-storage
             mountPath: /qdrant/storage
           - name: qdrant-config
-            mountPath: /qdrant/config
+            mountPath: /qdrant/config/initialize.sh
+            subPath: initialize.sh
+          - name: qdrant-config
+            mountPath: /qdrant/config/production.yaml
+            subPath: production.yaml
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
