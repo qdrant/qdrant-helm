@@ -4,10 +4,11 @@
 
 ## TLDR;
 
-Checkout the repository and
 
 ```bash
-helm install your-qdrant-installation-name .
+helm repo add qdrant https://qdrant.github.io/qdrant-helm
+helm repo update
+helm install your-qdrant-installation-name qdrant/qdrant
 ```
 
 ## Description
@@ -28,6 +29,12 @@ You can install the chart via:
 ```bash
 helm install your-qdrant-installation-name .
 ```
+
+To install a specific version of the qdrant image
+```bash
+helm install your-qdrant-installation-name . --set image.tag=v0.9.0
+```
+DISCLAIMER: This could lead to unexpected behaviour depending on chart version vs Qdrant image version 
 
 Unistall via:
 

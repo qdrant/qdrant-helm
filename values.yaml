@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: qdrant/qdrant
   pullPolicy: IfNotPresent
-  tag: v0.8.2
+  tag: v0.9.1
 
 imagePullSecrets: []
 nameOverride: ""
@@ -68,12 +68,10 @@ persistence:
   #storageClassName: local-path
 
 #modification example for configuration to overwrite defaults
-#config:
-#  debug: true
-#  log_level: DEBUG
-#  cluster:
-#    enabled: true
-#    p2p:
-#      port: 6335
-#    consensus:
-#      tick_period_ms: 100
+config:
+  cluster:
+    enabled: true
+    p2p:
+      port: 6335
+    consensus:
+      tick_period_ms: 100
