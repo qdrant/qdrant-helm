@@ -3,9 +3,9 @@ entries:
   qdrant:
   - apiVersion: v2
     appVersion: 0.10.1
-    created: "2022-09-24T10:54:03.958812659Z"
+    created: "2022-09-26T07:19:36.473963128Z"
     description: A Helm chart for Kubernetes
-    digest: b91b2a09e1301b044123a35da05f756b90b675482262e397ea32798bb56de81a
+    digest: 0b103bca5afc79e7057c03b922d0fad5f26b9df3abdbecfe0766105c7fabf171
     name: qdrant
     type: application
     urls:
@@ -13,7 +13,7 @@ entries:
     version: 0.2.3
   - apiVersion: v2
     appVersion: 0.9.1
-    created: "2022-09-24T10:54:03.95701977Z"
+    created: "2022-09-26T07:19:36.472558714Z"
     description: A Helm chart for Kubernetes
     digest: be5ed7e0f1d23e504ee5ccb05d03a87d36cafaf9d87b965aedf9d7527d391f6b
     name: qdrant
@@ -23,7 +23,7 @@ entries:
     version: 0.2.2
   - apiVersion: v2
     appVersion: 0.8.2
-    created: "2022-09-24T10:54:03.948021823Z"
+    created: "2022-09-26T07:19:36.463601031Z"
     description: A Helm chart for Kubernetes
     digest: 6b16ea64cda8c5419fb7c732d17c2cd7790166c6c0dbdab40cd669b99d70a249
     name: qdrant
@@ -33,7 +33,7 @@ entries:
     version: 0.2.1
   - apiVersion: v2
     appVersion: 0.8.2
-    created: "2022-09-24T10:54:03.941786713Z"
+    created: "2022-09-26T07:19:36.458059179Z"
     description: A Helm chart for Kubernetes
     digest: 0f0a2447e883f81fe0300dd51c7418b3814fefe487c3809002e24181e601587a
     name: qdrant
@@ -43,7 +43,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 0.7.0
-    created: "2022-09-24T10:54:03.938015626Z"
+    created: "2022-09-26T07:19:36.454256444Z"
     description: A Helm chart for Kubernetes
     digest: 35df580de196a48a8de7acc441f2b0d0ea2fe08cc9ecbb3c74378e1ae7dfe6b6
     name: qdrant
@@ -51,4 +51,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-24T10:54:03.935788315Z"
+generated: "2022-09-26T07:19:36.451023614Z"
