@@ -1,0 +1,40 @@
+name: Upgrade Version
+on:
+  pull_request:
+    types: [closed]
+    branches: ['main']
+
+jobs:
+  UpgradeVersion:
+    if: github.event.pull_request.merged == true
+    name: Upgrade Version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Helm Package
+        shell: bash
+        run: |
+          helm package .
+          mv qdrant-*.tgz ../../
+
+      - name: Checkout to gh-pages
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+
+      - name: Move Package to gh-pages & Helm Repo Index
+        shell: bash
+        run: |
+          mv ../../qdrant-*.tgz .
+          helm repo index . --url https://qdrant.github.io/qdrant-helm/
+
+      - name: Push to gh-pages
+        shell: bash
+        run: |
+          git config --global user.name 'ghrunnerbot'
+          git config --global user.email 'cloud-dev@qdrant.com'
+          git add qdrant-*.tgz index.yaml
+          git commit -m "version upgrade"
+          git push
