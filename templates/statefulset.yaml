@@ -100,7 +100,7 @@ spec:
       volumes:
         - name: qdrant-config
           configMap:
-            name: qdrant-config
+            name: {{ include "qdrant.fullname" . }}
             defaultMode: 0755
 
   volumeClaimTemplates:
