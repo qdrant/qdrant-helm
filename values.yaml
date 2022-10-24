@@ -70,10 +70,10 @@ persistence:
 
 #only supported for single node qdrant clusters.
 snapshotRestoration:
-  enabled: true
+  enabled: false
   pvcName: snapshots-pvc
   snapshots: 
-    - /qdrant/snapshots/test_collection/test_collection-2022-10-24-13-56-50.snapshot:test_collection
+  #  - /qdrant/snapshots/test_collection/test_collection-2022-10-24-13-56-50.snapshot:test_collection
   
 #modification example for configuration to overwrite defaults
 config:
