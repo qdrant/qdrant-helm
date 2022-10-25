@@ -67,3 +67,6 @@ For example on AWS EKS you would need to change the `cluster.type` to `NodePort`
 Disclaimer: Snapshot restoration is only supported for single qdrant node setups
 
 To restore a snapshot create a Persistent Volume and a Persistent Volume Claim using a storage class according to your setup, copy the snapshots to the PV, enable snapshot restoration along with the snapshot file names and pvc name in values.yaml file and run the helm install command.
+
+Example EBS pv, pvc and volume creation command is added in examples directory
+Note: Make sure volume is on the same region and az as where qdrant is going to be installed.
