@@ -1,0 +1,12 @@
+kind: PersistentVolume
+metadata:
+  name: snapshots-pv
+spec:
+  accessModes:
+  - ReadWriteOnce
+  awsElasticBlockStore:
+    fsType: ext4
+    volumeID: vol-1234567abcdef
+  capacity:
+    storage: 1Gi
+  persistentVolumeReclaimPolicy: Retain

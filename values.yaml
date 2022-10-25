@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: qdrant/qdrant
   pullPolicy: IfNotPresent
-  tag: v0.10.3
+  tag: v0.10.5
 
 imagePullSecrets: []
 nameOverride: ""
@@ -68,6 +68,13 @@ persistence:
   size: 1Gi
   #storageClassName: local-path
 
+#only supported for single node qdrant clusters.
+snapshotRestoration:
+  enabled: false
+  pvcName: snapshots-pvc
+  snapshots: 
+  #  - /qdrant/snapshots/test_collection/test_collection-2022-10-24-13-56-50.snapshot:test_collection
+  
 #modification example for configuration to overwrite defaults
 config:
   cluster:

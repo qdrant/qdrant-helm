@@ -61,3 +61,12 @@ Increase the number of replicas to the desired number of nodes and set `config.c
 
 Depending on your environment or cloud provider you might need to change the service in the `values.yaml` as well.
 For example on AWS EKS you would need to change the `cluster.type` to `NodePort`.
+
+### Snapshot Restoration
+
+Disclaimer: Snapshot restoration is only supported for single qdrant node setups
+
+To restore a snapshot create a Persistent Volume and a Persistent Volume Claim using a storage class according to your setup, copy the snapshots to the PV, enable snapshot restoration along with the snapshot file names and pvc name in values.yaml file and run the helm install command.
+
+Example EBS pv, pvc and volume creation command is added in examples directory
+Note: Make sure volume is on the same region and availability zone as where qdrant is going to be installed.
