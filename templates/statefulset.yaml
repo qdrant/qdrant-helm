@@ -84,8 +84,10 @@ spec:
           - name: qdrant-config
             mountPath: /qdrant/config/production.yaml
             subPath: production.yaml
+          {{- if .Values.snapshotRestoration.enabled }}
           - name: qdrant-snapshots
             mountPath: /qdrant/snapshots
+          {{- end }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -104,9 +106,11 @@ spec:
           configMap:
             name: {{ include "qdrant.fullname" . }}
             defaultMode: 0755
+        {{- if .Values.snapshotRestoration.enabled }}
         - name: qdrant-snapshots
           persistentVolumeClaim:
             claimName: {{ .Values.snapshotRestoration.pvcName }}
+        {{- end }}
 
   volumeClaimTemplates:
     - metadata:
