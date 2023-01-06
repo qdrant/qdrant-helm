@@ -48,6 +48,7 @@ readinessProbe:
   successThreshold: 1
 
 podAnnotations: {}
+podLabels: {}
 
 resources: {}
   # limits:
