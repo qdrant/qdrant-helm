@@ -72,6 +72,23 @@ spec:
             successThreshold: {{ $values.readinessProbe.successThreshold }}
             failureThreshold: {{ $values.readinessProbe.failureThreshold }}
           {{- end }}
+          {{- if and $values.startupProbe.enabled .checksEnabled }}
+          startupProbe:
+            {{- if eq .name "grpc"}}
+            grpc:
+              port: {{ .targetPort }}
+            {{- end }}
+            {{- if eq .name "rest"}}
+            httpGet:
+              path: /
+              port: {{ .targetPort }}
+            {{- end }}
+            initialDelaySeconds: {{ $values.startupProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ $values.startupProbe.timeoutSeconds }}
+            periodSeconds: {{ $values.startupProbe.periodSeconds }}
+            successThreshold: {{ $values.startupProbe.successThreshold }}
+            failureThreshold: {{ $values.startupProbe.failureThreshold }}
+          {{- end }}
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
