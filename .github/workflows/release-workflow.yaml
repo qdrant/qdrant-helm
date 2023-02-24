@@ -11,6 +11,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Check if version exists
+        shell: bash
+        run: |
+           if [ $(curl -I https://github.com/qdrant/qdrant-helm/blob/gh-pages/qdrant-${GITHUB_REF##*/}.tgz 2>/dev/null | head -n 1 | cut -d$' ' -f2) = "200" ]
+           then
+             exit 1
+           fi
+
       - name: Run helm lint
         shell: bash
         run: |
