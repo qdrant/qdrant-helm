@@ -2,6 +2,10 @@
 
 [Qdrant documentation](https://qdrant.tech/documentation/) 
 
+
+## Disclaimer;
+For production use cases, please pin the version of the qdrant image in the values.yaml file to a specific version instead of latest
+
 ## TLDR;
 
 
