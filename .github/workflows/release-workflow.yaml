@@ -1,17 +1,26 @@
-name: Upgrade Version
+name: Release
 on:
-  pull_request:
-    types: [closed]
-    branches: ['main']
-
+  push:
+    branches:
+      - 'releases/**'
 jobs:
-  UpgradeVersion:
-    if: github.event.pull_request.merged == true
-    name: Upgrade Version
+  Release:
+    name: Release Workflow
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Run helm lint
+        shell: bash
+        run: |
+          helm lint
+
+      - name: Tag Release Commit
+        shell: bash
+        run: |
+          git tag ${GITHUB_REF##*/}
+          git push origin ${GITHUB_REF##*/}
 
       - name: Helm Package
         shell: bash
@@ -38,3 +47,4 @@ jobs:
           git add qdrant-*.tgz index.yaml
           git commit -m "version upgrade"
           git push
+

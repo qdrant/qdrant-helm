@@ -1,0 +1,18 @@
+name: Pull Request
+on:
+  pull_request:
+    types: [synchronize, opened, reopened]
+    branches: ['main']
+
+jobs:
+  PR:
+    name: Pull Request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Run helm lint
+        shell: bash
+        run: |
+          helm lint
