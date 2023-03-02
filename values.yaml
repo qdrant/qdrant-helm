@@ -92,3 +92,5 @@ config:
       port: 6335
     consensus:
       tick_period_ms: 100
+
+sidecarContainers: []

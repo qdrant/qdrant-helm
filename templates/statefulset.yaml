@@ -27,6 +27,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
+        {{- if .Values.sidecarContainers -}}
+        {{- toYaml .Values.sidecarContainers | trim | nindent 8 }}
+        {{- end}}
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
