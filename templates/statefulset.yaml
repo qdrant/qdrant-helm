@@ -12,8 +12,11 @@ spec:
   serviceName: {{ include "qdrant.fullname" . }}-headless
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+      {{- if (default .Values.updateConfigurationOnChange false) }}
+        checksum/config: {{ tpl (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      {{- end }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
