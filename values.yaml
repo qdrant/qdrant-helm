@@ -92,3 +92,20 @@ config:
       port: 6335
     consensus:
       tick_period_ms: 100
+
+sidecarContainers: []
+# sidecarContainers:
+#   - name: my-sidecar
+#     image: qdrant/my-sidecar-image
+#     imagePullPolicy: Always
+#     ports:
+#     - name: my-port
+#       containerPort: 5000
+#       protocol: TCP
+#     resources:
+#       requests:
+#         memory: 10Mi
+#         cpu: 10m
+#       limits:
+#         memory: 100Mi
+#         cpu: 100m
