@@ -74,3 +74,7 @@ To restore a snapshot create a Persistent Volume and a Persistent Volume Claim u
 
 Example EBS pv, pvc and volume creation command is added in examples directory
 Note: Make sure volume is on the same region and availability zone as where qdrant is going to be installed.
+
+### Enable rolling update on configuration change
+
+To enable rolling update on config map modification set `updateConfigurationOnChange` to true
