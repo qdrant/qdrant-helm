@@ -1,13 +1,12 @@
 # Qdrant helm chart
 
-[Qdrant documentation](https://qdrant.tech/documentation/) 
+[Qdrant documentation](https://qdrant.tech/documentation/)
 
+## Disclaimer
 
-## Disclaimer;
 For production use cases, please pin the version of the qdrant image in the values.yaml file to a specific version instead of latest
 
-## TLDR;
-
+## TLDR
 
 ```bash
 helm repo add qdrant https://qdrant.github.io/qdrant-helm
@@ -18,7 +17,6 @@ helm install your-qdrant-installation-name qdrant/qdrant
 ## Description
 
 This chart installs and bootstraps a Qdrant instance.
-
 
 ## Prerequisites
 
@@ -35,10 +33,12 @@ helm install your-qdrant-installation-name .
 ```
 
 To install a specific version of the qdrant image
+
 ```bash
 helm install your-qdrant-installation-name . --set image.tag=v0.9.0
 ```
-DISCLAIMER: This could lead to unexpected behaviour depending on chart version vs Qdrant image version 
+
+DISCLAIMER: This could lead to unexpected behaviour depending on chart version vs Qdrant image version
 
 Unistall via:
 
@@ -55,7 +55,7 @@ kubectl delete pvc -l kubectl delete pvc -l app.kubernetes.io/instance=your-qdra
 ## Configuration
 
 For documentation of the settings please refer to [Qdrant Configuration File](https://github.com/qdrant/qdrant/blob/master/config/config.yaml)
-All of these configuration options could be overwritten under config in `values.yaml`. 
+All of these configuration options could be overwritten under config in `values.yaml`.
 A modifcation example is provided there.
 
 ### Distributed setup
@@ -74,6 +74,12 @@ To restore a snapshot create a Persistent Volume and a Persistent Volume Claim u
 
 Example EBS pv, pvc and volume creation command is added in examples directory
 Note: Make sure volume is on the same region and availability zone as where qdrant is going to be installed.
+
+### Metrics endpoints
+
+Metrics are availables on rest api (default port set to 6333) at `/metrics`
+
+Refer to [qdrant metrics configuration](https://qdrant.tech/documentation/telemetry/#metrics) for more information
 
 ### Enable rolling update on configuration change
 

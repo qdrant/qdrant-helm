@@ -37,7 +37,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
-          args: ["./config/initialize.sh"]
+          {{- with .Values.args }}
+          args:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
           ports:
           {{- range .Values.service.ports }}
             - name: {{ .name }}
