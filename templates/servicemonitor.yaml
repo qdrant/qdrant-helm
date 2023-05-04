@@ -15,5 +15,5 @@ spec:
       scrapeTimeout: {{ .Values.metrics.serviceMonitor.scrapeTimeout }}
   selector:
     matchLabels:
-      {{- include "qdrant.selectorLabels" . | nindent 6 }}
+      {{- include "qdrant.labels" . | nindent 6 }}
 {{- end }}
