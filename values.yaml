@@ -31,6 +31,22 @@ service:
       protocol: TCP
       checksEnabled: false
 
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: alb
+  hosts:
+    - host: example-domain.com
+      paths:
+        - path: /
+          pathType: Prefix
+          serviceName: example-service
+          servicePort: 6333
+  tls: []
+    #- hosts:
+    #    - example-domain.com
+    #  secretName: tls-secret-name
+
 livenessProbe:
   enabled: true
   initialDelaySeconds: 5
