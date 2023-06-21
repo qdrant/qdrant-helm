@@ -40,7 +40,6 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-          serviceName: example-service
           servicePort: 6333
   tls: []
     #- hosts:

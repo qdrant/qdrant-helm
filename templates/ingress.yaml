@@ -21,7 +21,7 @@ spec:
             pathType: {{ .pathType | default "Prefix" | quote }}
             backend:
               service:
-                name: {{ .serviceName | quote }}
+                name: {{ default .serviceName (include "qdrant.fullname" $) }}
                 port:
                   number: {{ .servicePort }}
           {{- end }}
