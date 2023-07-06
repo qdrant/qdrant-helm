@@ -153,4 +153,5 @@ spec:
         {{- end }}
         resources:
           requests:
-            storage: {{ .Values.persistence.size | quote }} 
+            storage: {{ .Values.persistence.size | quote }}
+
