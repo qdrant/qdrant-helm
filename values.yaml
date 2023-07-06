@@ -77,7 +77,7 @@ securityContext:
   runAsUser: 1000
   allowPrivilegeEscalation: false
   runAsNonRoot: true
-  
+
 resources: {}
   # limits:
   #   cpu: 100m

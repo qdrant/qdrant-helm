@@ -13,16 +13,16 @@ spec:
   template:
     metadata:
       annotations:
-        {{- if (default .Values.updateConfigurationOnChange false) }}
+      {{- if (default .Values.updateConfigurationOnChange false) }}
         checksum/config: {{ tpl (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        {{- end }}
-        {{- with .Values.podAnnotations }}
+      {{- end }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-        {{- end }}
+      {{- end }}
       labels:
         {{- include "qdrant.selectorLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
+          {{ toYaml . | nindent 8 }}
         {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
@@ -32,7 +32,7 @@ spec:
       containers:
         {{- if .Values.sidecarContainers -}}
         {{- toYaml .Values.sidecarContainers | trim | nindent 8 }}
-        {{- end }}
+        {{- end}}
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -43,6 +43,61 @@ spec:
           - name: {{ .name }}
             containerPort: {{ .targetPort }}
             protocol: {{ .protocol }}
+          {{- end }}
+
+          {{- $values := .Values -}}
+          {{- range .Values.service.ports }}
+          {{- if and $values.livenessProbe.enabled .checksEnabled }}
+          livenessProbe:
+            {{- if eq .name "grpc"}}
+            grpc:
+              port: {{ .targetPort }}
+            {{- end }}
+            {{- if eq .name "rest"}}
+            httpGet:
+              path: /
+              port: {{ .targetPort }}
+            {{- end }}
+            initialDelaySeconds: {{ $values.livenessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ $values.livenessProbe.timeoutSeconds }}
+            periodSeconds: {{ $values.livenessProbe.periodSeconds }}
+            successThreshold: {{ $values.livenessProbe.successThreshold }}
+            failureThreshold: {{ $values.livenessProbe.failureThreshold }}
+          {{- end }}
+          {{- if and $values.readinessProbe.enabled .checksEnabled }}
+          readinessProbe:
+            {{- if eq .name "grpc"}}
+            grpc:
+              port: {{ .targetPort }}
+            {{- end }}
+            {{- if eq .name "rest"}}
+            httpGet:
+              path: /
+              port: {{ .targetPort }}
+            {{- end }}
+            initialDelaySeconds: {{ $values.readinessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ $values.readinessProbe.timeoutSeconds }}
+            periodSeconds: {{ $values.readinessProbe.periodSeconds }}
+            successThreshold: {{ $values.readinessProbe.successThreshold }}
+            failureThreshold: {{ $values.readinessProbe.failureThreshold }}
+          {{- end }}
+          {{- if and $values.startupProbe.enabled .checksEnabled }}
+          startupProbe:
+            {{- if eq .name "grpc"}}
+            grpc:
+              port: {{ .targetPort }}
+            {{- end }}
+            {{- if eq .name "rest"}}
+            httpGet:
+              path: /
+              port: {{ .targetPort }}
+            {{- end }}
+            initialDelaySeconds: {{ $values.startupProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ $values.startupProbe.timeoutSeconds }}
+            periodSeconds: {{ $values.startupProbe.periodSeconds }}
+            successThreshold: {{ $values.startupProbe.successThreshold }}
+            failureThreshold: {{ $values.startupProbe.failureThreshold }}
+          {{- end }}
           {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -61,6 +116,7 @@ spec:
           - name: qdrant-snapshots
             mountPath: /qdrant/snapshots
           {{- end }}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -98,3 +154,4 @@ spec:
         resources:
           requests:
             storage: {{ .Values.persistence.size | quote }} 
+         
