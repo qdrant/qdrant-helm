@@ -40,9 +40,9 @@ spec:
           args: ["./config/initialize.sh"]
           ports:
           {{- range .Values.service.ports }}
-          - name: {{ .name }}
-            containerPort: {{ .targetPort }}
-            protocol: {{ .protocol }}
+            - name: {{ .name }}
+              containerPort: {{ .targetPort }}
+              protocol: {{ .protocol }}
           {{- end }}
 
           {{- $values := .Values -}}
@@ -154,4 +154,3 @@ spec:
         resources:
           requests:
             storage: {{ .Values.persistence.size | quote }} 
-         
