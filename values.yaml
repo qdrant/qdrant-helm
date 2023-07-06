@@ -70,11 +70,14 @@ startupProbe:
   failureThreshold: 30
   successThreshold: 1
 
-securityContext: {}
-
 podAnnotations: {}
 podLabels: {}
 
+securityContext:
+  runAsUser: 1000
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
+  
 resources: {}
   # limits:
   #   cpu: 100m
