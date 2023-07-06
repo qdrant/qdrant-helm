@@ -70,6 +70,8 @@ startupProbe:
   failureThreshold: 30
   successThreshold: 1
 
+securityContext: {}
+
 podAnnotations: {}
 podLabels: {}
 
