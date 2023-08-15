@@ -126,3 +126,12 @@ sidecarContainers: []
 #         cpu: 100m
 
 updateConfigurationOnChange: false
+
+metrics:
+  enabled: false
+  serviceMonitor:
+    enabled: false
+    scrapeInterval: 30s
+    scrapeTimeout: 10s
+    targetPort: rest
+    targetPath: "/metrics"
