@@ -8,6 +8,7 @@ image:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+args: ["./config/initialize.sh"]
 
 # checks - Readiness and liveness checks can only be enabled for either http (REST) or grpc (multiple checks not supported)
 # grpc checks are only available from k8s 1.24+ so as of per default we check http
