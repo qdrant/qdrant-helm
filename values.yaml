@@ -9,13 +9,13 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-# checks - Readiness and liveness checks can only be enabled for either rest or grpc (multiple checks not supported)
-# grpc checks are only available from k8s 1.24+ so as of per default we check rest
+# checks - Readiness and liveness checks can only be enabled for either http (REST) or grpc (multiple checks not supported)
+# grpc checks are only available from k8s 1.24+ so as of per default we check http
 service:
   type: ClusterIP
   annotations: {}
   ports:
-    - name: rest
+    - name: http
       port: 6333
       targetPort: 6333
       protocol: TCP
