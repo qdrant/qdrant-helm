@@ -2,7 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - 'releases/**'
+      - main
 jobs:
   Release:
     name: Release Workflow
@@ -11,48 +11,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Check if version exists
-        shell: bash
+      - name: Configure Git
         run: |
-           if [ $(curl -I https://github.com/qdrant/qdrant-helm/blob/gh-pages/qdrant-${GITHUB_REF##*/}.tgz 2>/dev/null | head -n 1 | cut -d$' ' -f2) = "200" ]
-           then
-             exit 1
-           fi
+          git config user.name "ghrunnerbot"
+          git config user.email "cloud-dev@qdrant.com"
 
-      - name: Run helm lint
-        shell: bash
-        run: |
-          helm lint
-
-      - name: Tag Release Commit
-        shell: bash
-        run: |
-          git tag ${GITHUB_REF##*/}
-          git push origin ${GITHUB_REF##*/}
-
-      - name: Helm Package
-        shell: bash
-        run: |
-          helm package .
-          mv qdrant-*.tgz ../../
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.5.0
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Checkout to gh-pages
         uses: actions/checkout@v3
         with:
           ref: gh-pages
 
-      - name: Move Package to gh-pages & Helm Repo Index
-        shell: bash
-        run: |
-          mv ../../qdrant-*.tgz .
-          helm repo index . --url https://qdrant.github.io/qdrant-helm/
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
 
-      - name: Push to gh-pages
-        shell: bash
+      - name: Generate index.html
         run: |
-          git config --global user.name 'ghrunnerbot'
-          git config --global user.email 'cloud-dev@qdrant.com'
-          git add qdrant-*.tgz index.yaml
-          git commit -m "version upgrade"
-          git push
+          go install github.com/halkeye/helm-repo-html@v0.2.0
+          /home/runner/go/bin/helm-repo-html
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update index.html"
 
