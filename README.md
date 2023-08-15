@@ -49,7 +49,7 @@ helm delete your-qdrant-installation-name .
 Delete the volume with
 
 ```bash
-kubectl delete pvc -l kubectl delete pvc -l app.kubernetes.io/instance=your-qdrant-installation-name
+kubectl delete pvc -l app.kubernetes.io/instance=your-qdrant-installation-name
 ```
 
 ## Configuration
