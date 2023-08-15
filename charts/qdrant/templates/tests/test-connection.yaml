@@ -1,0 +1,19 @@
+{{- $root := . }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "qdrant.fullname" . }}-test-connection"
+  labels:
+    {{- include "qdrant.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    {{- range .Values.service.ports }}
+    {{- if eq .name "http"}}
+    - name: curl
+      image: curlimages/curl
+      args: ['http://{{ include "qdrant.fullname" $root }}:{{ .port }}']
+    {{- end }}
+    {{- end}}
+  restartPolicy: Never

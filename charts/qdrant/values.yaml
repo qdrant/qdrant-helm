@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: qdrant/qdrant
   pullPolicy: IfNotPresent
-  tag: latest
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -43,9 +43,9 @@ ingress:
           pathType: Prefix
           servicePort: 6333
   tls: []
-    #- hosts:
+    # - hosts:
     #    - example-domain.com
-    #  secretName: tls-secret-name
+    #   secretName: tls-secret-name
 
 livenessProbe:
   enabled: true
@@ -91,16 +91,16 @@ affinity: {}
 persistence:
   accessModes: ["ReadWriteOnce"]
   size: 10Gi
-  #storageClassName: local-path
+  # storageClassName: local-path
 
-#only supported for single node qdrant clusters.
+# only supported for single node qdrant clusters.
 snapshotRestoration:
   enabled: false
   pvcName: snapshots-pvc
   snapshots:
   #  - /qdrant/snapshots/test_collection/test_collection-2022-10-24-13-56-50.snapshot:test_collection
 
-#modification example for configuration to overwrite defaults
+# modification example for configuration to overwrite defaults
 config:
   cluster:
     enabled: true
@@ -129,7 +129,6 @@ sidecarContainers: []
 updateConfigurationOnChange: false
 
 metrics:
-  enabled: false
   serviceMonitor:
     enabled: false
     scrapeInterval: 30s

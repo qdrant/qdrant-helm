@@ -1,0 +1,17 @@
+apiVersion: v2
+name: qdrant
+description: Qdrant - Vector Database for the next generation of AI applications.
+home: https://qdrant.tech
+sources:
+  - https://github.com/qdrant/qdrant
+  - https://github.com/qdrant/qdrant-helm
+keywords:
+  - vector database
+maintainers:
+  - name: qdrant
+    email: info@qdrant.com
+    url: https://github.com/qdrant
+icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+type: application
+version: 0.2.11
+appVersion: 1.4.1
