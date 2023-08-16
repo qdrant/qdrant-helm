@@ -9,11 +9,9 @@
     <link rel=apple-touch-icon sizes=180x180 href=https://qdrant.tech/images/apple-touch-icon.png>
     <link rel=icon type=image/png sizes=32x32 href=https://qdrant.tech/images/favicon-32x32.png>
     <link rel=icon type=image/png sizes=16x16 href=https://qdrant.tech/images/favicon-16x16.png>
-    <link rel=manifest href=https://qdrant.tech/images/site.webmanifest>
     <link rel=mask-icon href=https://qdrant.tech/images/safari-pinned-tab.svg color=#5bbad5>
     <link rel="shortcut icon" href=https://qdrant.tech/images/favicon.ico>
     <meta name=msapplication-TileColor content="#2b5797">
-    <meta name=msapplication-config content="/images/browserconfig.xml">
     <meta name=theme-color content="#ffffff">
     <link href=https://qdrant.tech/css/main.css rel=stylesheet>
     <style>
@@ -95,7 +93,7 @@
                         <div class="chart">
                             <div class="icon">
                                 <img class="chart-item-logo" alt="{{ $key }}'s logo"
-                                     src="{{ if (index $chartEntry 0).Icon }}{{ (index $chartEntry 0).Icon }}{{ else }}placeholder.png{{end}}">
+                                     src="{{ if (index $chartEntry 0).Icon }}{{ (index $chartEntry 0).Icon }}{{ else }}logo_with_text.svg{{end}}">
                             </div>
                             <div class="body">
                                 <p class="info">
@@ -107,6 +105,14 @@
                                 </p>
                                 <p class="description">
                                     {{ (index $chartEntry 0).Description }}
+                                </p>
+                                <p class="info">
+                                    <a href="https://github.com/qdrant/qdrant-helm/blob/{{ (index $chartEntry 0).Name }}-{{ (index $chartEntry 0).Version }}/charts/{{ (index $chartEntry 0).Name }}/README.md" title="README">
+                                        README
+                                    </a>&nbsp;|&nbsp;
+                                    <a href="https://github.com/qdrant/qdrant-helm/tree/main/charts/{{ (index $chartEntry 0).Name }}" title="Source">
+                                        Source
+                                    </a>
                                 </p>
                             </div>
                         </div>
