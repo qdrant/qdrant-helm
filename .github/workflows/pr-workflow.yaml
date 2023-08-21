@@ -33,6 +33,7 @@ jobs:
       - uses: actions/setup-go@v4
         with:
           go-version: '^1.21.0'
+          cache-dependency-path: test/go.sum
 
       - name: Run unit tests
         run: cd test && go test -v
