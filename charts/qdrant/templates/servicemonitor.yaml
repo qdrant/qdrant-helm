@@ -4,6 +4,9 @@ apiVersion: monitoring.coreos.com/v1
 metadata:
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
+{{- with .Values.metrics.serviceMonitor.additionalLabels }}
+{{- toYaml . | nindent 4 }}
+{{- end }}
   name: {{ include "qdrant.fullname" . }}
 spec:
   endpoints:
