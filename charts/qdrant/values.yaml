@@ -133,5 +133,5 @@ metrics:
     enabled: false
     scrapeInterval: 30s
     scrapeTimeout: 10s
-    targetPort: rest
+    targetPort: http
     targetPath: "/metrics"
