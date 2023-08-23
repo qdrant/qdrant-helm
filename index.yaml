@@ -3,6 +3,27 @@ entries:
   qdrant:
   - apiVersion: v2
     appVersion: v1.4.1
+    created: "2023-08-23T09:55:22.022993117Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 13e9a6d75567f64db7e5610c9f1d08f510e9dad82632b82ed84de157e5e2c068
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.3.1/qdrant-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: v1.4.1
     created: "2023-08-21T14:05:16.336931146Z"
     description: Qdrant - Vector Database for the next generation of AI applications.
     digest: d96ba25e38e0c07e7fc35cbe8cbd14ab42e0fc339a69bcc8ac1617ea62f453f3
@@ -142,4 +163,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2023-08-21T14:05:16.337011747Z"
+generated: "2023-08-23T09:55:22.023103522Z"
