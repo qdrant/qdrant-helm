@@ -135,3 +135,10 @@ metrics:
     scrapeTimeout: 10s
     targetPort: rest
     targetPath: "/metrics"
+
+podDisruptionBudget:
+  enabled: false
+  maxUnavailable: 1
+  # do not enable if you are using not in 1.27
+  unhealthyPodEvictionPolicy: ""
+  # minAvailable: 1

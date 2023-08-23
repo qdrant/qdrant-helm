@@ -7,7 +7,7 @@
 ```bash
 helm repo add qdrant https://qdrant.github.io/qdrant-helm
 helm repo update
-helm install your-qdrant-installation-name qdrant/qdrant
+helm upgrade -i your-qdrant-installation-name qdrant/qdrant
 ```
 
 ## Description
@@ -16,22 +16,22 @@ This chart installs and bootstraps a Qdrant instance.
 
 ## Prerequisites
 
-- Kubernetes
+- Kubernetes v1.24+ (as you need grpc probe)
 - Helm
 - PV provisioner (by the infrastructure)
 
 ## Installation & Setup
 
-You can install the chart via:
+You can install the chart from source via:
 
 ```bash
-helm install your-qdrant-installation-name .
+helm upgrade -i your-qdrant-installation-name charts/qdrant
 ```
 
 Uninstall via:
 
 ```bash
-helm delete your-qdrant-installation-name
+helm uninstall your-qdrant-installation-name
 ```
 
 Delete the volume with
