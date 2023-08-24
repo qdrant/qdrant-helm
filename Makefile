@@ -2,7 +2,7 @@ lint:
 	helm lint charts/qdrant
 
 test-unit:
-	cd test && go test -v
+	go test -v ./test
 
 test-integration:
 	kind create cluster -n qdrant-helm-integration
