@@ -4,6 +4,9 @@ metadata:
   name: {{ include "qdrant.fullname" . }}
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
+{{- with .Values.additionalLabels }}
+{{- toYaml . | nindent 4 }}
+{{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -22,7 +25,7 @@ spec:
       labels:
         {{- include "qdrant.selectorLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
-          {{ toYaml . | nindent 8 }}
+          {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
@@ -162,6 +165,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      serviceAccountName: {{ include "qdrant.fullname" . }}
       volumes:
         - name: qdrant-config
           configMap:
@@ -175,7 +179,6 @@ spec:
         - name: qdrant-snapshots
           emptyDir: {}
         {{- end }}
-
   volumeClaimTemplates:
     - metadata:
         name: qdrant-storage

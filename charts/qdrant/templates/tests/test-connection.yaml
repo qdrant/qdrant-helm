@@ -17,3 +17,4 @@ spec:
     {{- end }}
     {{- end}}
   restartPolicy: Never
+  serviceAccountName: {{ include "qdrant.fullname" . }}
