@@ -46,6 +46,8 @@ jobs:
 
       - name: Setup BATS
         uses: mig4/setup-bats@v1
+        with:
+          bats-version: 1.10.0
 
       - name: Run integration tests
         run: bats test/integration --verbose-run --show-output-of-passing-test
