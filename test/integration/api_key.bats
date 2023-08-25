@@ -1,7 +1,8 @@
 setup_file() {
     kubectl create namespace qdrant-helm-integration
     kubectl create serviceaccount default -n qdrant-helm-integration || true
-    helm install qdrant charts/qdrant --set apiKey=foobar -n qdrant-helm-integration
+    helm install qdrant charts/qdrant --set apiKey=foobar -n qdrant-helm-integration --wait
+    kubectl rollout status statefulset qdrant -n qdrant-helm-integration
 }
 
 teardown_file() {
@@ -11,11 +12,12 @@ teardown_file() {
 }
 
 @test "api key authentication works" {
-    run kubectl -n qdrant-helm-integration run --rm -i -t api-key-test-works --image=curlimages/curl -- http://qdrant:6333/collections -H 'api-key: foobar'
+    run kubectl exec -it -n default curl -- curl http://qdrant.qdrant-helm-integration:6333/collections -H 'api-key: foobar'
     [ $status -eq 0 ]
+    [ "${output}" != "Invalid api-key" ]
 }
 
 @test "api key authentication fails with key" {
-    run kubectl -n qdrant-helm-integration run --rm -i -t api-key-test-fails --image=curlimages/curl -- http://qdrant:6333/collections
-    [ $status -ne 0 ]
+    run kubectl exec -it -n default curl -- curl http://qdrant.qdrant-helm-integration:6333/collections
+    [ "${output}" = "Invalid api-key" ]
 }

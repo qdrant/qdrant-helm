@@ -48,4 +48,4 @@ jobs:
         uses: mig4/setup-bats@v1
 
       - name: Run integration tests
-        run: bats test/integration
+        run: bats test/integration --verbose-run --show-output-of-passing-test
