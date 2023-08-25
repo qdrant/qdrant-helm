@@ -171,3 +171,17 @@ podDisruptionBudget:
   # do not enable if you are using not in 1.27
   unhealthyPodEvictionPolicy: ""
   # minAvailable: 1
+
+# api key for authentication at qdrant
+# false: no api key will be configured
+# true: an api key will be auto-generated
+# string: the give string will be set as an apikey
+apiKey: false
+
+additionalVolumes: []
+# - name: volumeName
+#   emptyDir: {}
+
+additionalVolumeMounts: []
+# - name: volumeName
+#   mountPath: "/mount/path"

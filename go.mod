@@ -5,6 +5,7 @@ go 1.21.0
 require (
 	github.com/gruntwork-io/terratest v0.43.12
 	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.67.1
+	github.com/samber/lo v1.38.1
 	github.com/stretchr/testify v1.8.4
 	k8s.io/api v0.28.0
 )
@@ -48,6 +49,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/urfave/cli v1.22.2 // indirect
 	golang.org/x/crypto v0.11.0 // indirect
+	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
 	golang.org/x/net v0.13.0 // indirect
 	golang.org/x/oauth2 v0.8.0 // indirect
 	golang.org/x/sys v0.10.0 // indirect

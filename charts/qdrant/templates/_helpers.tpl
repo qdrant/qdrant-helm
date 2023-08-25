@@ -61,3 +61,20 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create secret
+*/}}
+{{- define "qdrant.secret" -}}
+{{- if eq (.Values.apiKey | toJson) "true" -}}
+{{- /* retrieve existing randomly generated api key or create new one */ -}}
+{{- $secretObj := (lookup "v1" "Secret" .Release.Namespace (printf "%s-apikey" (include "qdrant.fullname" . ))) | default dict -}}
+{{- $secretData := (get $secretObj "data") | default dict -}}
+{{- $apiKey := (get $secretData "api-key" | b64dec) | default (randAlphaNum 32) -}}
+api-key: {{ $apiKey | b64enc }}
+local.yaml: {{ printf "service:\n  api_key: %s" $apiKey | b64enc }}
+{{- else if .Values.apiKey -}}
+api-key: {{ .Values.apiKey | b64enc }}
+local.yaml: {{ printf "service:\n  api_key: %s" .Values.apiKey | b64enc }}
+{{- end -}}
+{{- end -}}
