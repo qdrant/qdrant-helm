@@ -50,4 +50,4 @@ jobs:
           bats-version: 1.10.0
 
       - name: Run integration tests
-        run: bats test/integration --verbose-run --show-output-of-passing-test
+        run: bats test/integration --verbose-run --show-output-of-passing-tests

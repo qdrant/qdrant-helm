@@ -10,4 +10,4 @@ test-integration:
 	kubectl get pods
 	helm test qdrant
 	kind delete cluster -n qdrant-helm-integration
-	bats test/integration --verbose-run --show-output-of-passing-test
+	bats test/integration --verbose-run --show-output-of-passing-tests
