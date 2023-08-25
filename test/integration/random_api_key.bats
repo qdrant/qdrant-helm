@@ -14,7 +14,7 @@ teardown_file() {
 @test "random api key works" {
     apiKey=$(kubectl -n qdrant-helm-integration get secret qdrant-apikey -o jsonpath="{.data.api-key}" | base64 --decode)
     [ ${#apiKey} -eq 32 ]
-    run kubectl exec -it -n default curl -- curl http://qdrant.qdrant-helm-integration:6333/collections -H "api-key: ${apiKey}"
+    run kubectl exec -n default curl -- curl -s http://qdrant.qdrant-helm-integration:6333/collections -H "api-key: ${apiKey}"
     [ $status -eq 0 ]
     [ "${output}" != "Invalid api-key" ]
 }

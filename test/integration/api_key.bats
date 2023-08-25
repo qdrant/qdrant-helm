@@ -12,12 +12,12 @@ teardown_file() {
 }
 
 @test "api key authentication works" {
-    run kubectl exec -it -n default curl -- curl http://qdrant.qdrant-helm-integration:6333/collections -H 'api-key: foobar'
+    run kubectl exec -n default curl -- curl -s http://qdrant.qdrant-helm-integration:6333/collections -H 'api-key: foobar'
     [ $status -eq 0 ]
     [ "${output}" != "Invalid api-key" ]
 }
 
 @test "api key authentication fails with key" {
-    run kubectl exec -it -n default curl -- curl http://qdrant.qdrant-helm-integration:6333/collections
+    run kubectl exec -n default curl -- curl -s http://qdrant.qdrant-helm-integration:6333/collections
     [ "${output}" = "Invalid api-key" ]
 }
