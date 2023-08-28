@@ -4,6 +4,9 @@ metadata:
   name: {{ include "qdrant.fullname" . }}
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
+{{- with .Values.service.additionalLabels }}
+{{- toYaml . | nindent 4 }}
+{{- end }}
 {{- if .Values.service.annotations }}
   annotations:
 {{ toYaml .Values.service.annotations | indent 4 }}

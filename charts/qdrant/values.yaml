@@ -17,6 +17,7 @@ env: {}
 # grpc checks are only available from k8s 1.24+ so as of per default we check http
 service:
   type: ClusterIP
+  additionalLabels: {}
   annotations: {}
   ports:
     - name: http
@@ -37,6 +38,7 @@ service:
 
 ingress:
   enabled: false
+  additionalLabels: {}
   annotations: {}
     # kubernetes.io/ingress.class: alb
   hosts:
@@ -74,6 +76,7 @@ startupProbe:
   failureThreshold: 30
   successThreshold: 1
 
+additionalLabels: {}
 podAnnotations: {}
 podLabels: {}
 
@@ -134,7 +137,15 @@ updateConfigurationOnChange: false
 metrics:
   serviceMonitor:
     enabled: false
+    additionalLabels: {}
     scrapeInterval: 30s
     scrapeTimeout: 10s
-    targetPort: rest
+    targetPort: http
     targetPath: "/metrics"
+
+podDisruptionBudget:
+  enabled: false
+  maxUnavailable: 1
+  # do not enable if you are using not in 1.27
+  unhealthyPodEvictionPolicy: ""
+  # minAvailable: 1
