@@ -94,6 +94,7 @@ affinity: {}
 persistence:
   accessModes: ["ReadWriteOnce"]
   size: 10Gi
+  annotations: {}
   # storageClassName: local-path
 
 # only supported for single node qdrant clusters.

@@ -149,6 +149,10 @@ spec:
         name: qdrant-storage
         labels:
           app: {{ template "qdrant.name" . }}
+        {{- with .Values.persistence.annotations }}
+        annotations:
+        {{- toYaml . | nindent 10 }}
+        {{- end }}
       spec:
         storageClassName: {{ .Values.persistence.storageClassName }} 
         accessModes:
