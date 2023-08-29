@@ -32,6 +32,33 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+      {{- if .Values.updateVolumeFsOwnership }}
+      {{- if and .Values.containerSecurityContext .Values.containerSecurityContext.runAsUser }}
+      - name: ensure-storage-dir-ownership
+        image: alpine:latest
+        command:
+          - chown
+          - -R
+          - {{ .Values.containerSecurityContext.runAsUser }}:{{ .Values.podSecurityContext.fsGroup }}
+          - /qdrant/storage
+        volumeMounts:
+          - name: qdrant-storage
+            mountPath: /qdrant/storage
+      {{- if .Values.snapshotRestoration.enabled }}
+      - name: ensure-snapshots-dir-ownership
+        image: alpine:latest
+        command:
+          - chown
+          - -R
+          - {{ .Values.containerSecurityContext.runAsUser }}:{{ .Values.podSecurityContext.fsGroup }}
+          - /qdrant/snapshots
+        volumeMounts:
+          - name: qdrant-snapshots
+            mountPath: /qdrant/snapshots
+      {{- end }}
+      {{- end }}
+      {{- end }}
       containers:
         {{- if .Values.sidecarContainers -}}
         {{- toYaml .Values.sidecarContainers | trim | nindent 8 }}
@@ -107,6 +134,10 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.containerSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           volumeMounts:
           - name: qdrant-storage
             mountPath: /qdrant/storage
@@ -116,11 +147,12 @@ spec:
           - name: qdrant-config
             mountPath: /qdrant/config/production.yaml
             subPath: production.yaml
-          {{- if .Values.snapshotRestoration.enabled }}
           - name: qdrant-snapshots
             mountPath: /qdrant/snapshots
-          {{- end }}
-
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -143,6 +175,9 @@ spec:
         - name: qdrant-snapshots
           persistentVolumeClaim:
             claimName: {{ .Values.snapshotRestoration.pvcName }}
+        {{- else }}
+        - name: qdrant-snapshots
+          emptyDir: {}
         {{- end }}
   volumeClaimTemplates:
     - metadata:

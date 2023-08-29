@@ -41,6 +41,5 @@ jobs:
       - name: Create kind cluster
         uses: helm/kind-action@v1.8.0
 
-      - name: Run chart-testing (install)
-        run: ct install --all
-
+      - name: Run chart-testing
+        run: ct install --all --upgrade --target-branch main
