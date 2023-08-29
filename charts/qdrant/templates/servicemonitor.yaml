@@ -16,6 +16,14 @@ spec:
       port: {{ .Values.metrics.serviceMonitor.targetPort }}
       scheme: http
       scrapeTimeout: {{ .Values.metrics.serviceMonitor.scrapeTimeout }}
+{{- if .Values.metrics.serviceMonitor.metricRelabelings }}
+      metricRelabelings:
+{{ tpl (toYaml .Values.metrics.serviceMonitor.metricRelabelings | indent 8) . }}
+{{- end }}
+{{- if .Values.metrics.serviceMonitor.relabelings }}
+      relabelings:
+{{ tpl (toYaml .Values.metrics.serviceMonitor.relabelings | indent 8) . }}
+{{- end }}
   selector:
     matchLabels:
       {{- include "qdrant.labels" . | nindent 6 }}

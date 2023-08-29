@@ -42,9 +42,9 @@ func TestAdditionalLabelsAreSetOnStatefulset(t *testing.T) {
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
 
 	require.Contains(t, statefulSet.ObjectMeta.Labels, "test")
-	require.Equal(t, statefulSet.ObjectMeta.Labels["test"], "additionalLabels")
+	require.Equal(t, "additionalLabels", statefulSet.ObjectMeta.Labels["test"])
 	require.Contains(t, statefulSet.Spec.Template.ObjectMeta.Labels, "test")
-	require.Equal(t, statefulSet.Spec.Template.ObjectMeta.Labels["test"], "podLabels")
+	require.Equal(t, "podLabels", statefulSet.Spec.Template.ObjectMeta.Labels["test"])
 }
 
 func TestAdditionalLabelsAreSetOnService(t *testing.T) {
@@ -70,7 +70,7 @@ func TestAdditionalLabelsAreSetOnService(t *testing.T) {
 	helm.UnmarshalK8SYaml(t, output, &service)
 
 	require.Contains(t, service.ObjectMeta.Labels, "test")
-	require.Equal(t, service.ObjectMeta.Labels["test"], "serviceAdditionalLabels")
+	require.Equal(t, "serviceAdditionalLabels", service.ObjectMeta.Labels["test"])
 }
 
 func TestAdditionalLabelsAreSetOnServiceHeadless(t *testing.T) {
@@ -96,7 +96,7 @@ func TestAdditionalLabelsAreSetOnServiceHeadless(t *testing.T) {
 	helm.UnmarshalK8SYaml(t, output, &service)
 
 	require.Contains(t, service.ObjectMeta.Labels, "test")
-	require.Equal(t, service.ObjectMeta.Labels["test"], "serviceAdditionalLabels")
+	require.Equal(t, "serviceAdditionalLabels", service.ObjectMeta.Labels["test"])
 }
 
 func TestAdditionalLabelsAreSetOnServiceMonitor(t *testing.T) {
@@ -123,7 +123,7 @@ func TestAdditionalLabelsAreSetOnServiceMonitor(t *testing.T) {
 	helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
 
 	require.Contains(t, serviceMonitor.ObjectMeta.Labels, "test")
-	require.Equal(t, serviceMonitor.ObjectMeta.Labels["test"], "serviceMonitorAdditionalLabels")
+	require.Equal(t, "serviceMonitorAdditionalLabels", serviceMonitor.ObjectMeta.Labels["test"])
 }
 
 func TestAdditionalLabelsAreSetOnIngress(t *testing.T) {
@@ -150,5 +150,5 @@ func TestAdditionalLabelsAreSetOnIngress(t *testing.T) {
 	helm.UnmarshalK8SYaml(t, output, &ingress)
 
 	require.Contains(t, ingress.ObjectMeta.Labels, "test")
-	require.Equal(t, ingress.ObjectMeta.Labels["test"], "ingressAdditionalLabels")
+	require.Equal(t, "ingressAdditionalLabels", ingress.ObjectMeta.Labels["test"])
 }
