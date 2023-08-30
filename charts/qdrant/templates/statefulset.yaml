@@ -152,10 +152,8 @@ spec:
             mountPath: /qdrant/config/local.yaml
             subPath: local.yaml
           {{- end }}
-          {{- if .Values.snapshotRestoration.enabled }}
           - name: qdrant-snapshots
             mountPath: /qdrant/snapshots
-          {{- end }}
           {{- if .Values.additionalVolumeMounts }}
 {{- toYaml .Values.additionalVolumeMounts | default "" | nindent 10 }}
           {{- end}}
