@@ -110,6 +110,8 @@ tolerations: []
 
 affinity: {}
 
+topologySpreadConstraints: []
+
 persistence:
   accessModes: ["ReadWriteOnce"]
   size: 10Gi
