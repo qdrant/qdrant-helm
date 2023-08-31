@@ -43,3 +43,11 @@ jobs:
 
       - name: Run chart-testing
         run: ct install --all --upgrade --target-branch main
+
+      - name: Setup BATS
+        uses: mig4/setup-bats@v1
+        with:
+          bats-version: 1.10.0
+
+      - name: Run integration tests
+        run: bats test/integration --verbose-run --show-output-of-passing-tests

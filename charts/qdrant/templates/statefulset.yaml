@@ -152,8 +152,16 @@ spec:
           - name: qdrant-config
             mountPath: /qdrant/config/production.yaml
             subPath: production.yaml
+          {{- if .Values.apiKey }}
+          - name: qdrant-secret
+            mountPath: /qdrant/config/local.yaml
+            subPath: local.yaml
+          {{- end }}
           - name: qdrant-snapshots
             mountPath: /qdrant/snapshots
+          {{- if .Values.additionalVolumeMounts }}
+{{- toYaml .Values.additionalVolumeMounts | default "" | nindent 10 }}
+          {{- end}}
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
@@ -184,6 +192,15 @@ spec:
         - name: qdrant-snapshots
           emptyDir: {}
         {{- end }}
+        {{- if .Values.apiKey }}
+        - name: qdrant-secret
+          secret:
+            secretName: {{ include "qdrant.fullname" . }}-apikey
+            defaultMode: 0600
+        {{- end }}
+        {{- if .Values.additionalVolumes }}
+{{- toYaml .Values.additionalVolumes | default "" | nindent 8 }}
+        {{- end}}
   volumeClaimTemplates:
     - metadata:
         name: qdrant-storage
