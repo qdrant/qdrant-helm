@@ -26,6 +26,8 @@ jobs:
         uses: helm/chart-releaser-action@v1.5.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        with:
+          config: cr.yaml
 
       - name: Checkout to gh-pages
         uses: actions/checkout@v3
