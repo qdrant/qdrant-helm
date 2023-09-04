@@ -170,6 +170,8 @@ metrics:
     ##
     relabelings: []
 
+priorityClassName: ""
+
 podDisruptionBudget:
   enabled: false
   maxUnavailable: 1
