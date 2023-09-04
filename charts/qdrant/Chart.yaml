@@ -13,63 +13,18 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 0.4.0
+version: 0.4.1
 appVersion: v1.4.1
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Make it possible to set topologySpreadConstraints
+      description: Add PriorityClass support to StatefulSet Pod template
       links:
           - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/issues/65
+            url: https://github.com/qdrant/qdrant-helm/pull/68
     - kind: added
-      description: Add support for additional labels on StatefulSets
+      description: Don't use alpine image for file permission updates
       links:
           - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/issues/55
-    - kind: added
-      description: Enable `entrypoint.sh` to add recovery mode functionality
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/issues/48
-    - kind: added
-      description: Configurable Qdrant API key
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/issues/46
-    - kind: added
-      description: Add PodDisruptionBudget
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/issues/36
-    - kind: added
-      description: Allow mounting of additional volumes
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/issues/46
-    - kind: added
-      description: Add default ServiceAccount
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/pull/56
-    - kind: added
-      description: Support for Qdrant recovery mode
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/pull/54
-    - kind: added
-      description: Make relabeling and metricRelabeling configurable in ServiceMonitor
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/pull/61
-    - kind: added
-      description: Allow annotations on volumeClaimTemplate of Qdrant StatefulSet
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/issues/45
-    - kind: added
-      description: Add default container and pod securityContexts and make it configurable
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/pull/60
+            url: https://github.com/qdrant/qdrant-helm/pull/69
