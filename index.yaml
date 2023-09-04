@@ -5,6 +5,40 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Add PriorityClass support to StatefulSet Pod template
+          links:
+              - name: Github Issue
+                url: https://github.com/qdrant/qdrant-helm/pull/68
+        - kind: added
+          description: Don't use alpine image for file permission updates
+          links:
+              - name: Github Issue
+                url: https://github.com/qdrant/qdrant-helm/pull/69
+    apiVersion: v2
+    appVersion: v1.4.1
+    created: "2023-09-04T14:45:12.901415365Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 30775fbef73d012b699189b0686e7cfcd2b935aa3cb2c442869c2ea713bbdb19
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.4.1/qdrant-0.4.1.tgz
+    version: 0.4.1
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Make it possible to set topologySpreadConstraints
           links:
               - name: Github Issue
@@ -242,4 +276,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-01T08:35:11.26936322Z"
+generated: "2023-09-04T14:45:12.901611266Z"
