@@ -39,7 +39,7 @@ spec:
       {{- if .Values.updateVolumeFsOwnership }}
       {{- if and .Values.containerSecurityContext .Values.containerSecurityContext.runAsUser }}
       - name: ensure-storage-dir-ownership
-        image: alpine:latest
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         command:
           - chown
           - -R
@@ -50,7 +50,7 @@ spec:
             mountPath: /qdrant/storage
       {{- if .Values.snapshotRestoration.enabled }}
       - name: ensure-snapshots-dir-ownership
-        image: alpine:latest
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         command:
           - chown
           - -R
