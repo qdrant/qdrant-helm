@@ -113,7 +113,7 @@ spec:
             {{- end }}
             {{- if eq .name "http"}}
             httpGet:
-              path: /healthz
+              path: /readyz
               port: {{ .targetPort }}
             {{- end }}
             initialDelaySeconds: {{ $values.readinessProbe.initialDelaySeconds }}
