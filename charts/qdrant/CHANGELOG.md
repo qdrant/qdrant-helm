@@ -1,6 +1,6 @@
 # Changelog
 
-## [qdrant-0.4.1](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.4.1) (2023-09-04)
+## [qdrant-0.5.0](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.5.0) (2023-09-07)
 
-- Add PriorityClass support to StatefulSet Pod template [\#68](https://github.com/qdrant/qdrant-helm/pull/68)
-- Don't use alpine image for file permission updates [\#69](https://github.com/qdrant/qdrant-helm/pull/69)
+- Update to Qdrant 1.5.0 [\#72](https://github.com/qdrant/qdrant-helm/issues/72)
+- Use new Qdrant readiness and liveness endpoints [\#71](https://github.com/qdrant/qdrant-helm/issues/71)
