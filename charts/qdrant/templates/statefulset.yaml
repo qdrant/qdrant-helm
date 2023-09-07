@@ -96,7 +96,7 @@ spec:
             {{- end }}
             {{- if eq .name "http"}}
             httpGet:
-              path: /
+              path: /livez
               port: {{ .targetPort }}
             {{- end }}
             initialDelaySeconds: {{ $values.livenessProbe.initialDelaySeconds }}
@@ -113,7 +113,7 @@ spec:
             {{- end }}
             {{- if eq .name "http"}}
             httpGet:
-              path: /
+              path: /readyz
               port: {{ .targetPort }}
             {{- end }}
             initialDelaySeconds: {{ $values.readinessProbe.initialDelaySeconds }}
@@ -130,7 +130,7 @@ spec:
             {{- end }}
             {{- if eq .name "http"}}
             httpGet:
-              path: /
+              path: /readyz
               port: {{ .targetPort }}
             {{- end }}
             initialDelaySeconds: {{ $values.startupProbe.initialDelaySeconds }}
