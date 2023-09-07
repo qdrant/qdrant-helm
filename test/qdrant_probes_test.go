@@ -39,6 +39,6 @@ func TestDefaultProbesOnStatefulset(t *testing.T) {
 	})
 
 	require.Equal(t, "/readyz", container.StartupProbe.HTTPGet.Path)
-	require.Equal(t, "/healthz", container.ReadinessProbe.HTTPGet.Path)
+	require.Equal(t, "/readyz", container.ReadinessProbe.HTTPGet.Path)
 	require.Equal(t, "/livez", container.LivenessProbe.HTTPGet.Path)
 }
