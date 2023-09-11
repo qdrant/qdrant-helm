@@ -70,6 +70,8 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            - name: QDRANT_INIT_FILE_PATH
+              value: /qdrant/init/.qdrant-initialized
           {{- range .Values.env }}
             - name: {{ .name }}
               value: {{ .value | quote }}
@@ -162,6 +164,8 @@ spec:
           {{- end }}
           - name: qdrant-snapshots
             mountPath: /qdrant/snapshots
+          - name: qdrant-init
+            mountPath: /qdrant/init
           {{- if .Values.additionalVolumeMounts }}
 {{- toYaml .Values.additionalVolumeMounts | default "" | nindent 10 }}
           {{- end}}
@@ -199,6 +203,8 @@ spec:
         - name: qdrant-snapshots
           emptyDir: {}
         {{- end }}
+        - name: qdrant-init
+          emptyDir: {}
         {{- if .Values.apiKey }}
         - name: qdrant-secret
           secret:
