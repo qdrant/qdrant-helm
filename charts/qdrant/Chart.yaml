@@ -13,18 +13,13 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 0.5.0
+version: 0.5.1
 appVersion: v1.5.0
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
-    - kind: added
-      description: Update to Qdrant 1.5.0
+    - kind: fixed
+      description: Ensure that the qdrant-init-file-path is on a writable, ephemeral volume
       links:
           - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/issues/72
-    - kind: added
-      description: Use new Qdrant readiness and liveness endpoints
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/issues/71
+            url: https://github.com/qdrant/qdrant-helm/issues/74

@@ -4,6 +4,7 @@ image:
   repository: qdrant/qdrant
   pullPolicy: IfNotPresent
   tag: ""
+  useUnprivilegedImage: false
 
 imagePullSecrets: []
 nameOverride: ""

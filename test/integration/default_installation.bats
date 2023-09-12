@@ -12,6 +12,11 @@ teardown_file() {
     kubectl delete namespace qdrant-helm-integration
 }
 
+@test "helm test - default values" {
+    run helm test qdrant -n qdrant-helm-integration --logs
+    [ $status -eq 0 ]
+}
+
 @test "no startup warnings in logs" {
     run kubectl logs -n qdrant-helm-integration qdrant-0
     [ $status -eq 0 ]
