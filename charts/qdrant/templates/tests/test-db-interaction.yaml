@@ -1,4 +1,5 @@
 {{- $root := . }}
+{{- $namespace := .Release.Namespace }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -44,8 +45,8 @@ data:
 
     {{- range .Values.service.ports }}
     {{- if eq .name "http" }}
-    print("Connecting to {{ include "qdrant.fullname" $root }}:{{ .port }}")
-    client = QdrantClient("{{ include "qdrant.fullname" $root }}", port={{ .port }})
+    print("Connecting to {{ include "qdrant.fullname" $root }}.{{ $namespace }}:{{ .port }}")
+    client = QdrantClient("{{ include "qdrant.fullname" $root }}.{{ $namespace }}", port={{ .port }})
     {{- end }}
     {{- end }}
 

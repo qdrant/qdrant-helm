@@ -3,7 +3,7 @@ setup_file() {
     kubectl create serviceaccount default -n qdrant-helm-integration || true
     helm install qdrant charts/qdrant -n qdrant-helm-integration --wait
     kubectl rollout status statefulset qdrant -n qdrant-helm-integration
-    sleep 5
+    sleep 10
 }
 
 teardown_file() {
