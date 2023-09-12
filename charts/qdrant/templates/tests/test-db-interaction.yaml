@@ -44,7 +44,7 @@ data:
 
     {{- range .Values.service.ports }}
     {{- if eq .name "http" }}
-    print("Connecting to "{{ include "qdrant.fullname" $root }}":{{ .port }}")
+    print("Connecting to {{ include "qdrant.fullname" $root }}:{{ .port }}")
     client = QdrantClient("{{ include "qdrant.fullname" $root }}", port={{ .port }})
     {{- end }}
     {{- end }}
