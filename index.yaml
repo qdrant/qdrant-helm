@@ -4,6 +4,37 @@ entries:
   - annotations:
       artifacthub.io/category: database
       artifacthub.io/changes: |
+        - kind: fixed
+          description: Ensure that the qdrant-init-file-path is on a writable, ephemeral volume
+          links:
+              - name: Github Issue
+                url: https://github.com/qdrant/qdrant-helm/issues/74
+        - kind: added
+          description: Update Qdrant to v1.5.1
+    apiVersion: v2
+    appVersion: v1.5.1
+    created: "2023-09-13T09:15:40.78490164Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 314cd8f7a5c4c20c7e1883c66de6e7380291753223a958fe99f044999b6c6b80
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.5.1/qdrant-0.5.1.tgz
+    version: 0.5.1
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
         - kind: added
           description: Update to Qdrant 1.5.0
           links:
@@ -310,4 +341,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-07T15:12:43.485614483Z"
+generated: "2023-09-13T09:15:40.785139239Z"
