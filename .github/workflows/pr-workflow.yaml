@@ -14,21 +14,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Helm
-        uses: azure/setup-helm@v3
-        with:
-          version: v3.12.1
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-          check-latest: true
-
-      - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.4.0
-
-      - name: Run chart-testing (lint)
-        run: ct lint --all
+      - name: Run lint
+        run: make lint
 
       - uses: actions/setup-go@v4
         with:
@@ -36,13 +23,7 @@ jobs:
           cache-dependency-path: go.sum
 
       - name: Run unit tests
-        run: go test -v ./test
-
-      - name: Create kind cluster
-        uses: helm/kind-action@v1.8.0
-
-      - name: Run chart-testing
-        run: ct install --all --upgrade --target-branch main
+        run: make test-unit
 
       - name: Setup BATS
         uses: mig4/setup-bats@v1
@@ -50,4 +31,4 @@ jobs:
           bats-version: 1.10.0
 
       - name: Run integration tests
-        run: bats test/integration --verbose-run --show-output-of-passing-tests
+        run: make test-integration

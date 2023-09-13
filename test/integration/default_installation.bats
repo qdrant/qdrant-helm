@@ -3,13 +3,20 @@ setup_file() {
     kubectl create serviceaccount default -n qdrant-helm-integration || true
     helm install qdrant charts/qdrant -n qdrant-helm-integration --wait
     kubectl rollout status statefulset qdrant -n qdrant-helm-integration
-    sleep 5
+    # wait a bit to ensure that qdrant is really up, and we don't get connection refused
+    # errors in Github Actions
+    sleep 10
 }
 
 teardown_file() {
     helm uninstall qdrant -n qdrant-helm-integration
     kubectl delete serviceaccount default -n qdrant-helm-integration
     kubectl delete namespace qdrant-helm-integration
+}
+
+@test "helm test - default values" {
+    run helm test qdrant -n qdrant-helm-integration --logs
+    [ $status -eq 0 ]
 }
 
 @test "no startup warnings in logs" {
