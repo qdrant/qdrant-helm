@@ -38,7 +38,7 @@ func TestDefaultProbesOnStatefulset(t *testing.T) {
 		return container.Name == "qdrant"
 	})
 
-	require.Equal(t, "/readyz", container.StartupProbe.HTTPGet.Path)
+	require.Empty(t, container.StartupProbe)
 	require.Equal(t, "/readyz", container.ReadinessProbe.HTTPGet.Path)
-	require.Equal(t, "/livez", container.LivenessProbe.HTTPGet.Path)
+	require.Empty(t, container.LivenessProbe)
 }
