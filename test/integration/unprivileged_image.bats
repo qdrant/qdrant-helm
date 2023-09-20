@@ -1,17 +1,6 @@
 setup_file() {
-    kubectl create namespace qdrant-helm-integration
-    kubectl create serviceaccount default -n qdrant-helm-integration || true
-    helm install qdrant charts/qdrant -n qdrant-helm-integration --wait --set image.useUnprivilegedImage=true
+    helm upgrade --install qdrant charts/qdrant -n qdrant-helm-integration --wait --set image.useUnprivilegedImage=true
     kubectl rollout status statefulset qdrant -n qdrant-helm-integration
-    # wait a bit to ensure that qdrant is really up, and we don't get connection refused
-    # errors in Github Actions
-    sleep 10
-}
-
-teardown_file() {
-    helm uninstall qdrant -n qdrant-helm-integration
-    kubectl delete serviceaccount default -n qdrant-helm-integration
-    kubectl delete namespace qdrant-helm-integration
 }
 
 @test "helm test - with unprivileged image" {
