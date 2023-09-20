@@ -1,6 +1,6 @@
 setup_file() {
-    rm test/integration/assets/ca.*
-    rm test/integration/assets/tls.*
+    rm test/integration/assets/ca.* || true
+    rm test/integration/assets/tls.* || true
     openssl genrsa -des3 -passout pass:insecure -out test/integration/assets/ca.key 2048
     openssl req -x509 -passin pass:insecure -new -nodes -key test/integration/assets/ca.key -sha256 -days 1825 -out test/integration/assets/ca.pem -subj "/C=DE/ST=Berlin/L=Berlin/O=Qdrant/OU=Cloud/CN=qdrant"
     openssl genrsa -out test/integration/assets/tls.key 2048
