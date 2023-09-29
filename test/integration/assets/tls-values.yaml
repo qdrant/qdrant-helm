@@ -1,0 +1,19 @@
+additionalVolumes:
+  - secret:
+      secretName: test-tls
+    name: tls
+
+additionalVolumeMounts:
+  - name: tls
+    mountPath: /mnt/secrets/certs
+
+config:
+  service:
+    enable_tls: true
+  tls:
+    cert: "/mnt/secrets/certs/tls.crt"
+    key: "/mnt/secrets/certs/tls.key"
+    ca_cert: "/mnt/secrets/certs/ca.pem"
+  cluster:
+    p2p:
+      enable_tls: true

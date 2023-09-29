@@ -100,6 +100,9 @@ spec:
             httpGet:
               path: /livez
               port: {{ .targetPort }}
+              {{- if and $values.config.service $values.config.service.enable_tls }}
+              scheme: HTTPS
+              {{- end }}
             {{- end }}
             initialDelaySeconds: {{ $values.livenessProbe.initialDelaySeconds }}
             timeoutSeconds: {{ $values.livenessProbe.timeoutSeconds }}
@@ -117,6 +120,9 @@ spec:
             httpGet:
               path: /readyz
               port: {{ .targetPort }}
+              {{- if and $values.config.service $values.config.service.enable_tls }}
+              scheme: HTTPS
+              {{- end }}
             {{- end }}
             initialDelaySeconds: {{ $values.readinessProbe.initialDelaySeconds }}
             timeoutSeconds: {{ $values.readinessProbe.timeoutSeconds }}
@@ -134,6 +140,9 @@ spec:
             httpGet:
               path: /readyz
               port: {{ .targetPort }}
+              {{- if and $values.config.service $values.config.service.enable_tls }}
+              scheme: HTTPS
+              {{- end }}
             {{- end }}
             initialDelaySeconds: {{ $values.startupProbe.initialDelaySeconds }}
             timeoutSeconds: {{ $values.startupProbe.timeoutSeconds }}
