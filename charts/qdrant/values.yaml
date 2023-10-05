@@ -39,6 +39,7 @@ service:
 
 ingress:
   enabled: false
+  ingressClassName: ""
   additionalLabels: {}
   annotations: {}
     # kubernetes.io/ingress.class: alb

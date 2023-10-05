@@ -1,5 +1,7 @@
 lint:
 	helm lint charts/qdrant
+	gofmt -w -s ./test
+	golangci-lint run ./test
 
 test-unit:
 	go test -v ./test
