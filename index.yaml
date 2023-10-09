@@ -3,6 +3,34 @@ entries:
   qdrant:
   - annotations:
       artifacthub.io/category: database
+      artifacthub.io/changes: "- kind: added\n  description: Make ingressClassName
+        configurable\n  links:\n      - name: Github Issue\n        url: https://github.com/qdrant/qdrant-helm/pull/86
+        \  \n- kind: fixed\n  description: Fix probes to work correctly if TLS is
+        enabled\n  links:\n      - name: Github Issue\n        url: https://github.com/qdrant/qdrant-helm/pull/79\n-
+        kind: added\n  description: Update Qdrant to v1.6.0\n"
+    apiVersion: v2
+    appVersion: v1.6.0
+    created: "2023-10-09T14:07:29.716310221Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 2be75b1ffe309beb32e4a65a8d534ed306cf8eaca8e714a10692d2feba43eb3a
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.6.0/qdrant-0.6.0.tgz
+    version: 0.6.0
+  - annotations:
+      artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: fixed
           description: Ensure that the qdrant-init-file-path is on a writable, ephemeral volume
@@ -341,4 +369,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-13T09:15:40.785139239Z"
+generated: "2023-10-09T14:07:29.716456821Z"
