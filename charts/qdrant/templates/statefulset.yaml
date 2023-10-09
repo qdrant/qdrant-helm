@@ -76,7 +76,10 @@ spec:
             - name: {{ .name }}
               value: {{ .value | quote }}
           {{- end }}
-          command: ["/bin/sh", "-c"]
+          {{- with .Values.command }}
+          command:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
           {{- with .Values.args }}
           args:
             {{- toYaml . | nindent 10 }}
@@ -233,12 +236,11 @@ spec:
         {{- toYaml . | nindent 10 }}
         {{- end }}
       spec:
-        storageClassName: {{ .Values.persistence.storageClassName }} 
+        storageClassName: {{ .Values.persistence.storageClassName }}
         accessModes:
         {{- range .Values.persistence.accessModes }}
           - {{ . | quote }}
         {{- end }}
         resources:
           requests:
-            storage: {{ .Values.persistence.size | quote }} 
-         
+            storage: {{ .Values.persistence.size | quote }}

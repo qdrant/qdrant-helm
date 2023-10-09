@@ -21,3 +21,11 @@ setup_file() {
     [[ "${output}" =~ .*INFO.* ]]
     [[ ! "${output}" =~ .*ERR.* ]]
 }
+
+@test "SIGTERM signals are propagated to qdrant" {
+    run kubectl rollout restart sts/qdrant -n qdrant-helm-integration
+    [ $status -eq 0 ]
+    # If signals aren't working, this will take >30 seconds and time out
+    run kubectl rollout status statefulset qdrant -n qdrant-helm-integration --timeout=15s
+    [ $status -eq 0 ]
+}

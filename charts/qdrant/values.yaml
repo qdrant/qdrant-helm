@@ -9,7 +9,9 @@ image:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-args: ["./config/initialize.sh"]
+# If you override command/args, make sure POSIX signals are still propagated to Qdrant
+command: ["./config/initialize.sh"]
+args: []
 env: {}
   # - name: QDRANT_ALLOW_RECOVERY_MODE
   #   value: true
