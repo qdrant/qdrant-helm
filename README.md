@@ -75,3 +75,19 @@ To run the tests:
 ```bash
 make test-integration
 ```
+
+## Releasing
+
+Generally, we choose to release a new chart when there are important new releases to Qdrant or important chart-related changes.
+
+1. Check the release notes of [qdrant/qdrant](https://github.com/qdrant/qdrant/releases) to see if any environment variables or other settings need to be adjusted.
+2. Sync your local clone/fork of the [qdrant-helm](https://github.com/qdrant/qdrant-helm) repo: `git checkout main && git pull`
+3. Checkout a new feature branch: `git checkout -b feat/<name>/qdrant-<version>`
+4. Edit `Chart.yaml` to bump the appVersion and chartVersion.
+5. Edit `Chart.yaml` to update `artifacthub.io/changes` to mention the new changes.
+6. Edit `charts/CHANGELOG.md` to mention the same changes
+7. Edit the root `CHANGELOG.md` to mention the same changes
+    1. Why so many changelog changes? Each changelog file is for a different audience (artifacthub, chart browsing, github browsing). This could be automated in the future.
+8. Push your changes to GitHub and create a pull request. This allows the integration tests to run.
+
+As soon as these changes are merged to main, there is a [github action that detects changes to Chart.yaml](https://github.com/qdrant/qdrant-helm/blob/cea92d092ac330493147536e27f3edeb465ffe75/.github/workflows/release-workflow.yaml#L7) which will perform the remainder of the release operations (creating a github release, publishing the helm chart, updating index.html for the [github pages site](https://qdrant.github.io/qdrant-helm/), etc.)
