@@ -8,7 +8,7 @@ data:
     SET_INDEX=${HOSTNAME##*-}
     {{- if and (.Values.snapshotRestoration.enabled) (eq (.Values.replicaCount | quote)  (1 | quote)) }}
     echo "Starting initializing for pod $SET_INDEX and snapshots restoration"
-    exec ./entrypoint.sh {{ range .Values.snapshotRestoration.snapshots }} --snapshot {{ . }} {{ end }}
+    ./entrypoint.sh {{ range .Values.snapshotRestoration.snapshots }} --snapshot {{ . }} {{ end }}
     {{- else }}
     echo "Starting initializing for pod $SET_INDEX"
     if [ "$SET_INDEX" = "0" ]; then
