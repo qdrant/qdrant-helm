@@ -1,6 +1,7 @@
 package test
 
 import (
+	v1 "k8s.io/api/core/v1"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -65,4 +66,30 @@ func TestIngressAnnotations(t *testing.T) {
 
 	require.Contains(t, ingress.ObjectMeta.Annotations, "test")
 	require.Equal(t, ingress.ObjectMeta.Annotations["test"], "value")
+}
+
+func TestServiceAccountAnnotations(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	options := &helm.Options{
+		SetJsonValues: map[string]string{
+			"serviceAccount.annotations": `{"test": "value"}`,
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/serviceaccount.yaml"})
+
+	var serviceAccount v1.ServiceAccount
+	helm.UnmarshalK8SYaml(t, output, &serviceAccount)
+
+	require.Contains(t, serviceAccount.ObjectMeta.Annotations, "test")
+	require.Equal(t, serviceAccount.ObjectMeta.Annotations["test"], "value")
 }

@@ -172,6 +172,9 @@ metrics:
     ##
     relabelings: []
 
+serviceAccount:
+  annotations: {}
+
 priorityClassName: ""
 
 podDisruptionBudget:
