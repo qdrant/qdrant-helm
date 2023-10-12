@@ -3,6 +3,35 @@ entries:
   qdrant:
   - annotations:
       artifacthub.io/category: database
+      artifacthub.io/changes: "- kind: fixed\n  description: Propagate signals in
+        init script correctly to entrypoint\n  links:\n      - name: Github Issue\n
+        \       url: https://github.com/qdrant/qdrant-helm/pull/91   \n- kind: added\n
+        \ description: Make annotations for the ServiceAccount configurable\n  links:\n
+        \     - name: Github Issue\n        url: https://github.com/qdrant/qdrant-helm/pull/92\n-
+        kind: added\n  description: Update Qdrant to v1.6.1\n"
+    apiVersion: v2
+    appVersion: v1.6.1
+    created: "2023-10-12T14:14:21.432353342Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 43a24e96d8403db030bf10505a76191faccee7f72689ba30b7bacb4223f4c60a
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.6.1/qdrant-0.6.1.tgz
+    version: 0.6.1
+  - annotations:
+      artifacthub.io/category: database
       artifacthub.io/changes: "- kind: added\n  description: Make ingressClassName
         configurable\n  links:\n      - name: Github Issue\n        url: https://github.com/qdrant/qdrant-helm/pull/86
         \  \n- kind: fixed\n  description: Fix probes to work correctly if TLS is
@@ -369,4 +398,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-09T14:07:29.716456821Z"
+generated: "2023-10-12T14:14:21.432591844Z"
