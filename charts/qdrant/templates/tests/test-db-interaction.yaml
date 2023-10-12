@@ -43,6 +43,7 @@ data:
     set -xe
     echo 'connect-timeout = 5' > $HOME/.curlrc
     echo 'retry = 5' >> $HOME/.curlrc
+    echo 'retry-all-errors' >> $HOME/.curlrc
 
     if [ -d /mnt/secrets/certs ]; then
       cp /mnt/secrets/certs/ca.pem /usr/share/pki/trust/anchors/private-ca.pem
