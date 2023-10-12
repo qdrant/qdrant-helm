@@ -13,20 +13,20 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 0.6.0
-appVersion: v1.6.0
+version: 0.6.1
+appVersion: v1.6.1
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
-    - kind: added
-      description: Make ingressClassName configurable
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/pull/86   
     - kind: fixed
-      description: Fix probes to work correctly if TLS is enabled
+      description: Propagate signals in init script correctly to entrypoint
       links:
           - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/pull/79
+            url: https://github.com/qdrant/qdrant-helm/pull/91   
     - kind: added
-      description: Update Qdrant to v1.6.0
+      description: Make annotations for the ServiceAccount configurable
+      links:
+          - name: Github Issue
+            url: https://github.com/qdrant/qdrant-helm/pull/92
+    - kind: added
+      description: Update Qdrant to v1.6.1
