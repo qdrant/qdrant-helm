@@ -1,0 +1,6 @@
+updateConfigurationOnChange: true
+snapshotRestoration:
+  enabled: true
+  pvcName: snapshots-pvc
+  # To be supplied via --set
+  snapshots: []
