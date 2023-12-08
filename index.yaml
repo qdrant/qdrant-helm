@@ -3,6 +3,37 @@ entries:
   qdrant:
   - annotations:
       artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
+          description: Update Qdrant to v1.7.0
+        - kind: fixed
+          description: Fix snapshot restoration
+          links:
+              - name: Github Issue
+                url: https://github.com/qdrant/qdrant-helm/pull/96
+    apiVersion: v2
+    appVersion: v1.7.0
+    created: "2023-12-08T11:23:23.31655493Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 7322f0e7ce8c2d20cf2d8ef6153b9488d689e3697742be9843c05890a6a9219f
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.7.0/qdrant-0.7.0.tgz
+    version: 0.7.0
+  - annotations:
+      artifacthub.io/category: database
       artifacthub.io/changes: "- kind: fixed\n  description: Propagate signals in
         init script correctly to entrypoint\n  links:\n      - name: Github Issue\n
         \       url: https://github.com/qdrant/qdrant-helm/pull/91   \n- kind: added\n
@@ -398,4 +429,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-12T14:14:21.432591844Z"
+generated: "2023-12-08T11:23:23.316664104Z"
