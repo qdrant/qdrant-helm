@@ -4,7 +4,7 @@ go 1.21.1
 
 require (
 	github.com/ghodss/yaml v1.0.0
-	github.com/gruntwork-io/terratest v0.43.13
+	github.com/gruntwork-io/terratest v0.46.8
 	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.70.0
 	github.com/samber/lo v1.38.1
 	github.com/stretchr/testify v1.8.4
@@ -65,7 +65,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/apimachinery v0.28.4 // indirect
-	k8s.io/client-go v0.28.2 // indirect
+	k8s.io/client-go v0.28.4 // indirect
 	k8s.io/klog/v2 v2.110.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20230905202853-d090da108d2f // indirect
 	k8s.io/utils v0.0.0-20231127182322-b307cd553661 // indirect
