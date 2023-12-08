@@ -1,7 +1,6 @@
 # Changelog
 
-## [qdrant-0.6.1](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.6.1) (2023-10-12)
+## [qdrant-0.7.0](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.7.0) (2023-12-08)
 
-- Propagate signals in init script correctly to entrypoint [#91](https://github.com/qdrant/qdrant-helm/pull/91)   
-- Make annotations for the ServiceAccount configurable [#92](https://github.com/qdrant/qdrant-helm/pull/92)
-- Update Qdrant to v1.6.1
+- Update Qdrant to v1.7.0
+- Fix snapshot restoration [#96](https://github.com/qdrant/qdrant-helm/pull/96)   
