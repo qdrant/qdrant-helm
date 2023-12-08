@@ -13,20 +13,15 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 0.6.1
-appVersion: v1.6.1
+version: 0.7.0
+appVersion: v1.7.0
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
+    - kind: added
+      description: Update Qdrant to v1.7.0
     - kind: fixed
-      description: Propagate signals in init script correctly to entrypoint
+      description: Fix snapshot restoration
       links:
           - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/pull/91   
-    - kind: added
-      description: Make annotations for the ServiceAccount configurable
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/pull/92
-    - kind: added
-      description: Update Qdrant to v1.6.1
+            url: https://github.com/qdrant/qdrant-helm/pull/96
