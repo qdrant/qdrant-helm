@@ -1,5 +1,5 @@
 # Changelog
 
-## [qdrant-0.7.1](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.7.1) (2023-12-12)
+## [qdrant-0.7.2](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.7.2) (2023-12-12)
 
-- Update Qdrant to v1.7.1
+- Use / for probes instead of /readyz endpoint
