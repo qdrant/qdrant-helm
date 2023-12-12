@@ -9,6 +9,7 @@ metadata:
 {{- end }}
 spec:
   clusterIP: None
+  publishNotReadyAddresses: true
   ports:
     {{- range .Values.service.ports }}
     - name: {{ .name }}
