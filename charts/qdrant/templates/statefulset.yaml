@@ -98,7 +98,7 @@ spec:
             {{- end }}
             {{- if eq .name "http"}}
             httpGet:
-              path: /livez
+              path: /
               port: {{ .targetPort }}
               {{- if and $values.config.service $values.config.service.enable_tls }}
               scheme: HTTPS
@@ -118,7 +118,7 @@ spec:
             {{- end }}
             {{- if eq .name "http"}}
             httpGet:
-              path: /readyz
+              path: /
               port: {{ .targetPort }}
               {{- if and $values.config.service $values.config.service.enable_tls }}
               scheme: HTTPS
@@ -138,7 +138,7 @@ spec:
             {{- end }}
             {{- if eq .name "http"}}
             httpGet:
-              path: /readyz
+              path: /
               port: {{ .targetPort }}
               {{- if and $values.config.service $values.config.service.enable_tls }}
               scheme: HTTPS
