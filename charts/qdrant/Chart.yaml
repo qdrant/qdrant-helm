@@ -13,15 +13,10 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 0.7.0
-appVersion: v1.7.0
+version: 0.7.1
+appVersion: v1.7.1
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.7.0
-    - kind: fixed
-      description: Fix snapshot restoration
-      links:
-          - name: Github Issue
-            url: https://github.com/qdrant/qdrant-helm/pull/96
+      description: Update Qdrant to v1.7.1
