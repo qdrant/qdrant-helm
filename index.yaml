@@ -4,6 +4,32 @@ entries:
   - annotations:
       artifacthub.io/category: database
       artifacthub.io/changes: |
+        - kind: fixed
+          description: Use / for probes instead of /readyz endpoint
+    apiVersion: v2
+    appVersion: v1.7.1
+    created: "2023-12-12T15:47:05.794506785Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 0f922ca6f2ab42a6966f397f917b3e65a6cf803b0e5e6b8d6bbb3ebb7d04f47a
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.7.2/qdrant-0.7.2.tgz
+    version: 0.7.2
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
         - kind: added
           description: Update Qdrant to v1.7.1
     apiVersion: v2
@@ -455,4 +481,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2023-12-12T09:49:40.251504961Z"
+generated: "2023-12-12T15:47:05.794682554Z"
