@@ -3,6 +3,37 @@ entries:
   qdrant:
   - annotations:
       artifacthub.io/category: database
+      artifacthub.io/changes: |-
+        - kind: added
+          description: Update Qdrant to v1.7.2
+        - kind: fixed
+          description: Publish DNS for not-ready pods via the headless service
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/115
+    apiVersion: v2
+    appVersion: v1.7.2
+    created: "2023-12-14T11:05:56.534153611Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 0c55048624b4a10266d057926bcd75e43fdd4ca592a636307e5f498484e9297d
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.7.3/qdrant-0.7.3.tgz
+    version: 0.7.3
+  - annotations:
+      artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: fixed
           description: Use / for probes instead of /readyz endpoint
@@ -481,4 +512,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2023-12-12T15:47:05.794682554Z"
+generated: "2023-12-14T11:05:56.534356299Z"
