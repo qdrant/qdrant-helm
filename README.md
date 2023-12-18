@@ -10,6 +10,8 @@ This repository hosts the following helm charts:
 
 ```bash
 helm repo add qdrant https://qdrant.github.io/qdrant-helm
+helm repo update
+helm upgrade -i your-qdrant-installation-name qdrant/qdrant
 ```
 
 ## Running tests
