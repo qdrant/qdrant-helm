@@ -14,7 +14,7 @@ maintainers:
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
 version: 0.7.2
-appVersion: v1.7.1
+appVersion: v1.7.2
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |

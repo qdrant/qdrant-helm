@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "qdrant.fullname" . }}-updater
+  labels:
+    app.kubernetes.io/name: {{ include "qdrant.name" . }}
+    helm.sh/chart: {{ include "qdrant.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+---
+# Grant permission to update StatefulSets in namesapce
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "qdrant.fullname" . }}-updater
+  labels:
+    app.kubernetes.io/name: {{ include "qdrant.name" . }}
+    helm.sh/chart: {{ include "qdrant.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+rules:
+- apiGroups: ["apps"]
+  resources: ["statefulsets"]
+  verbs: ["*"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "qdrant.fullname" . }}-updater
+  labels:
+    app.kubernetes.io/name: {{ include "qdrant.name" . }}
+    helm.sh/chart: {{ include "qdrant.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "qdrant.fullname" . }}-updater
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "qdrant.fullname" . }}-updater
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "qdrant.fullname" . }}-updater
+  labels:
+    app.kubernetes.io/name: {{ include "qdrant.name" . }}
+    helm.sh/chart: {{ include "qdrant.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: updater
+  template:
+    metadata:
+      labels:
+        app: updater
+    spec:
+      terminationGracePeriodSeconds: 1
+      serviceAccountName: {{ include "qdrant.fullname" . }}-updater
+      containers:
+      - name: updater
+        image: ubuntu:22.04
+        command:
+        - /bin/bash
+        - -c
+        - |
+          apt update && apt install -y curl
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+          while true; do
+              kubectl -n {{ .Release.Namespace }} rollout status statefulset/{{ include "qdrant.fullname" . }}
+              kubectl -n {{ .Release.Namespace }} delete pod {{ include "qdrant.fullname" . }}-1
+              kubectl -n {{ .Release.Namespace }} rollout status statefulset/{{ include "qdrant.fullname" . }}
+              kubectl -n {{ .Release.Namespace }} delete pod {{ include "qdrant.fullname" . }}-2
+          done

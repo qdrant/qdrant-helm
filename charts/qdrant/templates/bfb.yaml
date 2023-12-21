@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "qdrant.fullname" . }}-bfb
+  labels:
+    app.kubernetes.io/name: {{ include "qdrant.name" . }}
+    helm.sh/chart: {{ include "qdrant.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bfb
+  template:
+    metadata:
+      labels:
+        app: bfb
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: updater
+        image: qdrant/bfb:dev
+        command: ["/bfb/bfb"]
+        args: [
+          "--uri", "http://{{ include "qdrant.fullname" . }}-0.{{ include "qdrant.fullname" . }}-headless:6334",
+          "-n", "1000000000",
+          "--max-id", "10000",
+          "--replication-factor", "2",
+          "--timeout", "30",
+        ]
