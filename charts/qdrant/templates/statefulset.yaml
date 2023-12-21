@@ -157,6 +157,10 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sleep", "3"]
           volumeMounts:
           - name: qdrant-storage
             mountPath: /qdrant/storage
