@@ -13,6 +13,9 @@ metadata:
 {{- end }}
 spec:
   type: {{ .Values.service.type | default "ClusterIP" }}
+  {{- if .Values.service.loadBalancerIP }}
+    loadBalancerIP: { .Values.service.loadBalancerIP }}
+  {{- end }}
   ports:
     {{- range .Values.service.ports }}
     - name: {{ .name }}
