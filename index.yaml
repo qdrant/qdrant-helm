@@ -5,6 +5,37 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |-
         - kind: added
+          description: Update Qdrant to v1.7.3
+        - kind: fixed
+          description: Add preStop hook to allow graceful network shutdown
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/121
+    apiVersion: v2
+    appVersion: v1.7.3
+    created: "2023-12-29T11:27:46.61094266Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: b45b07a9151d275db4aca28d5180f4e721e233ceffcfec4db89f22550bb8525e
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.7.4/qdrant-0.7.4.tgz
+    version: 0.7.4
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |-
+        - kind: added
           description: Update Qdrant to v1.7.2
         - kind: fixed
           description: Publish DNS for not-ready pods via the headless service
@@ -512,4 +543,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2023-12-14T11:05:56.534356299Z"
+generated: "2023-12-29T11:27:46.611090956Z"
