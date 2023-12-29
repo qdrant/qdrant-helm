@@ -13,15 +13,15 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 0.7.3
-appVersion: v1.7.2
+version: 0.7.4
+appVersion: v1.7.3
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.7.2
+      description: Update Qdrant to v1.7.3
     - kind: fixed
-      description: Publish DNS for not-ready pods via the headless service
+      description: Add preStop hook to allow graceful network shutdown
       links:
         - name: Github Issue
-          url: https://github.com/qdrant/qdrant-helm/pull/115
+          url: https://github.com/qdrant/qdrant-helm/pull/121

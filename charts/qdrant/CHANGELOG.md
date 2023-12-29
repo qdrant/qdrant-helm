@@ -1,6 +1,6 @@
 # Changelog
 
-## [qdrant-0.7.3](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.7.3) (2023-12-14)
+## [qdrant-0.7.4](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.7.4) (2023-12-29)
 
-- Update Qdrant to v1.7.2
-- Publish DNS for not-ready pods via the headless service [#115](https://github.com/qdrant/qdrant-helm/pull/115)
+- Update Qdrant to v1.7.3
+- Add preStop hook to allow graceful network shutdown [#121](https://github.com/qdrant/qdrant-helm/pull/121)
