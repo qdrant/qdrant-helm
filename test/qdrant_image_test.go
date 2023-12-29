@@ -1,14 +1,15 @@
 package test
 
 import (
-	"github.com/ghodss/yaml"
-	"github.com/samber/lo"
-	corev1 "k8s.io/api/core/v1"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/ghodss/yaml"
+	"github.com/samber/lo"
+	corev1 "k8s.io/api/core/v1"
 
 	"github.com/gruntwork-io/terratest/modules/helm"
 	"github.com/gruntwork-io/terratest/modules/k8s"
@@ -67,7 +68,7 @@ func TestOverwriteImage(t *testing.T) {
 
 	options := &helm.Options{
 		SetValues: map[string]string{
-			"image.tag":                  "test-tag",
+			"image.tag":                  "v1.6.0",
 			"image.repository":           "test/repo",
 			"image.useUnprivilegedImage": "true",
 		},
@@ -83,5 +84,5 @@ func TestOverwriteImage(t *testing.T) {
 		return container.Name == "qdrant"
 	})
 
-	require.Equal(t, "test/repo:test-tag-unprivileged", container.Image)
+	require.Equal(t, "test/repo:v1.6.0-unprivileged", container.Image)
 }

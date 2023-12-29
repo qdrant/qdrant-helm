@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: qdrant/qdrant
+  repository: docker.io/qdrant/qdrant
   pullPolicy: IfNotPresent
   tag: ""
   useUnprivilegedImage: false
