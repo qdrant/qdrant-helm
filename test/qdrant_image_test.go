@@ -1,14 +1,15 @@
 package test
 
 import (
-	"github.com/ghodss/yaml"
-	"github.com/samber/lo"
-	corev1 "k8s.io/api/core/v1"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/ghodss/yaml"
+	"github.com/samber/lo"
+	corev1 "k8s.io/api/core/v1"
 
 	"github.com/gruntwork-io/terratest/modules/helm"
 	"github.com/gruntwork-io/terratest/modules/k8s"
@@ -52,7 +53,7 @@ func TestDefaultImage(t *testing.T) {
 	if err != nil {
 		log.Fatalf("unable to decode chart yaml: %v", err)
 	}
-	require.Equal(t, "qdrant/qdrant:"+chart.AppVersion, container.Image)
+	require.Equal(t, "docker.io/qdrant/qdrant:"+chart.AppVersion, container.Image)
 }
 
 func TestOverwriteImage(t *testing.T) {
