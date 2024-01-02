@@ -9,6 +9,7 @@ metadata:
 {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: Parallel
   selector:
     matchLabels:
       {{- include "qdrant.selectorLabels" . | nindent 6 }}
@@ -118,7 +119,7 @@ spec:
             {{- end }}
             {{- if eq .name "http"}}
             httpGet:
-              path: /
+              path: "{{- if semverCompare ">=1.7.3" ($.Values.image.tag | default $.Chart.AppVersion) -}}/readyz{{else}}/{{end}}"
               port: {{ .targetPort }}
               {{- if and $values.config.service $values.config.service.enable_tls }}
               scheme: HTTPS

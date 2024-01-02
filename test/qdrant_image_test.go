@@ -68,7 +68,7 @@ func TestOverwriteImage(t *testing.T) {
 
 	options := &helm.Options{
 		SetValues: map[string]string{
-			"image.tag":                  "test-tag",
+			"image.tag":                  "v1.6.0",
 			"image.repository":           "test/repo",
 			"image.useUnprivilegedImage": "true",
 		},
@@ -84,5 +84,5 @@ func TestOverwriteImage(t *testing.T) {
 		return container.Name == "qdrant"
 	})
 
-	require.Equal(t, "test/repo:test-tag-unprivileged", container.Image)
+	require.Equal(t, "test/repo:v1.6.0-unprivileged", container.Image)
 }

@@ -2,10 +2,10 @@ lint:
 	helm lint charts/qdrant
 
 test-unit:
-	go test -v ./test
+	go test ./test
 
 test-integration:
-	bats test/integration --verbose-run --show-output-of-passing-tests
+	bats test/integration
 
 test-unit-lint:
 	gofmt -w -s ./test
