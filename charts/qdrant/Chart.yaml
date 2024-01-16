@@ -13,15 +13,28 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 0.7.4
+version: 0.7.5
 appVersion: v1.7.3
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.7.3
-    - kind: fixed
-      description: Add preStop hook to allow graceful network shutdown
+      description: Configurable static IP for LoadBalancer services
       links:
         - name: Github Issue
-          url: https://github.com/qdrant/qdrant-helm/pull/121
+          url: https://github.com/qdrant/qdrant-helm/pull/122    
+    - kind: fixed
+      description: Fix metrics scraping if api key is enabled
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/127    
+    - kind: fixed
+      description: Use /readyz endpoint for readiness probe for Qdrant >= 1.7.3
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/124 
+    - kind: fixed
+      description: Use FQDN for container image
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/125
