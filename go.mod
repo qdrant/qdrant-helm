@@ -5,7 +5,7 @@ go 1.21.1
 require (
 	github.com/ghodss/yaml v1.0.0
 	github.com/gruntwork-io/terratest v0.46.9
-	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.70.0
+	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.71.0
 	github.com/samber/lo v1.39.0
 	github.com/stretchr/testify v1.8.4
 	helm.sh/helm/v3 v3.13.3
@@ -18,7 +18,7 @@ require (
 	github.com/aws/aws-sdk-go v1.44.122 // indirect
 	github.com/boombuler/barcode v1.0.1-0.20190219062509-6c824513bacc // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
-	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/emicklei/go-restful/v3 v3.11.0 // indirect
 	github.com/go-errors/errors v1.4.2 // indirect
 	github.com/go-logr/logr v1.3.0 // indirect
@@ -58,7 +58,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/mxk/go-flowrate v0.0.0-20140419014527-cca7078d478f // indirect
-	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/pquerna/otp v1.2.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sergi/go-diff v1.3.1 // indirect
@@ -88,5 +88,5 @@ require (
 	k8s.io/utils v0.0.0-20231127182322-b307cd553661 // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
-	sigs.k8s.io/yaml v1.3.0 // indirect
+	sigs.k8s.io/yaml v1.4.0 // indirect
 )
