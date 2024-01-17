@@ -3,6 +3,38 @@ entries:
   qdrant:
   - annotations:
       artifacthub.io/category: database
+      artifacthub.io/changes: "- kind: added\n  description: Configurable static IP
+        for LoadBalancer services\n  links:\n    - name: Github Issue\n      url:
+        https://github.com/qdrant/qdrant-helm/pull/122    \n- kind: fixed\n  description:
+        Fix metrics scraping if api key is enabled\n  links:\n    - name: Github Issue\n
+        \     url: https://github.com/qdrant/qdrant-helm/pull/127    \n- kind: fixed\n
+        \ description: Use /readyz endpoint for readiness probe for Qdrant >= 1.7.3\n
+        \ links:\n    - name: Github Issue\n      url: https://github.com/qdrant/qdrant-helm/pull/124
+        \n- kind: fixed\n  description: Use FQDN for container image\n  links:\n    -
+        name: Github Issue\n      url: https://github.com/qdrant/qdrant-helm/pull/125"
+    apiVersion: v2
+    appVersion: v1.7.3
+    created: "2024-01-17T11:42:52.75848293Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 4bd7eab317f3d92d7a580260536ff6bf4dd3668d4396c5f31390de08070d7250
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.7.5/qdrant-0.7.5.tgz
+    version: 0.7.5
+  - annotations:
+      artifacthub.io/category: database
       artifacthub.io/changes: |-
         - kind: added
           description: Update Qdrant to v1.7.3
@@ -543,4 +575,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2023-12-29T11:27:46.611090956Z"
+generated: "2024-01-17T11:42:52.758722549Z"
