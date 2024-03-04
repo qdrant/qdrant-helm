@@ -64,6 +64,8 @@ data:
     API_KEY_HEADER=""
     {{- if .Values.apiKey }}
     API_KEY_HEADER="Api-key: {{ .Values.apiKey }}"
+    {{- else if .Values.readOnlyApiKey }}
+    API_KEY_HEADER="Api-key: {{ .Values.readOnlyApiKey }}"
     {{- end }}
 
     # Delete collection if exists

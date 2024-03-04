@@ -171,7 +171,7 @@ spec:
           - name: qdrant-config
             mountPath: /qdrant/config/production.yaml
             subPath: production.yaml
-          {{- if .Values.apiKey }}
+          {{- if or .Values.apiKey .Values.readOnlyApiKey }}
           - name: qdrant-secret
             mountPath: /qdrant/config/local.yaml
             subPath: local.yaml
@@ -219,7 +219,7 @@ spec:
         {{- end }}
         - name: qdrant-init
           emptyDir: {}
-        {{- if .Values.apiKey }}
+        {{- if or .Values.apiKey .Values.readOnlyApiKey }}
         - name: qdrant-secret
           secret:
             secretName: {{ include "qdrant.fullname" . }}-apikey
