@@ -154,8 +154,6 @@ sidecarContainers: []
 #         memory: 100Mi
 #         cpu: 100m
 
-updateConfigurationOnChange: false
-
 metrics:
   serviceMonitor:
     enabled: false

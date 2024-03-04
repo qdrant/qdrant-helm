@@ -17,10 +17,8 @@ spec:
   template:
     metadata:
       annotations:
-      {{- if (default .Values.updateConfigurationOnChange false) }}
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-      {{- end }}
-      {{- if and ((default .Values.updateConfigurationOnChange false) or (.Values.apiKey .Values.readOnlyApiKey)) }}
+      {{- if or (.Values.apiKey .Values.readOnlyApiKey) }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
       {{- end }}
       {{- with .Values.podAnnotations }}
