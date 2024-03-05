@@ -144,3 +144,146 @@ func TestNoApiKey(t *testing.T) {
 	require.Equal(t, hasSecretVolumeMount, false)
 	require.Equal(t, hasSecretVolume, false)
 }
+
+func TestStringReadOnlyApiKey(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	options := &helm.Options{
+		SetJsonValues: map[string]string{
+			"readOnlyApiKey": `"test_api_key"`,
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+
+	var statefulSet appsv1.StatefulSet
+	helm.UnmarshalK8SYaml(t, output, &statefulSet)
+
+	output = helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
+
+	var secret corev1.Secret
+	helm.UnmarshalK8SYaml(t, output, &secret)
+
+	container, _ := lo.Find(statefulSet.Spec.Template.Spec.Containers, func(container corev1.Container) bool {
+		return container.Name == "qdrant"
+	})
+
+	secretVolumeMount, hasSecretVolumeMount := lo.Find(container.VolumeMounts, func(volumeMount corev1.VolumeMount) bool {
+		return volumeMount.Name == "qdrant-secret"
+	})
+
+	_, hasSecretVolume := lo.Find(statefulSet.Spec.Template.Spec.Volumes, func(volume corev1.Volume) bool {
+		return volume.Name == secretVolumeMount.Name
+	})
+
+	require.Equal(t, hasSecretVolumeMount, true)
+	require.Equal(t, hasSecretVolume, true)
+	require.Contains(t, lo.Keys(secret.Data), "local.yaml")
+	require.Contains(t, lo.Keys(secret.Data), "read-only-api-key")
+
+	require.Equal(t, "service:\n  read_only_api_key: test_api_key", string(secret.Data["local.yaml"]))
+}
+
+func TestRandomReadOnlyApiKey(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	options := &helm.Options{
+		SetJsonValues: map[string]string{
+			"readOnlyApiKey": `true`,
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+
+	var statefulSet appsv1.StatefulSet
+	helm.UnmarshalK8SYaml(t, output, &statefulSet)
+
+	output = helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
+
+	var secret corev1.Secret
+	helm.UnmarshalK8SYaml(t, output, &secret)
+
+	container, _ := lo.Find(statefulSet.Spec.Template.Spec.Containers, func(container corev1.Container) bool {
+		return container.Name == "qdrant"
+	})
+
+	secretVolumeMount, hasSecretVolumeMount := lo.Find(container.VolumeMounts, func(volumeMount corev1.VolumeMount) bool {
+		return volumeMount.Name == "qdrant-secret"
+	})
+
+	_, hasSecretVolume := lo.Find(statefulSet.Spec.Template.Spec.Volumes, func(volume corev1.Volume) bool {
+		return volume.Name == secretVolumeMount.Name
+	})
+
+	require.Equal(t, hasSecretVolumeMount, true)
+	require.Equal(t, hasSecretVolume, true)
+	require.Contains(t, lo.Keys(secret.Data), "local.yaml")
+	require.Contains(t, lo.Keys(secret.Data), "read-only-api-key")
+
+	require.Regexp(t, "^service:\n  read_only_api_key: [a-zA-Z0-9]+$", string(secret.Data["local.yaml"]))
+}
+
+func TestAdminAndReadOnlyApiKey(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	options := &helm.Options{
+		SetJsonValues: map[string]string{
+			"readOnlyApiKey": `true`,
+			"apiKey":         `true`,
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+
+	var statefulSet appsv1.StatefulSet
+	helm.UnmarshalK8SYaml(t, output, &statefulSet)
+
+	output = helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
+
+	var secret corev1.Secret
+	helm.UnmarshalK8SYaml(t, output, &secret)
+
+	container, _ := lo.Find(statefulSet.Spec.Template.Spec.Containers, func(container corev1.Container) bool {
+		return container.Name == "qdrant"
+	})
+
+	secretVolumeMount, hasSecretVolumeMount := lo.Find(container.VolumeMounts, func(volumeMount corev1.VolumeMount) bool {
+		return volumeMount.Name == "qdrant-secret"
+	})
+
+	_, hasSecretVolume := lo.Find(statefulSet.Spec.Template.Spec.Volumes, func(volume corev1.Volume) bool {
+		return volume.Name == secretVolumeMount.Name
+	})
+
+	require.Equal(t, hasSecretVolumeMount, true)
+	require.Equal(t, hasSecretVolume, true)
+	require.Contains(t, lo.Keys(secret.Data), "local.yaml")
+	require.Contains(t, lo.Keys(secret.Data), "api-key")
+	require.Contains(t, lo.Keys(secret.Data), "read-only-api-key")
+
+	require.Regexp(t, "^service:\n  api_key: [a-zA-Z0-9]+\n  read_only_api_key: [a-zA-Z0-9]+$", string(secret.Data["local.yaml"]))
+}

@@ -68,7 +68,3 @@ Note: Make sure volume is on the same region and availability zone as where qdra
 Metrics are available through rest api (default port set to 6333) at `/metrics`
 
 Refer to [qdrant metrics configuration](https://qdrant.tech/documentation/telemetry/#metrics) for more information.
-
-### Enable rolling update on configuration change
-
-To enable rolling update on config map modification set `updateConfigurationOnChange` to true.

@@ -66,15 +66,33 @@ Create the name of the service account to use
 Create secret
 */}}
 {{- define "qdrant.secret" -}}
+{{- $readOnlyApiKey := false }}
+{{- $apiKey := false }}
 {{- if eq (.Values.apiKey | toJson) "true" -}}
 {{- /* retrieve existing randomly generated api key or create new one */ -}}
 {{- $secretObj := (lookup "v1" "Secret" .Release.Namespace (printf "%s-apikey" (include "qdrant.fullname" . ))) | default dict -}}
 {{- $secretData := (get $secretObj "data") | default dict -}}
-{{- $apiKey := (get $secretData "api-key" | b64dec) | default (randAlphaNum 32) -}}
+{{- $apiKey = (get $secretData "api-key" | b64dec) | default (randAlphaNum 32) -}}
+{{- else if .Values.apiKey -}}
+{{- $apiKey = .Values.apiKey -}}
+{{- end -}}
+{{- if eq (.Values.readOnlyApiKey | toJson) "true" -}}
+{{- /* retrieve existing randomly generated api key or create new one */ -}}
+{{- $secretObj := (lookup "v1" "Secret" .Release.Namespace (printf "%s-apikey" (include "qdrant.fullname" . ))) | default dict -}}
+{{- $secretData := (get $secretObj "data") | default dict -}}
+{{- $readOnlyApiKey = (get $secretData "read-only-api-key" | b64dec) | default (randAlphaNum 32) -}}
+{{- else if .Values.readOnlyApiKey -}}
+{{- $readOnlyApiKey = .Values.readOnlyApiKey -}}
+{{- end -}}
+{{- if and $apiKey $readOnlyApiKey -}}
+api-key: {{ $apiKey | b64enc }}
+read-only-api-key: {{ $readOnlyApiKey | b64enc }}
+local.yaml: {{ printf "service:\n  api_key: %s\n  read_only_api_key: %s" $apiKey $readOnlyApiKey | b64enc }}
+{{- else if $apiKey -}}
 api-key: {{ $apiKey | b64enc }}
 local.yaml: {{ printf "service:\n  api_key: %s" $apiKey | b64enc }}
-{{- else if .Values.apiKey -}}
-api-key: {{ .Values.apiKey | b64enc }}
-local.yaml: {{ printf "service:\n  api_key: %s" .Values.apiKey | b64enc }}
+{{- else if $readOnlyApiKey -}}
+read-only-api-key: {{ $readOnlyApiKey | b64enc }}
+local.yaml: {{ printf "service:\n  read_only_api_key: %s" $readOnlyApiKey | b64enc }}
 {{- end -}}
 {{- end -}}

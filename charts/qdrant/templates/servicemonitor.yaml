@@ -30,6 +30,12 @@ spec:
         credentials:
           name: {{ include "qdrant.fullname" . }}-apikey
           key: api-key
+{{- else if .Values.readOnlyApiKey }}
+      authorization:
+        type: Bearer
+        credentials:
+          name: {{ include "qdrant.fullname" . }}-apikey
+          key: read-only-api-key
 {{- end }}
   selector:
     matchLabels:
