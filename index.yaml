@@ -5,6 +5,42 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |-
         - kind: added
+          description: Update Qdrant to v1.8.0
+        - kind: fixed
+          description: Fix typos in service template
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/147
+        - kind: added
+          description: Support read_only_api_key in Qdrant config
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/146
+    apiVersion: v2
+    appVersion: v1.8.0
+    created: "2024-03-06T13:01:54.16997154Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: f513a30fb765256f2ae786c8479be3821b6d3bc03837c8b1ffd53294e707652a
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.8.0/qdrant-0.8.0.tgz
+    version: 0.8.0
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |-
+        - kind: added
           description: Update Qdrant to v1.7.4
     apiVersion: v2
     appVersion: v1.7.4
@@ -601,4 +637,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2024-01-30T14:38:22.779644331Z"
+generated: "2024-03-06T13:01:54.170211097Z"
