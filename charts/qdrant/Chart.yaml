@@ -13,10 +13,20 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 0.7.6
-appVersion: v1.7.4
+version: 0.8.0
+appVersion: v1.8.0
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.7.4
+      description: Update Qdrant to v1.8.0
+    - kind: fixed
+      description: Fix typos in service template
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/147
+    - kind: added
+      description: Support read_only_api_key in Qdrant config
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/146
