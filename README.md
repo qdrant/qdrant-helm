@@ -14,6 +14,24 @@ helm repo update
 helm upgrade -i your-qdrant-installation-name qdrant/qdrant
 ```
 
+## Upgrading
+
+This helm chart installs the latest version of Qdrant by default. When a new version of Qdrant is available, upgrade the helm chart with the following commands:
+
+```bash
+helm repo update
+helm upgrade your-qdrant-installation-name qdrant/qdrant
+```
+
+This command performs a rolling upgrade of your Qdrant cluster, updating one node at a time.
+
+If you have overridden the Qdrant image tag in `values.yaml`, you will also need to update that tag before running `helm upgrade`.
+
+```yaml
+image:
+  tag: v1.8.1
+```
+
 ## Running tests
 
 This repository has unit and integration tests for the charts. All charts are also linted.
