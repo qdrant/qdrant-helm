@@ -9,7 +9,12 @@ setup_file() {
     [[ "${output}" =~ .*\"status\":\"ok\".* ]]
 }
 
-@test "api key authentication fails with key" {
-    run kubectl exec -n default curl -- curl -s http://qdrant.qdrant-helm-integration:6333/collections
-    [ "${output}" = "Write access denied" ]
+@test "api key authentication fails with no key" {
+    run kubectl exec -n default curl -- curl -s -w " - %{response_code}" http://qdrant.qdrant-helm-integration:6333/collections
+    [ "${output}" = "Must provide an API key or an Authorization bearer token - 403" ]
+}
+
+@test "api key authentication fails with wrong key" {
+    run kubectl exec -n default curl -- curl -s -w " - %{response_code}" http://qdrant.qdrant-helm-integration:6333/collections -H 'api-key: invalid'
+    [ "${output}" = "Invalid API key or JWT token - 403" ]
 }
