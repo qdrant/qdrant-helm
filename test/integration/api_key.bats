@@ -11,5 +11,5 @@ setup_file() {
 
 @test "api key authentication fails with key" {
     run kubectl exec -n default curl -- curl -s http://qdrant.qdrant-helm-integration:6333/collections
-    [ "${output}" = "Invalid api-key" ]
+    [ "${output}" = "Write access denied" ]
 }
