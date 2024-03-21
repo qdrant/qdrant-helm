@@ -9,7 +9,7 @@ metadata:
 {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  podManagementPolicy: Parallel
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   selector:
     matchLabels:
       {{- include "qdrant.selectorLabels" . | nindent 6 }}
