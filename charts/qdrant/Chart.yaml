@@ -22,3 +22,6 @@ annotations:
       description: Update Qdrant to v1.8.4
     - kind: added
       description: Allow configurable podManagementPolicy
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/158
