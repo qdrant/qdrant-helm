@@ -176,6 +176,8 @@ serviceAccount:
 
 priorityClassName: ""
 
+podManagementPolicy: Parallel
+
 podDisruptionBudget:
   enabled: false
   maxUnavailable: 1
