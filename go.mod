@@ -9,7 +9,7 @@ require (
 	github.com/samber/lo v1.39.0
 	github.com/stretchr/testify v1.9.0
 	helm.sh/helm/v3 v3.14.3
-	k8s.io/api v0.29.2
+	k8s.io/api v0.29.3
 )
 
 require (
@@ -27,7 +27,7 @@ require (
 	github.com/go-openapi/swag v0.22.3 // indirect
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang/protobuf v1.5.3 // indirect
+	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/gonvenience/bunt v1.3.5 // indirect
 	github.com/gonvenience/neat v1.3.12 // indirect
 	github.com/gonvenience/term v1.0.2 // indirect
@@ -81,7 +81,7 @@ require (
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/apimachinery v0.29.2 // indirect
+	k8s.io/apimachinery v0.29.3 // indirect
 	k8s.io/client-go v0.29.0 // indirect
 	k8s.io/klog/v2 v2.120.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20231010175941-2dd684a91f00 // indirect
