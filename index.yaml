@@ -3,6 +3,37 @@ entries:
   qdrant:
   - annotations:
       artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
+          description: Update Qdrant to v1.8.4
+        - kind: added
+          description: Allow configurable podManagementPolicy
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/158
+    apiVersion: v2
+    appVersion: v1.8.4
+    created: "2024-04-03T11:03:26.713305673Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 4ed18430f760474189d4512c8c9960171bb684dc455eabb7db708b2c4755d2ea
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.8.4/qdrant-0.8.4.tgz
+    version: 0.8.4
+  - annotations:
+      artifacthub.io/category: database
       artifacthub.io/changes: |-
         - kind: added
           description: Update Qdrant to v1.8.3
@@ -715,4 +746,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2024-03-19T17:19:58.669611651Z"
+generated: "2024-04-03T11:03:26.713568534Z"
