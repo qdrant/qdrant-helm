@@ -13,10 +13,15 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 0.8.5
+version: 0.8.4
 appVersion: v1.8.4
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Allow ports to be configured as `NodePort'.
+      description: Update Qdrant to v1.8.4
+    - kind: added
+      description: Allow configurable podManagementPolicy
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/158
