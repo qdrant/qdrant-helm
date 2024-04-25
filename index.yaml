@@ -5,6 +5,37 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.9.0
+        - kind: added
+          description: Allow ports to be configured as NodePort
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/165
+    apiVersion: v2
+    appVersion: v1.9.0
+    created: "2024-04-25T16:48:57.230600622Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: a7e8944d99fc60fcc3a4a160e9c900dba06fdbf0c38da1f2a7ded530cf0e2906
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.8.5/qdrant-0.8.5.tgz
+    version: 0.8.5
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.8.4
         - kind: added
           description: Allow configurable podManagementPolicy
@@ -746,4 +777,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-03T11:03:26.713568534Z"
+generated: "2024-04-25T16:48:57.230834059Z"
