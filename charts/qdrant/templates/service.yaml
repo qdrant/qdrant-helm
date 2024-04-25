@@ -21,6 +21,9 @@ spec:
     - name: {{ .name }}
       port: {{ .port }}
       targetPort: {{ .targetPort }}
+      {{- if and (or (eq $.Values.service.type "NodePort") (eq $.Values.service.type "LoadBalancer")) (not (empty .nodePort)) }}
+      nodePort: {{ .nodePort }}
+      {{- end }}
       protocol: {{ .protocol | default "TCP" }}
     {{- end }}
   selector:
