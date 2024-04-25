@@ -16,5 +16,5 @@ setup_file() {
 
 @test "api key authentication fails with wrong key" {
     run kubectl exec -n default curl -- curl -s -w " - %{response_code}" http://qdrant.qdrant-helm-integration:6333/collections -H 'api-key: invalid'
-    [ "${output}" = "Invalid API key or JWT token - 403" ]
+    [ "${output}" = "Invalid API key or JWT - 403" ]
 }
