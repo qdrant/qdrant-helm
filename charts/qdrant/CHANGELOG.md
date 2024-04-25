@@ -1,9 +1,5 @@
 # Changelog
 
-## Unreleased
-
-- Allow ports to be configured as `NodePort'.
-
 ## [qdrant-0.8.4](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.8.4) (2024-04-03)
 
 - Update Qdrant to v1.8.4
