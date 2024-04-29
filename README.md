@@ -29,7 +29,7 @@ If you have overridden the Qdrant image tag in `values.yaml`, you will also need
 
 ```yaml
 image:
-  tag: v1.8.1
+  tag: v1.9.0
 ```
 
 ## Running tests
