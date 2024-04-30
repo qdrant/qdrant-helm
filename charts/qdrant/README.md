@@ -46,6 +46,20 @@ For documentation of the settings please refer to [Qdrant Configuration File](ht
 All of these configuration options could be overwritten under config in `values.yaml`.
 A modification example is provided there.
 
+### Overrides
+You can override any value in the Qdrant configuration by setting the Helm values under the key `config`. Those settings get included verbatim in a file called `config/production.yml` which is explained further here: [Qdrant Order and Priority](https://qdrant.tech/documentation/guides/configuration/#order-and-priority)
+
+```bash
+config:
+  cluster:
+    enabled: true
+  storage:
+    snapshots_path: ./storage/snapshots
+
+# Also set this so your cluster automatically restarts and loads the new config 
+updateConfigurationOnChange: true
+```
+
 ### Distributed setup
 
 Running a distributed cluster just needs a few changes in your `values.yaml` file.
