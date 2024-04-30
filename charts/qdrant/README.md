@@ -46,6 +46,10 @@ For documentation of the settings please refer to [Qdrant Configuration File](ht
 All of these configuration options could be overwritten under config in `values.yaml`.
 A modification example is provided there.
 
+### Overrides
+You can override any value in the Qdrant configuration by setting the Helm values under the key `config`. Those settings get included verbatim in a file called `config/production.yml` which is explained further here [Qdrant Order and Priority](https://qdrant.tech/documentation/guides/configuration/#order-and-priority) as well as an [example](https://github.com/qdrant/qdrant-helm/blob/b0bb6fc6d3eb9c0813c79bb5a78dc21aebc2b81d/charts/qdrant/values.yaml#L140).
+
+
 ### Distributed setup
 
 Running a distributed cluster just needs a few changes in your `values.yaml` file.
