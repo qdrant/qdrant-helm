@@ -47,18 +47,8 @@ All of these configuration options could be overwritten under config in `values.
 A modification example is provided there.
 
 ### Overrides
-You can override any value in the Qdrant configuration by setting the Helm values under the key `config`. Those settings get included verbatim in a file called `config/production.yml` which is explained further here: [Qdrant Order and Priority](https://qdrant.tech/documentation/guides/configuration/#order-and-priority)
+You can override any value in the Qdrant configuration by setting the Helm values under the key `config`. Those settings get included verbatim in a file called `config/production.yml` which is explained further here [Qdrant Order and Priority](https://qdrant.tech/documentation/guides/configuration/#order-and-priority) as well as an [example](https://github.com/qdrant/qdrant-helm/blob/b0bb6fc6d3eb9c0813c79bb5a78dc21aebc2b81d/charts/qdrant/values.yaml#L140).
 
-```bash
-config:
-  cluster:
-    enabled: true
-  storage:
-    snapshots_path: ./storage/snapshots
-
-# Also set this so your cluster automatically restarts and loads the new config 
-updateConfigurationOnChange: true
-```
 
 ### Distributed setup
 
