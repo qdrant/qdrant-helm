@@ -103,6 +103,15 @@ podSecurityContext:
   fsGroup: 3000
   fsGroupChangePolicy: Always
 
+lifecycle:
+  preStop:
+    exec:
+      # Sleeping before shutdown allows Qdrant to process requests that were
+      # in-flight before the node is removed from load-balancing.
+      # If using an external load balancer, you may need to increase this
+      # duration to be greater than the LB's health check interval.
+      command: ["sleep", "3"]
+
 # If true ensures that the pre-existing files on the storage and snapshot volume are owned by the container's
 # user and fsGroup
 updateVolumeFsOwnership: true
