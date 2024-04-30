@@ -130,12 +130,26 @@ persistence:
   annotations: {}
   # storageClassName: local-path
 
-# only supported for single node qdrant clusters.
+# If you use snapshots or the snapshot shard transfer mechanism, we recommend
+# creating a separate volume of the same size as your main volume so that your
+# cluster won't crash if the snapshot is too big.
+snapshotPersistence:
+  enabled: false
+  accessModes: ["ReadWriteOnce"]
+  size: 10Gi
+  annotations: {}
+  # You can change the storageClassName to ensure snapshots are saved to cold storage.
+  # storageClassName: local-path
+
 snapshotRestoration:
   enabled: false
+  # Set pvcName if you want to restore from a separately-created PVC. Only supported for single-node clusters unless the PVC is ReadWriteMany.
+  # If you set snapshotPersistence.enabled and want to restore a snapshot from there, you can leave this blank to skip mounting an external volume.
   pvcName: snapshots-pvc
+  # Must not conflict with /qdrant/snapshots or /qdrant/storage
+  mountPath: /qdrant/snapshot-restoration
   snapshots:
-  #  - /qdrant/snapshots/test_collection/test_collection-2022-10-24-13-56-50.snapshot:test_collection
+  #  - /qdrant/snapshot-restoration/test_collection/test_collection-2022-10-24-13-56-50.snapshot:test_collection
 
 # modification example for configuration to overwrite defaults
 config:
