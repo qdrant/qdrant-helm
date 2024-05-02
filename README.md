@@ -32,82 +32,49 @@ image:
   tag: v1.9.0
 ```
 
-## Running tests
+## Restoring from Snapshots
 
-This repository has unit and integration tests for the charts. All charts are also linted.
+This helm chart allows you to restore a snapshot into your Qdrant cluster either from an internal or external PersistentVolumeClaim.
 
-### Linting
+### Restoring from the built-in PVC
 
-Linting is done with `helm lint`.
+If you have set `snapshotPersistence.enabled: true` (recommended for production), this helm chart will create a separate PersistentVolume for snapshots, and any snapshots you create will be stored in that PersistentVolume.
 
-Prerequisites:
+To restore from one of these snapshots, set the following values:
 
-* Helm
-
-```bash
-brew install helm
+```yaml
+snapshotRestoration:
+  enabled: true
+  # Set blank to indicate we are not using an external PVC
+  pvcName: ""
+  snapshots:
+  - /qdrant/snapshots/<collection_name>/<filename>/:<collection_name>
 ```
 
-To lint all charts:
+And run "helm upgrade". This will restart your cluster and restore the specified collection from the snapshot. Qdrant will refuse to overwrite an existing collection, so ensure the collection is deleted before restoring.
 
-```bash
-make lint
+After the snapshot is restored, remove the above values and run "helm upgrade" again to trigger another rolling restart. Otherwise, the snapshot restore will be attempted again if your cluster ever restarts.
+
+### Restoring from an external PVC
+
+If you wish to restore from an externally-created snapshot, using the API is recommended: https://qdrant.github.io/qdrant/redoc/index.html#tag/collections/operation/recover_from_uploaded_snapshot
+
+If the file is too large, you can separatly create a PersistentVolumeClaim, store your data in there, and refer to this separate PersistentVolumeClaim in this helm chart.
+
+Once you have created this PersistentVolumeClaim (must be in the same namespace as your Qdrant cluster), set the following values:
+
+```
+snapshotRestoration:
+  enabled: true
+  pvcName: "<the name of your PVC>"
+  snapshots:
+  - /qdrant/snapshots/<collection_name>/<filename>/:<collection_name>
 ```
 
-### Unit tests
+And run "helm upgrade". This will restart your cluster and restore the specified collection from the snapshot. Qdrant will refuse to overwrite an existing collection, so ensure the collection is deleted before restoring.
 
-Unit tests are in the `./test` directory and written in Go with [terratest](https://github.com/gruntwork-io/terratest).
+After the snapshot is restored, remove the above values and run "helm upgrade" again to trigger another rolling restart. Otherwise, the snapshot restore will be attempted again if your cluster ever restarts.
 
-Prerequisites:
+## Contributing
 
-* Go
-
-```bash
-brew install go
-```
-
-To run the tests:
-
-```bash
-make test-unit
-```
-
-### Integration tests
-
-Integration tests are in the `./test/integration` directory and written with [bats](https://bats-core.readthedocs.io/).
-
-There is an additional simple Helm test in `./charts/qdrant/templates/tests`.
-
-Prerequisites:
-
-* Docker
-* Kind
-* Kubectl
-* Helm
-* Bats
-
-```bash
-brew install helm kubectl kind bats-core homebrew/cask/docker
-```
-
-To run the tests:
-
-```bash
-make test-integration
-```
-
-## Releasing
-
-Generally, we choose to release a new chart when there are important new releases to Qdrant or important chart-related changes.
-
-1. Check the release notes of [qdrant/qdrant](https://github.com/qdrant/qdrant/releases) to see if any environment variables or other settings need to be adjusted.
-2. Sync your local clone/fork of the [qdrant-helm](https://github.com/qdrant/qdrant-helm) repo: `git checkout main && git pull`
-3. Checkout a new feature branch: `git checkout -b feat/<name>/qdrant-<version>`
-4. Edit `Chart.yaml` to bump the appVersion and chartVersion.
-5. Edit `Chart.yaml` to update `artifacthub.io/changes` to mention the new changes.
-6. Edit `charts/CHANGELOG.md` to mention the same changes
-7. Edit the root `CHANGELOG.md` to mention the same changes
-    1. Why so many changelog changes? Each changelog file is for a different audience (artifacthub, chart browsing, github browsing). This could be automated in the future.
-8. Push your changes to GitHub and create a pull request. This allows the integration tests to run.
-
-As soon as these changes are merged to main, there is a [github action that detects changes to Chart.yaml](https://github.com/qdrant/qdrant-helm/blob/cea92d092ac330493147536e27f3edeb465ffe75/.github/workflows/release-workflow.yaml#L7) which will perform the remainder of the release operations (creating a github release, publishing the helm chart, updating index.html for the [github pages site](https://qdrant.github.io/qdrant-helm/), etc.)
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
