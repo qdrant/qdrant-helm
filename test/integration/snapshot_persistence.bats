@@ -32,4 +32,5 @@ setup_file() {
 
 teardown_file() {
     helm delete qdrant -n qdrant-helm-integration || true
+    kubectl wait --for=delete pod/qdrant-0 -n qdrant-helm-integration --timeout=300s
 }
