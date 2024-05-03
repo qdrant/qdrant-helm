@@ -59,11 +59,11 @@ data:
     QDRANT_COLLECTION="test_collection"
     {{- range .Values.service.ports }}
     {{- if eq .name "http" }}
-    echo "Connecting to {{ include "qdrant.fullname" $root }}:{{ .port }}"
-    QDRANT_URL="http://{{ include "qdrant.fullname" $root }}:{{ .port }}"
+    echo "Connecting to {{ include "qdrant.fullname" $root }}.{{ $namespace }}:{{ .port }}"
+    QDRANT_URL="http://{{ include "qdrant.fullname" $root }}.{{ $namespace }}:{{ .port }}"
     {{- if and $root.Values.config.service $root.Values.config.service.enable_tls }}
     echo "Using https"
-    QDRANT_URL="https://{{ include "qdrant.fullname" $root }}:{{ .port }}"
+    QDRANT_URL="https://{{ include "qdrant.fullname" $root }}.{{ $namespace }}:{{ .port }}"
     {{- end }}
     {{- end }}
     {{- end }}
