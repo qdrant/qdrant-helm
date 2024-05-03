@@ -4,3 +4,9 @@ snapshotRestoration:
   pvcName: snapshots-pvc
   # To be supplied via --set
   snapshots: []
+
+config:
+  storage:
+    # We override this so that we can easily save a snapshot in here
+    # directly without having to move the file around in our test
+    snapshots_path: /qdrant/snapshot-restoration

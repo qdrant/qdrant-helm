@@ -1,0 +1,11 @@
+snapshotPersistence:
+  enabled: true
+
+snapshotRestoration:
+  # Remove the PVC name since we will be restoring from the built-in PVC
+  pvcName: ""
+
+config:
+  storage:
+    # Override snapshot-values.yaml back to the default value
+    snapshots_path: /qdrant/snapshots

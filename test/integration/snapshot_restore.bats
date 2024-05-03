@@ -17,7 +17,7 @@ setup_file() {
 
     # Delete the collection, then restore
     kubectl exec -n default curl -- curl -X DELETE "$QDRANT_URL/collections/test_collection?wait"
-    helm upgrade --install qdrant charts/qdrant -n qdrant-helm-integration -f test/integration/assets/snapshot-values.yaml --set snapshotRestoration.snapshots="{/qdrant/snapshots/test_collection/$SNAPSHOT_NAME\:test_collection}" --wait
+    helm upgrade --install qdrant charts/qdrant -n qdrant-helm-integration -f test/integration/assets/snapshot-values.yaml --set snapshotRestoration.snapshots="{/qdrant/snapshot-restoration/test_collection/$SNAPSHOT_NAME\:test_collection}" --wait
     kubectl rollout status statefulset qdrant -n qdrant-helm-integration
 
     run kubectl exec -n default curl -- curl -s $QDRANT_URL/collections/test_collection/points/6 --fail-with-body
