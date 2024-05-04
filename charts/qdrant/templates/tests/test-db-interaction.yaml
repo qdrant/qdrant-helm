@@ -41,9 +41,15 @@ data:
   entrypoint.sh: |
     #!/bin/bash
     set -xe
+    # Kind's networking is very flaky
     echo 'connect-timeout = 5' > $HOME/.curlrc
-    echo 'retry = 5' >> $HOME/.curlrc
+    echo 'retry = 60' >> $HOME/.curlrc
+    echo 'retry-delay = 5' >> $HOME/.curlrc
     echo 'retry-all-errors' >> $HOME/.curlrc
+    # Don't clutter the logs with progress bars
+    echo 'no-progress-meter' >> $HOME/.curlrc
+    # Ensure errors cause the script to fail, but show the response body
+    echo 'fail-with-body' >> $HOME/.curlrc
 
     if [ -d /mnt/secrets/certs ]; then
       cp /mnt/secrets/certs/ca.pem /usr/share/pki/trust/anchors/private-ca.pem
@@ -76,7 +82,7 @@ data:
     -H 'Content-Type: application-json' \
     -d '{"vectors":{"size":4,"distance":"Dot"}}' \
     -H  "${API_KEY_HEADER}" \
-    $QDRANT_URL/collections/${QDRANT_COLLECTION} --fail-with-body
+    $QDRANT_URL/collections/${QDRANT_COLLECTION}
 
     # Insert points
     curl -X PUT \
@@ -90,11 +96,11 @@ data:
       {"id":6,"vector":[0.35, 0.08, 0.11, 0.44],"payload":{"city":"Mumbai"}}
     ]}' \
     -H  "${API_KEY_HEADER}" \
-    $QDRANT_URL/collections/${QDRANT_COLLECTION}/points --fail-with-body
+    $QDRANT_URL/collections/${QDRANT_COLLECTION}/points
 
     # Run query
     curl -X POST \
     -H 'Content-Type: application-json' \
     -d '{"vector":[0.2, 0.1, 0.9, 0.7],"limit":3}' \
     -H  "${API_KEY_HEADER}" \
-    $QDRANT_URL/collections/${QDRANT_COLLECTION}/points/search --fail-with-body
+    $QDRANT_URL/collections/${QDRANT_COLLECTION}/points/search

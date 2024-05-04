@@ -92,6 +92,19 @@ Some storage providers allow resizing volumes in-place, but most require a pod r
 kubectl rollout restart statefulset qdrant
 ```
 
+### Immutable Pod fields
+
+In addition to immutable fields on StatefulSets, Pods also have some fields which are immutable, which means the above method may not work for some changes, such as setting `snapshotPersistence.enabled: true`. In that case, after following the above method, you'll see an error like this when you `kubectl describe` your StatefulSet:
+
+```
+pod updates may not change fields other than `spec.containers[*].image`,
+`spec.initContainers[*].image`,`spec.activeDeadlineSeconds`,
+`spec.tolerations` (only additions to existing tolerations),
+`spec.terminationGracePeriodSeconds` (allow it to be set to 1 if it was previously negative)
+```
+
+To fix this, you must manually delete all of your Qdrant pods, starting with node-0. This will cause your cluster to go down, but will allow the StatefulSet to recreate your Pods with the correct configuration.
+
 ## Restoring from Snapshots
 
 This helm chart allows you to restore a snapshot into your Qdrant cluster either from an internal or external PersistentVolumeClaim.
