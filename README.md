@@ -31,7 +31,7 @@ If you have overridden the Qdrant image tag in `values.yaml`, you will also need
 
 ```yaml
 image:
-  tag: v1.X.Y
+  tag: vX.Y.Z
 ```
 
 ## Contributing
