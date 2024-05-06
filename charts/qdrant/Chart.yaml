@@ -13,15 +13,30 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 0.8.5
-appVersion: v1.9.0
+version: 0.9.0
+appVersion: v1.9.1
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.9.0
+      description: Update Qdrant to v1.9.1
     - kind: added
-      description: Allow ports to be configured as NodePort
+      description: Add labels to ConfigMap and Secret
       links:
         - name: Github Issue
-          url: https://github.com/qdrant/qdrant-helm/pull/165
+          url: https://github.com/qdrant/qdrant-helm/pull/174
+    - kind: added
+      description: Make lifecycle hooks configurable
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/175
+    - kind: added
+      description: Support storing snapshots in a separate PVC
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/177
+    - kind: added
+      description: Add both storage and snapshot volume names to values.yaml
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/181

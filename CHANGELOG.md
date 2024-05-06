@@ -1,5 +1,13 @@
 # Changelog
 
+## [qdrant-0.9.0](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.9.0) (2024-05-06)
+
+- Update Qdrant to v1.9.1
+- Add labels to ConfigMap and Secret [#174](https://github.com/qdrant/qdrant-helm/pull/174)
+- Make lifecycle hooks configurable [#175](https://github.com/qdrant/qdrant-helm/pull/175)
+- Support storing snapshots in a separate PVC [#177](https://github.com/qdrant/qdrant-helm/pull/177)
+- Add both storage and snapshot volume names to values.yaml [#181](https://github.com/qdrant/qdrant-helm/pull/181)
+
 ## [qdrant-0.8.5](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.8.5) (2024-04-25)
 
 - Update Qdrant to v1.9.0
@@ -49,7 +57,7 @@
 
 - Update Qdrant to v1.7.2
 - Publish DNS for not-ready pods via the headless service [#115](https://github.com/qdrant/qdrant-helm/pull/115)
-- 
+-
 ## [qdrant-0.7.2](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.7.2) (2023-12-12)
 
 - Use / for probes instead of /readyz endpoint
@@ -74,7 +82,7 @@
 - Make ingressClassName configurable [#86](https://github.com/qdrant/qdrant-helm/pull/86)
 - Fix probes to work correctly if TLS is enabled [#79](https://github.com/qdrant/qdrant-helm/pull/79)
 - Update Qdrant to v1.6.0
- 
+
 ## [qdrant-0.5.1](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.5.1) (2023-09-12)
 
 - Update Qdrant to v1.5.1
