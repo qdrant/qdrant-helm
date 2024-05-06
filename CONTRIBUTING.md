@@ -72,7 +72,7 @@ Generally, we choose to release a new chart when there are important new release
 4. Edit `Chart.yaml` to bump the appVersion and chartVersion.
 5. Edit `Chart.yaml` to update `artifacthub.io/changes` to mention the new changes.
 6. Edit `charts/CHANGELOG.md` to mention the same changes
-7. Edit the root `CHANGELOG.md` to mention the same changes
+7. Copy those changes to the root changelog: `cp charts/qdrant/CHANGELOG.md CHANGELOG.md`
     1. Why so many changelog changes? Each changelog file is for a different audience (artifacthub, chart browsing, github browsing). This could be automated in the future.
 8. Push your changes to GitHub and create a pull request. This allows the integration tests to run.
 
