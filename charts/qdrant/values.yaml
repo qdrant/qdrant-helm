@@ -128,6 +128,7 @@ persistence:
   accessModes: ["ReadWriteOnce"]
   size: 10Gi
   annotations: {}
+  # storageVolumeName: qdrant-storage
   # storageClassName: local-path
 
 # If you use snapshots or the snapshot shard transfer mechanism, we recommend
@@ -138,6 +139,7 @@ snapshotPersistence:
   accessModes: ["ReadWriteOnce"]
   size: 10Gi
   annotations: {}
+  # snapshotsVolumeName: qdrant-snapshots
   # You can change the storageClassName to ensure snapshots are saved to cold storage.
   # storageClassName: local-path
 
