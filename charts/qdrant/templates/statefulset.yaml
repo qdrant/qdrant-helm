@@ -55,7 +55,7 @@ spec:
           - {{ .Values.snapshotRestoration.mountPath }}
           {{- end }}
         volumeMounts:
-          - name: {{ .Values.persistence.storageVolumeName | default "qdrant-storage" }} 
+          - name: {{ .Values.persistence.storageVolumeName | default "qdrant-storage" }}
             mountPath: /qdrant/storage
           - name: {{ .Values.snapshotPersistence.snapshotsVolumeName | default "qdrant-snapshots" }}
             mountPath: /qdrant/snapshots
@@ -165,7 +165,7 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
-          - name: {{ .Values.persistence.storageVolumeName | default "qdrant-storage" }} 
+          - name: {{ .Values.persistence.storageVolumeName | default "qdrant-storage" }}
             mountPath: /qdrant/storage
           - name: qdrant-config
             mountPath: /qdrant/config/initialize.sh
@@ -182,7 +182,7 @@ spec:
           - name: qdrant-snapshot-restoration
             mountPath: {{ .Values.snapshotRestoration.mountPath }}
           {{- end }}
-          - name: {{ .Values.snapshotPersistence.snapshotsVolumeName | default "qdrant-snapshots" }} 
+          - name: {{ .Values.snapshotPersistence.snapshotsVolumeName | default "qdrant-snapshots" }}
             mountPath: /qdrant/snapshots
           - name: qdrant-init
             mountPath: /qdrant/init
@@ -221,7 +221,7 @@ spec:
             claimName: {{ .Values.snapshotRestoration.pvcName }}
         {{- end }}
         {{- if not .Values.snapshotPersistence.enabled }}
-        - name: {{ .Values.snapshotPersistence.snapshotsVolumeName | default "qdrant-snapshots" }} 
+        - name: {{ .Values.snapshotPersistence.snapshotsVolumeName | default "qdrant-snapshots" }}
           emptyDir: {}
         {{- end }}
         - name: qdrant-init
@@ -237,7 +237,7 @@ spec:
         {{- end}}
   volumeClaimTemplates:
     - metadata:
-        name: {{ .Values.persistence.storageVolumeName | default "qdrant-storage" }} 
+        name: {{ .Values.persistence.storageVolumeName | default "qdrant-storage" }}
         labels:
           app: {{ template "qdrant.name" . }}
         {{- with .Values.persistence.annotations }}
@@ -255,7 +255,7 @@ spec:
             storage: {{ .Values.persistence.size | quote }}
     {{- if .Values.snapshotPersistence.enabled }}
     - metadata:
-        name: {{ .Values.snapshotPersistence.snapshotsVolumeName | default "qdrant-snapshots" }} 
+        name: {{ .Values.snapshotPersistence.snapshotsVolumeName | default "qdrant-snapshots" }}
         labels:
           app: {{ template "qdrant.name" . }}
         {{- with .Values.snapshotPersistence.annotations }}
