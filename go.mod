@@ -7,7 +7,7 @@ toolchain go1.22.2
 require (
 	github.com/ghodss/yaml v1.0.0
 	github.com/gruntwork-io/terratest v0.46.14
-	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.73.2
+	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.74.0
 	github.com/samber/lo v1.39.0
 	github.com/stretchr/testify v1.9.0
 	helm.sh/helm/v3 v3.14.4
@@ -70,14 +70,14 @@ require (
 	github.com/urfave/cli/v2 v2.10.3 // indirect
 	github.com/virtuald/go-ordered-json v0.0.0-20170621173500-b18e6e673d74 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	golang.org/x/crypto v0.21.0 // indirect
+	golang.org/x/crypto v0.23.0 // indirect
 	golang.org/x/exp v0.0.0-20221106115401-f9659909a136 // indirect
-	golang.org/x/net v0.23.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/oauth2 v0.10.0 // indirect
 	golang.org/x/sync v0.4.0 // indirect
-	golang.org/x/sys v0.18.0 // indirect
-	golang.org/x/term v0.18.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/sys v0.20.0 // indirect
+	golang.org/x/term v0.20.0 // indirect
+	golang.org/x/text v0.15.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
