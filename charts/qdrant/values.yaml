@@ -201,6 +201,8 @@ serviceAccount:
 
 priorityClassName: ""
 
+shareProcessNamespace: false
+
 # We disourage changing this setting. Using the "OrderedReady" policy in a
 # multi-node cluster will cause a deadlock where nodes refuse to become
 # "Ready" until all nodes are running.
