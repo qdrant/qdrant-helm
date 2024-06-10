@@ -5,6 +5,32 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.9.4
+    apiVersion: v2
+    appVersion: v1.9.4
+    created: "2024-06-10T17:01:26.390674392Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 8801e3903aa08f860ca69a75242e0ec17f4203ef6e5b3f1889d43b78f5e1ffe9
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-0.9.1/qdrant-0.9.1.tgz
+    version: 0.9.1
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.9.1
         - kind: added
           description: Add labels to ConfigMap and Secret
@@ -823,4 +849,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-06T18:48:07.03900016Z"
+generated: "2024-06-10T17:01:26.390986469Z"
