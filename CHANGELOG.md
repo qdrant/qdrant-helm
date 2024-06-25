@@ -1,5 +1,9 @@
 # Changelog
 
+## [qdrant-0.9.4](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.9.4) (2024-06-25)
+
+- Update Qdrant to v1.9.7
+
 ## [qdrant-0.9.3](https://github.com/qdrant/qdrant-helm/tree/qdrant-0.9.3) (2024-06-22)
 
 - Update Qdrant to v1.9.6
