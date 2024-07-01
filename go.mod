@@ -6,7 +6,7 @@ toolchain go1.22.2
 
 require (
 	github.com/ghodss/yaml v1.0.0
-	github.com/gruntwork-io/terratest v0.46.14
+	github.com/gruntwork-io/terratest v0.46.16
 	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.74.0
 	github.com/samber/lo v1.39.0
 	github.com/stretchr/testify v1.9.0
