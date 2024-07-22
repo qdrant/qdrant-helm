@@ -40,4 +40,5 @@ spec:
   selector:
     matchLabels:
       {{- include "qdrant.labels" . | nindent 6 }}
+      app.kubernetes.io/component: cluster-discovery
 {{- end }}
