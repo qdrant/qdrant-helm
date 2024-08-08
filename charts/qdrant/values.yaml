@@ -121,6 +121,19 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+    # podAntiAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #   - labelSelector:
+    #       matchExpressions:
+    #         - key: app.kubernetes.io/name
+    #           operator: In
+    #           values:
+    #             - '{{ include "qdrant.name" . }}'
+    #         - key: app.kubernetes.io/instance
+    #           operator: In
+    #           values:
+    #             - '{{ .Release.Name }}'
+    #     topologyKey: "kubernetes.io/hostname"
 
 topologySpreadConstraints: []
 
