@@ -3,6 +3,42 @@ entries:
   qdrant:
   - annotations:
       artifacthub.io/category: database
+      artifacthub.io/changes: |-
+        - kind: added
+          description: Update Qdrant to v1.11.0
+        - kind: fixed
+          description: Apply additional label to headless Service + ServiceMonitor to avoid duplicate scraping
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/214
+        - kind: added
+          description: Apply tpl() to affinity values to enable reuse of helpers / labels
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/213
+    apiVersion: v2
+    appVersion: v1.11.0
+    created: "2024-08-13T07:54:40.530406585Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 3a6b21e4055cbf634faf9ade7c891cb8a69ed83b6b5b9208a76cd623dd216948
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.11.0/qdrant-1.11.0.tgz
+    version: 1.11.0
+  - annotations:
+      artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
           description: Update Qdrant to v1.10.1
@@ -979,4 +1015,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2024-07-19T09:12:06.088163032Z"
+generated: "2024-08-13T07:54:40.530667233Z"
