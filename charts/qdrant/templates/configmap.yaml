@@ -10,13 +10,13 @@ data:
     SET_INDEX=${HOSTNAME##*-}
     {{- if and (.Values.snapshotRestoration.enabled) (eq (.Values.replicaCount | quote)  (1 | quote)) }}
     echo "Starting initializing for pod $SET_INDEX and snapshots restoration"
-    exec ./entrypoint.sh --uri '{{ include "qdrant.protocol" . }}://{{ include "qdrant.fullname" . }}-0.{{ include "qdrant.fullname" . }}-headless:{{ include "qdrant.port" . }}' {{ range .Values.snapshotRestoration.snapshots }} --snapshot {{ . }} {{ end }}
+    exec ./entrypoint.sh --uri '{{ include "qdrant.p2p.protocol" . }}://{{ include "qdrant.fullname" . }}-0.{{ include "qdrant.fullname" . }}-headless:{{ include "qdrant.p2p.port" . }}' {{ range .Values.snapshotRestoration.snapshots }} --snapshot {{ . }} {{ end }}
     {{- else }}
     echo "Starting initializing for pod $SET_INDEX"
     if [ "$SET_INDEX" = "0" ]; then
-      exec ./entrypoint.sh --uri '{{ include "qdrant.protocol" . }}://{{ include "qdrant.fullname" . }}-0.{{ include "qdrant.fullname" . }}-headless:{{ include "qdrant.port" . }}'
+      exec ./entrypoint.sh --uri '{{ include "qdrant.p2p.protocol" . }}://{{ include "qdrant.fullname" . }}-0.{{ include "qdrant.fullname" . }}-headless:{{ include "qdrant.p2p.port" . }}'
     else
-      exec ./entrypoint.sh --bootstrap '{{ include "qdrant.protocol" . }}://{{ include "qdrant.fullname" . }}-0.{{ include "qdrant.fullname" . }}-headless:{{ include "qdrant.port" . }}' --uri '{{ include "qdrant.protocol" . }}://{{ include "qdrant.fullname" . }}-'"$SET_INDEX"'.{{ include "qdrant.fullname" . }}-headless:{{ include "qdrant.port" . }}'
+      exec ./entrypoint.sh --bootstrap '{{ include "qdrant.p2p.protocol" . }}://{{ include "qdrant.fullname" . }}-0.{{ include "qdrant.fullname" . }}-headless:{{ include "qdrant.p2p.port" . }}' --uri '{{ include "qdrant.p2p.protocol" . }}://{{ include "qdrant.fullname" . }}-'"$SET_INDEX"'.{{ include "qdrant.fullname" . }}-headless:{{ include "qdrant.p2p.port" . }}'
     fi
     {{ end }}
   production.yaml: |

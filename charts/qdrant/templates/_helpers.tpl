@@ -100,7 +100,7 @@ local.yaml: {{ printf "service:\n  read_only_api_key: %s" $readOnlyApiKey | b64e
 {{/*
 Protocol to use for inter cluster communication
 */}}
-{{- define "qdrant.protocol" -}}
+{{- define "qdrant.p2p.protocol" -}}
 {{ if eq (.Values.config.cluster.p2p.enable_tls | toJson) "true" -}}
 https
 {{- else -}}
@@ -111,6 +111,6 @@ http
 {{/*
 Port to use for inter cluster communication
 */}}
-{{- define "qdrant.port" -}}
+{{- define "qdrant.p2p.port" -}}
 {{- default 6335 .Values.config.cluster.p2p.port -}}
 {{- end -}}
