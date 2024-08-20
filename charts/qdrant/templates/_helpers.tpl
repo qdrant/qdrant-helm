@@ -68,15 +68,29 @@ Create secret
 {{- define "qdrant.secret" -}}
 {{- $readOnlyApiKey := false }}
 {{- $apiKey := false }}
-{{- if eq (.Values.apiKey | toJson) "true" -}}
-{{- /* retrieve existing randomly generated api key or create new one */ -}}
-{{- $secretObj := (lookup "v1" "Secret" .Release.Namespace (printf "%s-apikey" (include "qdrant.fullname" . ))) | default dict -}}
-{{- $secretData := (get $secretObj "data") | default dict -}}
-{{- $apiKey = (get $secretData "api-key" | b64dec) | default (randAlphaNum 32) -}}
+{{- if .Values.apiKey.valueFrom -}}
+  {{- /* Retrieve the value from the secret as specified in valueFrom */ -}}
+  {{- $secretName := .Values.apiKey.valueFrom.secretKeyRef.name -}}
+  {{- $secretKey := .Values.apiKey.valueFrom.secretKeyRef.key -}}
+  {{- $secretObj := (lookup "v1" "Secret" .Release.Namespace $secretName) | default dict -}}
+  {{- $secretData := (get $secretObj "data") | default dict -}}
+  {{- $apiKey = (get $secretData $secretKey | b64dec) -}}
+{{- else if .Values.apiKey | toJson | eq "true" -}}
+  {{- /* Retrieve existing randomly generated api key or create a new one */ -}}
+  {{- $secretObj := (lookup "v1" "Secret" .Release.Namespace (printf "%s-apikey" (include "qdrant.fullname" . ))) | default dict -}}
+  {{- $secretData := (get $secretObj "data") | default dict -}}
+  {{- $apiKey = (get $secretData "api-key" | b64dec) | default (randAlphaNum 32) -}}
 {{- else if .Values.apiKey -}}
-{{- $apiKey = .Values.apiKey -}}
+  {{- $apiKey = .Values.apiKey -}}
 {{- end -}}
-{{- if eq (.Values.readOnlyApiKey | toJson) "true" -}}
+{{- if .Values.readOnlyApiKey.valueFrom -}}
+  {{- /* Retrieve the value from the secret as specified in valueFrom */ -}}
+  {{- $secretName := .Values.readOnlyApiKey.valueFrom.secretKeyRef.name -}}
+  {{- $secretKey := .Values.readOnlyApiKey.valueFrom.secretKeyRef.key -}}
+  {{- $secretObj := (lookup "v1" "Secret" .Release.Namespace $secretName) | default dict -}}
+  {{- $secretData := (get $secretObj "data") | default dict -}}
+  {{- $readOnlyApiKey = (get $secretData $secretKey | b64dec) -}}
+{{- else if eq (.Values.readOnlyApiKey | toJson) "true" -}}
 {{- /* retrieve existing randomly generated api key or create new one */ -}}
 {{- $secretObj := (lookup "v1" "Secret" .Release.Namespace (printf "%s-apikey" (include "qdrant.fullname" . ))) | default dict -}}
 {{- $secretData := (get $secretObj "data") | default dict -}}

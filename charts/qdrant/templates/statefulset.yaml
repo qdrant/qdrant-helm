@@ -77,7 +77,11 @@ spec:
               value: /qdrant/init/.qdrant-initialized
           {{- range .Values.env }}
             - name: {{ .name }}
+              {{- if .valueFrom }}
+              valueFrom: {{- toYaml .valueFrom | nindent 16 }}
+              {{- else }}
               value: {{ .value | quote }}
+              {{- end }}
           {{- end }}
           command: ["/bin/bash", "-c"]
           {{- with .Values.args }}
