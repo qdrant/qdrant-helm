@@ -1,10 +1,8 @@
 # Changelog
 
-## [qdrant-1.11.0](https://github.com/qdrant/qdrant-helm/tree/qdrant-1.11.0) (2024-08-12)
+## [qdrant-1.11.1](https://github.com/qdrant/qdrant-helm/tree/qdrant-1.11.1) (2024-08-27)
 
-- Update Qdrant to v1.11.0
-- Apply additional label to headless Service + ServiceMonitor to avoid duplicate scraping [#214](https://github.com/qdrant/qdrant-helm/pull/214)
-- Apply tpl() to affinity values to enable reuse of helpers / labels [#213](https://github.com/qdrant/qdrant-helm/pull/213)
+- Update Qdrant to v1.11.1
 
 For the full changelog, see [CHANGELOG.md](https://github.com/qdrant/qdrant-helm/blob/main/CHANGELOG.md).
 
