@@ -1,6 +1,6 @@
 setup_file() {
     kubectl -n qdrant-helm-integration create secret generic qdrant-external-apikey --from-literal=apiKey=test-api-key --from-literal=readOnlyApiKey=test-read-only-api-key
-    helm upgrade --install qdrant charts/qdrant --set apiKey.valueFrom.secretKeyRef.name=qdrant-external-apikey,apiKey.valueFrom.secretKeyRef.key=test-api-key,readOnlyApiKey.valueFrom.secretKeyRef.name=qdrant-external-apikey,readOnlyApiKey.valueFrom.secretKeyRef.key=test-read-only-api-key -n qdrant-helm-integration --wait
+    helm upgrade --install qdrant charts/qdrant --set apiKey.valueFrom.secretKeyRef.name=qdrant-external-apikey,apiKey.valueFrom.secretKeyRef.key=apiKey,readOnlyApiKey.valueFrom.secretKeyRef.name=qdrant-external-apikey,readOnlyApiKey.valueFrom.secretKeyRef.key=readOnlyApiKey -n qdrant-helm-integration --wait
     kubectl rollout status statefulset qdrant -n qdrant-helm-integration
 }
 
