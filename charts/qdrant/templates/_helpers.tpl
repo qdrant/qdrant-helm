@@ -68,7 +68,7 @@ Create secret
 {{- define "qdrant.secret" -}}
 {{- $readOnlyApiKey := false }}
 {{- $apiKey := false }}
-{{- if eq (typeOf .Values.apiKey) "dict" -}}
+{{- if kindIs "map" .Values.apiKey -}}
 {{- if .Values.apiKey.valueFrom -}}
 {{- /* Retrieve the value from the secret as specified in valueFrom */ -}}
 {{- $secretName := .Values.apiKey.valueFrom.secretKeyRef.name -}}
@@ -85,7 +85,7 @@ Create secret
 {{- else if .Values.apiKey -}}
 {{- $apiKey = .Values.apiKey -}}
 {{- end -}}
-{{- if eq (typeOf .Values.apiKey) "dict" -}}
+{{- if kindIs "map" .Values.apiKey -}}
 {{- if .Values.readOnlyApiKey.valueFrom -}}
 {{- /* Retrieve the value from the secret as specified in valueFrom */ -}}
 {{- $secretName := .Values.readOnlyApiKey.valueFrom.secretKeyRef.name -}}
