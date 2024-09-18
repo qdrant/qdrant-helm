@@ -3,6 +3,42 @@ entries:
   qdrant:
   - annotations:
       artifacthub.io/category: database
+      artifacthub.io/changes: |-
+        - kind: added
+          description: Update Qdrant to v1.11.4
+        - kind: added
+          description: Prefer read_only_api_key in ServiceMonitor
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/221
+        - kind: added
+          description: Added support for reading apiKey and readOnlyApiKey from external secrets
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/230
+    apiVersion: v2
+    appVersion: v1.11.4
+    created: "2024-09-18T15:26:07.970508853Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 344b3bb8622972265fd904eb356e7584e40e4cd7d1202ed7eb2299e564499fba
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.11.4/qdrant-1.11.4.tgz
+    version: 1.11.4
+  - annotations:
+      artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
           description: Update Qdrant to v1.11.3
@@ -1093,4 +1129,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2024-08-30T08:33:25.343621836Z"
+generated: "2024-09-18T15:26:07.970823872Z"
