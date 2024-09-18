@@ -20,3 +20,13 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: Update Qdrant to v1.11.4
+    - kind: added
+      description: Prefer read_only_api_key in ServiceMonitor
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/221
+    - kind: added
+      description: Added support for reading apiKey and readOnlyApiKey from external secrets
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/230

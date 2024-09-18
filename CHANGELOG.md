@@ -1,8 +1,10 @@
 # Changelog
 
-## [qdrant-1.11.4](https://github.com/qdrant/qdrant-helm/tree/qdrant-1.11.4) (2024-09-17)
+## [qdrant-1.11.4](https://github.com/qdrant/qdrant-helm/tree/qdrant-1.11.4) (2024-09-18)
 
 - Update Qdrant to v1.11.4
+- Prefer read_only_api_key in ServiceMonitor [#221](https://github.com/qdrant/qdrant-helm/pull/221)
+- Added support for reading apiKey and readOnlyApiKey from external secrets [#230](https://github.com/qdrant/qdrant-helm/pull/230)
 
 ## [qdrant-1.11.3](https://github.com/qdrant/qdrant-helm/tree/qdrant-1.11.3) (2024-08-30)
 
