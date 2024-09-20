@@ -239,6 +239,7 @@ spec:
         {{- if .Values.additionalVolumes }}
 {{- toYaml .Values.additionalVolumes | default "" | nindent 8 }}
         {{- end}}
+{{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
     - metadata:
         name: {{ .Values.persistence.storageVolumeName | default "qdrant-storage" }}
@@ -276,3 +277,4 @@ spec:
           requests:
             storage: {{ .Values.snapshotPersistence.size | quote }}
     {{- end }}
+{{- end }}
