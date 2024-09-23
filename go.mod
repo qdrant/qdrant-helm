@@ -1,18 +1,17 @@
 module github.com/qdrant/qdrant-helm
 
 go 1.22.0
-
-toolchain go1.22.2
+toolchain go1.23.1
 
 require (
 	github.com/ghodss/yaml v1.0.0
 	github.com/gruntwork-io/terratest v0.47.0
-	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.75.2
+	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.77.0
 	github.com/samber/lo v1.47.0
 	github.com/stretchr/testify v1.9.0
 	helm.sh/helm/v3 v3.15.4
-	k8s.io/api v0.30.3
-	k8s.io/apimachinery v0.31.0
+	k8s.io/api v0.31.1
+	k8s.io/apimachinery v0.31.1
 )
 
 require (
@@ -73,14 +72,14 @@ require (
 	github.com/virtuald/go-ordered-json v0.0.0-20170621173500-b18e6e673d74 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	golang.org/x/crypto v0.25.0 // indirect
+	golang.org/x/crypto v0.27.0 // indirect
 	golang.org/x/exp v0.0.0-20221106115401-f9659909a136 // indirect
-	golang.org/x/net v0.26.0 // indirect
+	golang.org/x/net v0.29.0 // indirect
 	golang.org/x/oauth2 v0.10.0 // indirect
-	golang.org/x/sync v0.7.0 // indirect
-	golang.org/x/sys v0.22.0 // indirect
-	golang.org/x/term v0.22.0 // indirect
-	golang.org/x/text v0.16.0 // indirect
+	golang.org/x/sync v0.8.0 // indirect
+	golang.org/x/sys v0.25.0 // indirect
+	golang.org/x/term v0.24.0 // indirect
+	golang.org/x/text v0.18.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
@@ -90,7 +89,7 @@ require (
 	k8s.io/client-go v0.30.3 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20240228011516-70dd3763d340 // indirect
-	k8s.io/utils v0.0.0-20240711033017-18e509b52bc8 // indirect
+	k8s.io/utils v0.0.0-20240902221715-702e33fdd3c3 // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
