@@ -5,9 +5,9 @@
 ## TLDR
 
 ```bash
-helm repo add qdrant https://qdrant.github.io/qdrant-helm
+helm repo add qdrant_helm https://qdrant.github.io/qdrant-helm
 helm repo update
-helm upgrade -i your-qdrant-installation-name qdrant/qdrant
+helm upgrade -i your-qdrant-installation-name qdrant_helm/qdrant
 ```
 
 ## Description
@@ -25,7 +25,7 @@ This chart installs and bootstraps a Qdrant instance.
 You can install the chart from source via:
 
 ```bash
-helm upgrade -i your-qdrant-installation-name charts/qdrant
+helm upgrade -i your-qdrant-installation-name qdrant_helm/qdrant
 ```
 
 Uninstall via:

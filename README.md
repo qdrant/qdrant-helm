@@ -9,9 +9,9 @@ This repository hosts the following helm charts:
 ## Usage
 
 ```bash
-helm repo add qdrant https://qdrant.github.io/qdrant-helm
+helm repo add qdrant_helm https://qdrant.github.io/qdrant-helm
 helm repo update
-helm upgrade -i your-qdrant-installation-name qdrant/qdrant
+helm upgrade -i your-qdrant-installation-name qdrant_helm/qdrant
 ```
 
 For more in-depth usage documentation, see [the helm chart's README](charts/qdrant/README.md).
@@ -22,7 +22,7 @@ This helm chart installs the latest version of Qdrant by default. When a new ver
 
 ```bash
 helm repo update
-helm upgrade your-qdrant-installation-name qdrant/qdrant
+helm upgrade your-qdrant-installation-name qdrant_helm/qdrant
 ```
 
 This command performs a rolling upgrade of your Qdrant cluster, updating one node at a time.
