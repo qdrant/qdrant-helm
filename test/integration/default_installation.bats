@@ -24,11 +24,7 @@ setup_file() {
     run kubectl logs -n qdrant-helm-integration qdrant-0
     [ $status -eq 0 ]
     [[ "${output}" =~ .*INFO.* ]]
-    if [[ ! "${output}" =~ .*ERR.* ]]; then
-        echo "Found error output:"
-        echo "${output}"
-        return 1
-    fi
+    [[ ! "${output}" =~ .*ERR.* ]]
 }
 
 @test "SIGTERM signals are propagated to qdrant" {
