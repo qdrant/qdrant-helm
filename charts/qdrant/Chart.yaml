@@ -13,10 +13,10 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 1.12.3
-appVersion: v1.12.2
+version: 1.12.4
+appVersion: v1.12.3
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.12.2
+      description: Update Qdrant to v1.12.3
