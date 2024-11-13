@@ -12,7 +12,7 @@ setup_file() {
     run kubectl logs -n qdrant-helm-integration qdrant-0
     [ $status -eq 0 ]
     [[ "${output}" =~ .*INFO.* ]]
-    if [[ ! "${output}" =~ .*WARN.* ]]; then
+    if [[ "${output}" =~ .*WARN.* ]]; then
         echo "Found warning output:"
         echo "${output}"
         return 1
