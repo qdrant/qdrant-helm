@@ -9,7 +9,7 @@ require (
 	github.com/gruntwork-io/terratest v0.47.2
 	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.78.1
 	github.com/samber/lo v1.47.0
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	helm.sh/helm/v3 v3.16.2
 	k8s.io/api v0.31.2
 	k8s.io/apimachinery v0.31.2
