@@ -11,7 +11,7 @@ require (
 	github.com/samber/lo v1.47.0
 	github.com/stretchr/testify v1.10.0
 	helm.sh/helm/v3 v3.16.2
-	k8s.io/api v0.31.2
+	k8s.io/api v0.31.3
 	k8s.io/apimachinery v0.31.3
 )
 
