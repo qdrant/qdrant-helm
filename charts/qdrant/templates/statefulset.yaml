@@ -57,8 +57,10 @@ spec:
         volumeMounts:
           - name: {{ .Values.persistence.storageVolumeName | default "qdrant-storage" }}
             mountPath: /qdrant/storage
+            subPath: "{{ .Values.persistence.storageSubPath }}"
           - name: {{ .Values.snapshotPersistence.snapshotsVolumeName | default "qdrant-snapshots" }}
             mountPath: /qdrant/snapshots
+            subPath: "{{ .Values.snapshotPersistence.snapshotsSubPath }}"
           {{- if and .Values.snapshotRestoration.enabled .Values.snapshotRestoration.pvcName }}
           - name: qdrant-snapshot-restoration
             mountPath: {{ .Values.snapshotRestoration.mountPath }}
@@ -171,6 +173,7 @@ spec:
           volumeMounts:
           - name: {{ .Values.persistence.storageVolumeName | default "qdrant-storage" }}
             mountPath: /qdrant/storage
+            subPath: "{{ .Values.persistence.storageSubPath }}"
           - name: qdrant-config
             mountPath: /qdrant/config/initialize.sh
             subPath: initialize.sh
@@ -188,6 +191,7 @@ spec:
           {{- end }}
           - name: {{ .Values.snapshotPersistence.snapshotsVolumeName | default "qdrant-snapshots" }}
             mountPath: /qdrant/snapshots
+            subPath: "{{ .Values.snapshotPersistence.snapshotsSubPath }}"
           - name: qdrant-init
             mountPath: /qdrant/init
           {{- if .Values.additionalVolumeMounts }}
