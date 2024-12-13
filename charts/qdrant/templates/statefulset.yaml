@@ -218,7 +218,7 @@ spec:
         - name: qdrant-config
           configMap:
             name: {{ include "qdrant.fullname" . }}
-            defaultMode: 0755
+            defaultMode: 0o755
         {{- if and .Values.snapshotRestoration.enabled .Values.snapshotRestoration.pvcName }}
         - name: qdrant-snapshot-restoration
           persistentVolumeClaim:
@@ -234,7 +234,7 @@ spec:
         - name: qdrant-secret
           secret:
             secretName: {{ include "qdrant.fullname" . }}-apikey
-            defaultMode: 0600
+            defaultMode: 0o600
         {{- end }}
         {{- if .Values.additionalVolumes }}
 {{- toYaml .Values.additionalVolumes | default "" | nindent 8 }}
