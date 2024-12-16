@@ -1,6 +1,6 @@
 setup_suite() {
     kind create cluster -n qdrant-helm-integration
-    kubectl create serviceaccount default -n default
+    kubectl create serviceaccount default -n default || true
     kubectl -n default run curl --image=docker.io/curlimages/curl --command -- sh -c '
     echo "connect-timeout = 5" > $HOME/.curlrc;
     echo "retry = 60" >> $HOME/.curlrc;
