@@ -7,7 +7,7 @@ toolchain go1.23.3
 require (
 	github.com/ghodss/yaml v1.0.0
 	github.com/gruntwork-io/terratest v0.48.0
-	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.78.2
+	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.79.0
 	github.com/samber/lo v1.47.0
 	github.com/stretchr/testify v1.10.0
 	helm.sh/helm/v3 v3.16.3
@@ -116,7 +116,7 @@ require (
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	golang.org/x/crypto v0.31.0 // indirect
 	golang.org/x/exp v0.0.0-20221106115401-f9659909a136 // indirect
-	golang.org/x/net v0.31.0 // indirect
+	golang.org/x/net v0.32.0 // indirect
 	golang.org/x/oauth2 v0.24.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
@@ -131,8 +131,8 @@ require (
 	k8s.io/client-go v0.32.0 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20241105132330-32ad38e42d3f // indirect
-	k8s.io/utils v0.0.0-20241104100929-3ea5e8cea738 // indirect
-	sigs.k8s.io/json v0.0.0-20241010143419-9aa6b5e7a4b3 // indirect
-	sigs.k8s.io/structured-merge-diff/v4 v4.4.2 // indirect
+	k8s.io/utils v0.0.0-20241210054802-24370beab758 // indirect
+	sigs.k8s.io/json v0.0.0-20241014173422-cfa47c3a1cc8 // indirect
+	sigs.k8s.io/structured-merge-diff/v4 v4.5.0 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
