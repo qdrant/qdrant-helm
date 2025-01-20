@@ -10,7 +10,7 @@ require (
 	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.79.2
 	github.com/samber/lo v1.47.0
 	github.com/stretchr/testify v1.10.0
-	helm.sh/helm/v3 v3.16.4
+	helm.sh/helm/v3 v3.17.0
 	k8s.io/api v0.32.0
 	k8s.io/apimachinery v0.32.0
 )
