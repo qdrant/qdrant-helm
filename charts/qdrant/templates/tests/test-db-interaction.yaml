@@ -21,11 +21,11 @@ spec:
         {{- end}}
   {{- with .Values.nodeSelector }}
   nodeSelector:
-    {{- toYaml . | nindent 8 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- with .Values.tolerations }}
   tolerations:
-    {{- toYaml . | nindent 8 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   volumes:
     - name: test-script
