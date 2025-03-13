@@ -19,8 +19,19 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: '^1.23.0'
+          go-version: '^1.24.1'
           cache-dependency-path: go.sum
+
+      - name: Check Go Formatting
+        run: |
+          files=$(gofmt -l .) && echo $files && [ -z "$files" ]
+
+      - name: Golang CI Lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          working-directory: test
+          version: v1.64.7 # Specify the golangci-lint version, so we are stable
+          args: --timeout 10m # Increase the timeout to 10 minutes
 
       - name: Run unit tests
         run: make test-unit
@@ -28,7 +39,7 @@ jobs:
       - name: Setup BATS
         uses: mig4/setup-bats@v1
         with:
-          bats-version: 1.10.0
+          bats-version: 1.11.1
 
       - name: Run integration tests
         run: make test-integration
