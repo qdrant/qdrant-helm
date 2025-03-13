@@ -8,6 +8,10 @@ metadata:
 {{- with .Values.service.additionalLabels }}
 {{- toYaml . | nindent 4 }}
 {{- end }}
+{{- if .Values.service.annotations }}
+  annotations:
+{{ toYaml .Values.service.annotations | indent 4 }}
+{{- end }}
 spec:
   clusterIP: None
   publishNotReadyAddresses: true
