@@ -19,6 +19,14 @@ spec:
         {{- if .Values.additionalVolumeMounts }}
 {{- toYaml .Values.additionalVolumeMounts | default "" | nindent 8 }}
         {{- end}}
+  {{- with .Values.nodeSelector }}
+  nodeSelector:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.tolerations }}
+  tolerations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   volumes:
     - name: test-script
       configMap:
