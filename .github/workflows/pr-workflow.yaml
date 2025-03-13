@@ -17,8 +17,12 @@ jobs:
       - name: Run lint
         run: make lint
 
-      - name: Run lint on unit tests
-        run: make test-unit-lint
+      - name: Check Go Formatting
+        run: |
+          files=$(gofmt -l .) && echo $files && [ -z "$files" ]
+
+      - name: Golang CI Lint
+        uses: golangci/golangci-lint-action@v6
 
       - uses: actions/setup-go@v5
         with:
