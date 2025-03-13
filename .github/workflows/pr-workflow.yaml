@@ -30,6 +30,7 @@ jobs:
         uses: golangci/golangci-lint-action@v6
         with:
           working-directory: test
+          version: v1.61.0 # Specify the golangci-lint version, so we are stable
           args: --timeout 10m # Increase the timeout to 10 minutes
 
       - name: Run unit tests
