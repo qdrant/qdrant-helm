@@ -30,6 +30,7 @@ jobs:
         uses: golangci/golangci-lint-action@v6
         with:
           working-directory: test
+          args: --timeout 10m # Increase the timeout to 10 minutes
 
       - name: Run unit tests
         run: make test-unit
