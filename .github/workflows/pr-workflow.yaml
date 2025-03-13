@@ -17,17 +17,17 @@ jobs:
       - name: Run lint
         run: make lint
 
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '^1.24.1'
+          cache-dependency-path: go.sum
+
       - name: Check Go Formatting
         run: |
           files=$(gofmt -l .) && echo $files && [ -z "$files" ]
 
       - name: Golang CI Lint
         uses: golangci/golangci-lint-action@v6
-
-      - uses: actions/setup-go@v5
-        with:
-          go-version: '^1.24.1'
-          cache-dependency-path: go.sum
 
       - name: Run unit tests
         run: make test-unit
