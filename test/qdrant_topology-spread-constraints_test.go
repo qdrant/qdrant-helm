@@ -25,7 +25,19 @@ func TestTopologySpreadConstraints(t *testing.T) {
 
 	options := &helm.Options{
 		SetJsonValues: map[string]string{
-			"topologySpreadConstraints": `[{"maxSkew":1,"topologyKey":"kubernetes.io/hostname","whenUnsatisfiable":"DoNotSchedule","labelSelector":{"matchLabels":{"app":"qdrant"}}}]`,
+			"topologySpreadConstraints": `
+			[
+                {
+                    "maxSkew": 1,
+					"topologyKey": "topology.kubernetes.io/zone",
+				    "labelSelector": {
+                        "matchLabels": {
+                            "app.kubernetes.io/name": "{{ include \"qdrant.name\" . }}"
+                        }
+                    },
+                    "whenUnsatisfiable": "DoNotSchedule"
+                }
+            ]`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
