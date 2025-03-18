@@ -20,4 +20,4 @@ data:
     fi
     {{ end }}
   production.yaml: |
-    {{- toYaml .Values.config | nindent 4 }}
+    {{- tpl (toYaml .Values.config) . | nindent 4 }}
