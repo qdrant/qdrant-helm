@@ -7,25 +7,25 @@ setup_file() {
     openssl req -new -key test/integration/assets/tls.key -out test/integration/assets/tls.csr -subj "/C=DE/ST=Berlin/L=Berlin/O=Qdrant/OU=Cloud/CN=qdrant.qdrant-helm-integration"
     openssl x509 -req -passin pass:insecure -in test/integration/assets/tls.csr -CA test/integration/assets/ca.pem -CAkey test/integration/assets/ca.key -CAcreateserial -extensions v3_req -extfile test/integration/assets/cert.cfg -out test/integration/assets/tls.crt -days 825 -sha256
 
-    helm del qdrant -n qdrant-helm-integration || true
-    kubectl -n qdrant-helm-integration delete secret test-tls || true
-    kubectl -n qdrant-helm-integration create secret generic test-tls --from-file=tls.key="test/integration/assets/tls.key" --from-file=tls.crt="test/integration/assets/tls.crt" --from-file=ca.pem="test/integration/assets/ca.pem"
-    helm upgrade --install qdrant charts/qdrant -n qdrant-helm-integration --wait -f test/integration/assets/tls-p2p-values.yaml
-    kubectl rollout status statefulset qdrant -n qdrant-helm-integration
+    kubectl create ns qdrant-p2ptlstest
+    kubectl -n qdrant-p2ptlstest create secret generic test-tls --from-file=tls.key="test/integration/assets/tls.key" --from-file=tls.crt="test/integration/assets/tls.crt" --from-file=ca.pem="test/integration/assets/ca.pem"
+    helm upgrade --install qdrant charts/qdrant -n qdrant-p2ptlstest --wait -f test/integration/assets/tls-p2p-values.yaml
+    kubectl rollout status statefulset qdrant -n qdrant-p2ptlstest
 }
 
 @test "Connection with https" {
-    run kubectl exec -n default curl -- curl -k -s https://qdrant.qdrant-helm-integration:6333/collections --fail-with-body
+    run kubectl exec -n default curl -- curl -k -s https://qdrant.qdrant-p2ptlstest:6333/collections --fail-with-body
     [ $status -eq 0 ]
     [[ "${output}" =~ .*\"status\":\"ok\".* ]]
 }
 
 @test "helm test - with https" {
-    run helm test qdrant -n qdrant-helm-integration --logs
+    run helm test qdrant -n qdrant-p2ptlstest --logs
     [ $status -eq 0 ]
 }
 
 teardown_file() {
-    helm del qdrant -n qdrant-helm-integration || true
-    kubectl -n qdrant-helm-integration delete secret test-tls || true
+    helm del qdrant -n qdrant-p2ptlstest
+    kubectl -n qdrant-p2ptlstest delete secret test-tls
+    kubectl delete ns qdrant-p2ptlstest
 }
