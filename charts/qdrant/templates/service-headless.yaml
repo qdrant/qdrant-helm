@@ -21,6 +21,9 @@ spec:
       port: {{ .port }}
       targetPort: {{ .targetPort }}
       protocol: {{ .protocol | default "TCP" }}
+      {{- if .appProtocol }}
+      appProtocol: {{ .appProtocol }}
+      {{- end }}
     {{- end }}
   selector:
     {{- include "qdrant.selectorLabels" . | nindent 4 }}
