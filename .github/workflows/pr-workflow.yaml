@@ -22,6 +22,12 @@ jobs:
           go-version: '^1.24.1'
           cache-dependency-path: go.sum
 
+      - name: Run kubeconform
+        shell: bash
+        run: |
+          go install github.com/yannh/kubeconform/cmd/kubeconform@v0.6.7
+          helm template charts/qdrant | kubeconform --summary -output pretty -schema-location default -schema-location "https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json"
+
       - name: Check Go Formatting
         run: |
           files=$(gofmt -l .) && echo $files && [ -z "$files" ]
