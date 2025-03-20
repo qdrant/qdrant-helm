@@ -7,6 +7,7 @@ setup_file() {
     openssl req -new -key test/integration/assets/tls.key -out test/integration/assets/tls.csr -subj "/C=DE/ST=Berlin/L=Berlin/O=Qdrant/OU=Cloud/CN=qdrant.qdrant-helm-integration"
     openssl x509 -req -passin pass:insecure -in test/integration/assets/tls.csr -CA test/integration/assets/ca.pem -CAkey test/integration/assets/ca.key -CAcreateserial -out test/integration/assets/tls.crt -days 825 -sha256
 
+    kubectl -n qdrant-helm-integration delete secret test-tls || true
     kubectl -n qdrant-helm-integration create secret generic test-tls --from-file=tls.key="test/integration/assets/tls.key" --from-file=tls.crt="test/integration/assets/tls.crt" --from-file=ca.pem="test/integration/assets/ca.pem"
     helm upgrade --install qdrant charts/qdrant -n qdrant-helm-integration --wait -f test/integration/assets/tls-values.yaml
     kubectl rollout status statefulset qdrant -n qdrant-helm-integration

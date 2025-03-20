@@ -1,3 +1,5 @@
+replicaCount: 2
+
 additionalVolumes:
   - secret:
       secretName: test-tls
@@ -8,6 +10,7 @@ additionalVolumeMounts:
     mountPath: /mnt/secrets/certs
 
 config:
+  log_level: DEBUG
   service:
     enable_tls: true
   tls:
@@ -15,5 +18,6 @@ config:
     key: "/mnt/secrets/certs/tls.key"
     ca_cert: "/mnt/secrets/certs/ca.pem"
   cluster:
+    enabled: true
     p2p:
-      enable_tls: false
+      enable_tls: true

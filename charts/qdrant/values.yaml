@@ -176,6 +176,7 @@ config:
     enabled: true
     p2p:
       port: 6335
+      enable_tls: false
     consensus:
       tick_period_ms: 100
 

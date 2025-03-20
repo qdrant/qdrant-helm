@@ -114,3 +114,21 @@ read-only-api-key: {{ $readOnlyApiKey | b64enc }}
 local.yaml: {{ printf "service:\n  read_only_api_key: %s" $readOnlyApiKey | b64enc }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Protocol to use for inter cluster communication
+*/}}
+{{- define "qdrant.p2p.protocol" -}}
+{{ if eq (.Values.config.cluster.p2p.enable_tls | toJson) "true" -}}
+https
+{{- else -}}
+http
+{{- end -}}
+{{- end -}}
+
+{{/*
+Port to use for inter cluster communication
+*/}}
+{{- define "qdrant.p2p.port" -}}
+{{- default 6335 .Values.config.cluster.p2p.port -}}
+{{- end -}}
