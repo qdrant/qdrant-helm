@@ -3,6 +3,44 @@ entries:
   qdrant:
   - annotations:
       artifacthub.io/category: database
+      artifacthub.io/changes: "- kind: added\n  description: Update Qdrant to v1.13.5\n-
+        kind: added\n  description: Add support for P2P TLS\n  links:\n    - name:
+        Github Issue\n      url: https://github.com/qdrant/qdrant-helm/pull/314\n-
+        kind: added\n  description: Make Service appProtocol configurable\n  links:\n
+        \   - name: Github Issue\n      url: https://github.com/qdrant/qdrant-helm/pull/313
+        \   \n- kind: added\n  description: Templating for config values\n  links:\n
+        \   - name: Github Issue\n      url: https://github.com/qdrant/qdrant-helm/pull/308
+        \   \n- kind: added\n  description: Templating for topologySpreadConstraints\n
+        \ links:\n    - name: Github Issue\n      url: https://github.com/qdrant/qdrant-helm/pull/309
+        \   \n- kind: added\n  description: Use tolerations and nodeSelector in test
+        hook\n  links:\n    - name: Github Issue\n      url: https://github.com/qdrant/qdrant-helm/pull/307
+        \   \n- kind: added\n  description: Set Service annotations on headless Service\n
+        \ links:\n    - name: Github Issue\n      url: https://github.com/qdrant/qdrant-helm/pull/305
+        \   \n- kind: added\n  description: Support optional subPath for volumeMounts\n
+        \ links:\n    - name: Github Issue\n      url: https://github.com/qdrant/qdrant-helm/pull/271"
+    apiVersion: v2
+    appVersion: v1.13.5
+    created: "2025-03-21T17:21:01.476142557Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 90da03609a6d0681b21947980492c29e8e32d70e7b0cc95638a2dc79f755b0f7
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.13.5/qdrant-1.13.5.tgz
+    version: 1.13.5
+  - annotations:
+      artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
           description: Update Qdrant to v1.13.4
@@ -1467,4 +1505,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-17T15:12:08.820543174Z"
+generated: "2025-03-21T17:21:01.476380521Z"
