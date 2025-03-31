@@ -13,45 +13,10 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 1.13.5
-appVersion: v1.13.5
+version: 1.13.6
+appVersion: v1.13.6
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.13.5
-    - kind: added
-      description: Add support for P2P TLS
-      links:
-        - name: Github Issue
-          url: https://github.com/qdrant/qdrant-helm/pull/314
-    - kind: added
-      description: Make Service appProtocol configurable
-      links:
-        - name: Github Issue
-          url: https://github.com/qdrant/qdrant-helm/pull/313    
-    - kind: added
-      description: Templating for config values
-      links:
-        - name: Github Issue
-          url: https://github.com/qdrant/qdrant-helm/pull/308    
-    - kind: added
-      description: Templating for topologySpreadConstraints
-      links:
-        - name: Github Issue
-          url: https://github.com/qdrant/qdrant-helm/pull/309    
-    - kind: added
-      description: Use tolerations and nodeSelector in test hook
-      links:
-        - name: Github Issue
-          url: https://github.com/qdrant/qdrant-helm/pull/307    
-    - kind: added
-      description: Set Service annotations on headless Service
-      links:
-        - name: Github Issue
-          url: https://github.com/qdrant/qdrant-helm/pull/305    
-    - kind: added
-      description: Support optional subPath for volumeMounts
-      links:
-        - name: Github Issue
-          url: https://github.com/qdrant/qdrant-helm/pull/271
+      description: Update Qdrant to v1.13.6
