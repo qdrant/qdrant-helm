@@ -3,6 +3,32 @@ entries:
   qdrant:
   - annotations:
       artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
+          description: Update Qdrant to v1.13.6
+    apiVersion: v2
+    appVersion: v1.13.6
+    created: "2025-04-01T07:49:46.973166427Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: d07eb93438a857437e047b71217f6bd5db8b8d12dd7468defc09cbddb54e2aae
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.13.6/qdrant-1.13.6.tgz
+    version: 1.13.6
+  - annotations:
+      artifacthub.io/category: database
       artifacthub.io/changes: "- kind: added\n  description: Update Qdrant to v1.13.5\n-
         kind: added\n  description: Add support for P2P TLS\n  links:\n    - name:
         Github Issue\n      url: https://github.com/qdrant/qdrant-helm/pull/314\n-
@@ -1505,4 +1531,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-21T17:21:01.476380521Z"
+generated: "2025-04-01T07:49:46.973426655Z"
