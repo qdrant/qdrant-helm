@@ -262,3 +262,7 @@ additionalVolumes: []
 additionalVolumeMounts: []
 # - name: volumeName
 #   mountPath: "/mount/path"
+
+chartTests:
+  dbInteraction:
+    image: registry.suse.com/bci/bci-base:latest
