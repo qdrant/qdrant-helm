@@ -37,8 +37,8 @@ func TestPvcAnnotations(t *testing.T) {
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
 
-	require.Contains(t, statefulSet.Spec.VolumeClaimTemplates[0].ObjectMeta.Annotations, "test")
-	require.Equal(t, statefulSet.Spec.VolumeClaimTemplates[0].ObjectMeta.Annotations["test"], "value")
+	require.Contains(t, statefulSet.Spec.VolumeClaimTemplates[0].Annotations, "test")
+	require.Equal(t, statefulSet.Spec.VolumeClaimTemplates[0].Annotations["test"], "value")
 }
 
 func TestIngressAnnotations(t *testing.T) {
@@ -64,8 +64,8 @@ func TestIngressAnnotations(t *testing.T) {
 	var ingress networkingv1.Ingress
 	helm.UnmarshalK8SYaml(t, output, &ingress)
 
-	require.Contains(t, ingress.ObjectMeta.Annotations, "test")
-	require.Equal(t, ingress.ObjectMeta.Annotations["test"], "value")
+	require.Contains(t, ingress.Annotations, "test")
+	require.Equal(t, ingress.Annotations["test"], "value")
 }
 
 func TestServiceAccountAnnotations(t *testing.T) {
@@ -90,6 +90,6 @@ func TestServiceAccountAnnotations(t *testing.T) {
 	var serviceAccount v1.ServiceAccount
 	helm.UnmarshalK8SYaml(t, output, &serviceAccount)
 
-	require.Contains(t, serviceAccount.ObjectMeta.Annotations, "test")
-	require.Equal(t, serviceAccount.ObjectMeta.Annotations["test"], "value")
+	require.Contains(t, serviceAccount.Annotations, "test")
+	require.Equal(t, serviceAccount.Annotations["test"], "value")
 }
