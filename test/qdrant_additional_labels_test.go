@@ -41,10 +41,10 @@ func TestAdditionalLabelsAreSetOnStatefulset(t *testing.T) {
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
 
-	require.Contains(t, statefulSet.ObjectMeta.Labels, "test")
-	require.Equal(t, "additionalLabels", statefulSet.ObjectMeta.Labels["test"])
-	require.Contains(t, statefulSet.Spec.Template.ObjectMeta.Labels, "test")
-	require.Equal(t, "podLabels", statefulSet.Spec.Template.ObjectMeta.Labels["test"])
+	require.Contains(t, statefulSet.Labels, "test")
+	require.Equal(t, "additionalLabels", statefulSet.Labels["test"])
+	require.Contains(t, statefulSet.Spec.Template.Labels, "test")
+	require.Equal(t, "podLabels", statefulSet.Spec.Template.Labels["test"])
 }
 
 func TestAdditionalLabelsAreSetOnService(t *testing.T) {
@@ -69,8 +69,8 @@ func TestAdditionalLabelsAreSetOnService(t *testing.T) {
 	var service corev1.Service
 	helm.UnmarshalK8SYaml(t, output, &service)
 
-	require.Contains(t, service.ObjectMeta.Labels, "test")
-	require.Equal(t, "serviceAdditionalLabels", service.ObjectMeta.Labels["test"])
+	require.Contains(t, service.Labels, "test")
+	require.Equal(t, "serviceAdditionalLabels", service.Labels["test"])
 }
 
 func TestAdditionalLabelsAreSetOnServiceHeadless(t *testing.T) {
@@ -95,8 +95,8 @@ func TestAdditionalLabelsAreSetOnServiceHeadless(t *testing.T) {
 	var service corev1.Service
 	helm.UnmarshalK8SYaml(t, output, &service)
 
-	require.Contains(t, service.ObjectMeta.Labels, "test")
-	require.Equal(t, "serviceAdditionalLabels", service.ObjectMeta.Labels["test"])
+	require.Contains(t, service.Labels, "test")
+	require.Equal(t, "serviceAdditionalLabels", service.Labels["test"])
 }
 
 func TestAdditionalLabelsAreSetOnServiceMonitor(t *testing.T) {
@@ -122,8 +122,8 @@ func TestAdditionalLabelsAreSetOnServiceMonitor(t *testing.T) {
 	var serviceMonitor monitoringv1.ServiceMonitor
 	helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
 
-	require.Contains(t, serviceMonitor.ObjectMeta.Labels, "test")
-	require.Equal(t, "serviceMonitorAdditionalLabels", serviceMonitor.ObjectMeta.Labels["test"])
+	require.Contains(t, serviceMonitor.Labels, "test")
+	require.Equal(t, "serviceMonitorAdditionalLabels", serviceMonitor.Labels["test"])
 }
 
 func TestAdditionalLabelsAreSetOnIngress(t *testing.T) {
@@ -149,6 +149,6 @@ func TestAdditionalLabelsAreSetOnIngress(t *testing.T) {
 	var ingress networkingv1.Ingress
 	helm.UnmarshalK8SYaml(t, output, &ingress)
 
-	require.Contains(t, ingress.ObjectMeta.Labels, "test")
-	require.Equal(t, "ingressAdditionalLabels", ingress.ObjectMeta.Labels["test"])
+	require.Contains(t, ingress.Labels, "test")
+	require.Equal(t, "ingressAdditionalLabels", ingress.Labels["test"])
 }
