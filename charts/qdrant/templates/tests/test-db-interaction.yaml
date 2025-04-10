@@ -11,7 +11,7 @@ metadata:
 spec:
   containers:
     - name: test-script
-      image: registry.suse.com/bci/bci-base:latest
+      image: {{ .Values.chartTests.dbInteraction.image | quote }}
       args: ['bash', '/app/entrypoint.sh']
       volumeMounts:
         - mountPath: /app
