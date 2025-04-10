@@ -114,8 +114,8 @@ lifecycle:
       # duration to be greater than the LB's health check interval.
       command: ["sleep", "3"]
 
-# If true ensures that the pre-existing files on the storage and snapshot volume are owned by the container's
-# user and fsGroup
+# Unless .Values.image.useUnprivilegedImage is set to true, ensures that the pre-existing
+# files on the storage and snapshot volume are owned by the container's user and fsGroup.
 updateVolumeFsOwnership: true
 
 nodeSelector: {}
