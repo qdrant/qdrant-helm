@@ -47,8 +47,8 @@ All of these configuration options could be overwritten under config in `values.
 A modification example is provided there.
 
 ### Overrides
-You can override any value in the Qdrant configuration by setting the Helm values under the key `config`. Those settings get included verbatim in a file called `config/production.yml` which is explained further here [Qdrant Order and Priority](https://qdrant.tech/documentation/guides/configuration/#order-and-priority) as well as an [example](https://github.com/qdrant/qdrant-helm/blob/b0bb6fc6d3eb9c0813c79bb5a78dc21aebc2b81d/charts/qdrant/values.yaml#L140).
 
+You can override any value in the Qdrant configuration by setting the Helm values under the key `config`. Those settings get included verbatim in a file called `config/production.yml` which is explained further here [Qdrant Order and Priority](https://qdrant.tech/documentation/guides/configuration/#order-and-priority) as well as an [example](https://github.com/qdrant/qdrant-helm/blob/b0bb6fc6d3eb9c0813c79bb5a78dc21aebc2b81d/charts/qdrant/values.yaml#L140).
 
 ### Distributed setup
 
@@ -69,26 +69,28 @@ Error: UPGRADE FAILED: cannot patch "qdrant" with kind StatefulSet: StatefulSet.
 If you need to change any immutable field, the process is described below, using the most common example of expanding a PVC volume.
 
 1. Delete the StatefulSet while leaving the Pods running:
-    ```
+
+    ```bash
     kubectl delete statefulset --cascade=orphan qdrant
     ```
 
 2. Manually edit all PersistentVolumeClaims to increase their sizes:
 
-    ```
+    ```bash
     # For each PersistentVolumeClaim:
     kubectl edit pvc qdrant-storage-qdrant-0
     ```
 
 3. Update your Helm values to match the new PVC size.
 4. Reinstall the Helm chart using your updated values:
-    ```
+
+    ```bash
     helm upgrade --install qdrant qdrant/qdrant -f my-values.yaml
     ```
 
 Some storage providers allow resizing volumes in-place, but most require a pod restart before the new size will take effect:
 
-```
+```bash
 kubectl rollout restart statefulset qdrant
 ```
 
@@ -136,7 +138,7 @@ If the file is too large, you can separately create a PersistentVolumeClaim, sto
 
 Once you have created this PersistentVolumeClaim (must be in the same namespace as your Qdrant cluster), set the following values:
 
-```
+```yml
 snapshotRestoration:
   enabled: true
   pvcName: "<the name of your PVC>"
