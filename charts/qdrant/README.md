@@ -132,7 +132,7 @@ After the snapshot is restored, remove the above values and run "helm upgrade" a
 
 If you wish to restore from an externally-created snapshot, using the API is recommended: https://qdrant.github.io/qdrant/redoc/index.html#tag/collections/operation/recover_from_uploaded_snapshot
 
-If the file is too large, you can separatly create a PersistentVolumeClaim, store your data in there, and refer to this separate PersistentVolumeClaim in this helm chart.
+If the file is too large, you can separately create a PersistentVolumeClaim, store your data in there, and refer to this separate PersistentVolumeClaim in this helm chart.
 
 Once you have created this PersistentVolumeClaim (must be in the same namespace as your Qdrant cluster), set the following values:
 
