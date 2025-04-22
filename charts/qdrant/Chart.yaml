@@ -13,10 +13,20 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 1.13.6
-appVersion: v1.13.6
+version: 1.14.0
+appVersion: v1.14.0
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.13.6
+      description: Update Qdrant to v1.14.0
+    - kind: added
+      description: Make chart test image configurable     
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/320
+    - kind: fixed
+      description: Do not unnecessarily update file system ownership when unprivilged image is not used 
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/321
