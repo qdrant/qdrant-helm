@@ -3,6 +3,35 @@ entries:
   qdrant:
   - annotations:
       artifacthub.io/category: database
+      artifacthub.io/changes: "- kind: added\n  description: Update Qdrant to v1.14.0\n-
+        kind: added\n  description: Make chart test image configurable     \n  links:\n
+        \   - name: Github Issue\n      url: https://github.com/qdrant/qdrant-helm/pull/320\n-
+        kind: fixed\n  description: Do not unnecessarily update file system ownership
+        when unprivilged image is not used \n  links:\n    - name: Github Issue\n
+        \     url: https://github.com/qdrant/qdrant-helm/pull/321"
+    apiVersion: v2
+    appVersion: v1.14.0
+    created: "2025-04-22T17:05:57.043071182Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 1b175849e423dc8c2350ce8135a6086806e624d7ed8d8b75833390e4d63da5c2
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.14.0/qdrant-1.14.0.tgz
+    version: 1.14.0
+  - annotations:
+      artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
           description: Update Qdrant to v1.13.6
@@ -1531,4 +1560,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-01T07:49:46.973426655Z"
+generated: "2025-04-22T17:05:57.043347206Z"
