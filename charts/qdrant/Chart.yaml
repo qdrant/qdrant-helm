@@ -20,3 +20,13 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: Update Qdrant to v1.14.0
+    - kind: added
+      description: Make chart test image configurable     
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/320
+    - kind: fixed
+      description: Do not unnecessarily update file system ownership when unprivilged image is not used 
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/321
