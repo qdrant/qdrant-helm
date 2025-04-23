@@ -94,6 +94,7 @@ resources: {}
   #   memory: 128Mi
 
 containerSecurityContext:
+  enabled: true
   runAsNonRoot: true
   runAsUser: 1000
   runAsGroup: 2000
@@ -102,6 +103,7 @@ containerSecurityContext:
   readOnlyRootFilesystem: true
 
 podSecurityContext:
+  enabled: true
   fsGroup: 3000
   fsGroupChangePolicy: Always
 
