@@ -5,7 +5,7 @@ go 1.24.1
 require (
 	github.com/ghodss/yaml v1.0.0
 	github.com/gruntwork-io/terratest v0.48.2
-	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.82.0
+	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.82.1
 	github.com/samber/lo v1.49.1
 	github.com/stretchr/testify v1.10.0
 	helm.sh/helm/v3 v3.17.3
