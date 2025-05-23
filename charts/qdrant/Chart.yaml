@@ -20,3 +20,8 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: Update Qdrant to v1.14.1
+    - kind: fixed
+    - description: Fix typo in README
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/323
