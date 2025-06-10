@@ -3,6 +3,37 @@ entries:
   qdrant:
   - annotations:
       artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
+          description: Update Qdrant to v1.14.1
+        - kind: fixed
+        - description: Fix typo in README
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/323
+    apiVersion: v2
+    appVersion: v1.14.1
+    created: "2025-06-10T12:48:31.507690192Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 11c28c9cd506e3db718dee7401b3665962ffe49c869a884599831b877f189efa
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.14.1/qdrant-1.14.1.tgz
+    version: 1.14.1
+  - annotations:
+      artifacthub.io/category: database
       artifacthub.io/changes: "- kind: added\n  description: Update Qdrant to v1.14.0\n-
         kind: added\n  description: Make chart test image configurable     \n  links:\n
         \   - name: Github Issue\n      url: https://github.com/qdrant/qdrant-helm/pull/320\n-
@@ -1560,4 +1591,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-22T17:05:57.043347206Z"
+generated: "2025-06-10T12:48:31.507945057Z"
