@@ -85,7 +85,7 @@ Create secret
 {{- else if .Values.apiKey -}}
 {{- $apiKey = .Values.apiKey -}}
 {{- end -}}
-{{- if kindIs "map" .Values.apiKey -}}
+{{- if kindIs "map" .Values.readOnlyApiKey -}}
 {{- if .Values.readOnlyApiKey.valueFrom -}}
 {{- /* Retrieve the value from the secret as specified in valueFrom */ -}}
 {{- $secretName := .Values.readOnlyApiKey.valueFrom.secretKeyRef.name -}}
