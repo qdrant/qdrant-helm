@@ -6,7 +6,7 @@ require (
 	github.com/ghodss/yaml v1.0.0
 	github.com/gruntwork-io/terratest v0.49.0
 	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.82.0
-	github.com/samber/lo v1.50.0
+	github.com/samber/lo v1.51.0
 	github.com/stretchr/testify v1.10.0
 	helm.sh/helm/v3 v3.17.3
 	k8s.io/api v0.33.1
