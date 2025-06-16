@@ -25,17 +25,13 @@ spec:
 {{ tpl (toYaml .Values.metrics.serviceMonitor.relabelings | indent 8) . }}
 {{- end }}
 {{- if .Values.readOnlyApiKey }}
-      authorization:
-        type: Bearer
-        credentials:
-          name: {{ include "qdrant.fullname" . }}-apikey
-          key: read-only-api-key
+      bearerTokenSecret:
+        name: {{ include "qdrant.fullname" . }}-apikey
+        key: read-only-api-key
 {{- else if .Values.apiKey }}
-      authorization:
-        type: Bearer
-        credentials:
-          name: {{ include "qdrant.fullname" . }}-apikey
-          key: api-key
+      bearerTokenSecret:
+        name: {{ include "qdrant.fullname" . }}-apikey
+        key: api-key
 {{- end }}
   selector:
     matchLabels:
