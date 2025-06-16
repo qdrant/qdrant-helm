@@ -44,7 +44,7 @@ jobs:
           go install github.com/halkeye/helm-repo-html@v0.2.1
           /home/runner/go/bin/helm-repo-html
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: "Update index.html"
 
