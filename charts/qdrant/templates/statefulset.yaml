@@ -166,9 +166,11 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.containerSecurityContext.enabled }}
           {{- with .Values.containerSecurityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- end }}
           {{- with .Values.lifecycle }}
           lifecycle:
@@ -205,9 +207,11 @@ spec:
           {{- if .Values.additionalVolumeMounts }}
 {{- toYaml .Values.additionalVolumeMounts | default "" | nindent 10 }}
           {{- end}}
+      {{- if .Values.podSecurityContext.enabled }}   
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
