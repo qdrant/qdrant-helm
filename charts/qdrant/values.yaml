@@ -1,4 +1,5 @@
 replicaCount: 1
+enabled: true
 
 image:
   repository: docker.io/qdrant/qdrant
