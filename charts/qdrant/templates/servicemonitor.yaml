@@ -1,3 +1,4 @@
+{{- if eq "true" (include "qdrant-enabled" .) }}
 {{- if .Values.metrics.serviceMonitor.enabled }}
 kind: ServiceMonitor
 apiVersion: monitoring.coreos.com/v1
@@ -41,4 +42,5 @@ spec:
     matchLabels:
       {{- include "qdrant.labels" . | nindent 6 }}
       app.kubernetes.io/component: cluster-discovery
+{{- end }}
 {{- end }}

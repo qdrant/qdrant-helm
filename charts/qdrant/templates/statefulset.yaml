@@ -1,3 +1,4 @@
+{{- if .Values.enabled }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -288,3 +289,4 @@ spec:
           requests:
             storage: {{ .Values.snapshotPersistence.size | quote }}
     {{- end }}
+{{- end }}
