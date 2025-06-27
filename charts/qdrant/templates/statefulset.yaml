@@ -48,7 +48,7 @@ spec:
         command:
           - chown
           - -R
-          - {{ .Values.containerSecurityContext.runAsUser }}:{{ .Values.podSecurityContext.fsGroup }}
+          - {{ int64 .Values.containerSecurityContext.runAsUser }}:{{ int64 .Values.podSecurityContext.fsGroup }}
           - /qdrant/storage
           - /qdrant/snapshots
           {{- if and .Values.snapshotRestoration.enabled .Values.snapshotRestoration.pvcName }}
