@@ -8,9 +8,14 @@ metadata:
 {{- with .Values.service.additionalLabels }}
 {{- toYaml . | nindent 4 }}
 {{- end }}
-{{- if .Values.service.annotations }}
+{{- if or .Values.service.annotations .Values.additionalAnnotations }}
   annotations:
-{{ toYaml .Values.service.annotations | indent 4 }}
+{{- with .Values.additionalAnnotations }}
+    {{- toYaml . | nindent 4 }}
+{{- end }}
+{{- with .Values.service.annotations }}
+    {{- toYaml . | nindent 4 }}
+{{- end }}
 {{- end }}
 spec:
   clusterIP: None

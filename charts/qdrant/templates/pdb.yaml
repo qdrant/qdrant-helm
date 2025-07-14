@@ -5,6 +5,10 @@ metadata:
   name: {{ include "qdrant.fullname" . }}
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
+{{- with .Values.additionalAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+{{- end }}
 spec:
   {{- with  .Values.podDisruptionBudget.maxUnavailable}}
   maxUnavailable: {{ . }}
