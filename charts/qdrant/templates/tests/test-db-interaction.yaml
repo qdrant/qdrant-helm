@@ -8,6 +8,9 @@ metadata:
     {{- include "qdrant.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
+{{- with .Values.additionalAnnotations }}
+    {{- toYaml . | nindent 4 }}
+{{- end }}
 spec:
   containers:
     - name: test-script
@@ -45,6 +48,9 @@ metadata:
     {{- include "qdrant.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
+{{- with .Values.additionalAnnotations }}
+    {{- toYaml . | nindent 4 }}
+{{- end }}
 data:
   entrypoint.sh: |
     #!/bin/bash

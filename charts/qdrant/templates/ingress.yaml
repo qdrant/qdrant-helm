@@ -8,10 +8,15 @@ metadata:
     {{- with .Values.ingress.additionalLabels }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
-  {{- with .Values.ingress.annotations }}
+{{- if or .Values.ingress.annotations .Values.additionalAnnotations }}
   annotations:
+{{- with .Values.additionalAnnotations }}
     {{- toYaml . | nindent 4 }}
-  {{- end }}
+{{- end }}
+{{- with .Values.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+{{- end }}
+{{- end }}
 spec:
   {{- if .Values.ingress.ingressClassName }}
   ingressClassName: {{ .Values.ingress.ingressClassName }}

@@ -82,6 +82,8 @@ startupProbe:
   successThreshold: 1
 
 additionalLabels: {}
+# additionalAnnotations will be added to all top-level resources (StatefulSet, Service, ConfigMap, etc.)
+additionalAnnotations: {}
 podAnnotations: {}
 podLabels: {}
 
