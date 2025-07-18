@@ -20,3 +20,20 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: Update Qdrant to v1.15.0
+    - kind: fixed
+      description: Use correct value in readOnlyApiKey check
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/340
+    - kind: fixed
+      description: Ensure that open file descriptor limit is set correctly on startup
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/355
+    - kind: fixed
+      description: Fix fsGroup and runAsUser not being int64 type
+      links:
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/354
+        - name: Github Issue
+          url: https://github.com/qdrant/qdrant-helm/pull/357
