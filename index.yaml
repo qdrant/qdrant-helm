@@ -5,6 +5,49 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.15.0
+        - kind: fixed
+          description: Use correct value in readOnlyApiKey check
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/340
+        - kind: fixed
+          description: Ensure that open file descriptor limit is set correctly on startup
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/355
+        - kind: fixed
+          description: Fix fsGroup and runAsUser not being int64 type
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/354
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/357
+    apiVersion: v2
+    appVersion: v1.15.0
+    created: "2025-07-18T13:14:02.636384144Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: ee117f1bbfc714a24338a8f15eebfc55db4f770a7ed84821c31ac24f845e61f7
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.15.0/qdrant-1.15.0.tgz
+    version: 1.15.0
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.14.1
         - kind: fixed
         - description: Fix typo in README
@@ -1591,4 +1634,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-10T12:48:31.507945057Z"
+generated: "2025-07-18T13:14:02.636655014Z"
