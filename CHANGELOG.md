@@ -1,9 +1,5 @@
 # Changelog
 
-## [qdrant-1.15.1](https://github.com/qdrant/qdrant-helm/tree/qdrant-1.15.1) (2025-07-21)
-
-- Adding Annotations to all resources [#359](https://github.com/qdrant/qdrant-helm/pull/359)
-
 ## [qdrant-1.15.0](https://github.com/qdrant/qdrant-helm/tree/qdrant-1.15.0) (2025-07-18)
 
 - Update Qdrant to v1.15.0
