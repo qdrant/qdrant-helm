@@ -4,6 +4,10 @@ metadata:
   name: {{ include "qdrant.fullname" . }}
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
+{{- with .Values.additionalAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+{{- end }}
 data:
   initialize.sh: |
     #!/bin/sh

@@ -7,6 +7,10 @@ metadata:
 {{- with .Values.additionalLabels }}
 {{- toYaml . | nindent 4 }}
 {{- end }}
+{{- with .Values.additionalAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+{{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   podManagementPolicy: {{ .Values.podManagementPolicy }}

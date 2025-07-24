@@ -8,6 +8,10 @@ metadata:
 {{- toYaml . | nindent 4 }}
 {{- end }}
   name: {{ include "qdrant.fullname" . }}
+{{- with .Values.additionalAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+{{- end }}
 spec:
   endpoints:
     - honorLabels: true
