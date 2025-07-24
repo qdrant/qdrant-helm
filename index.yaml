@@ -5,6 +5,37 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.15.1
+        - kind: added
+          description: Add support for additional annotations in Kubernetes resource templates
+          links:
+            - name: Github Issue
+              url: https://github.com/qdrant/qdrant-helm/pull/359
+    apiVersion: v2
+    appVersion: v1.15.1
+    created: "2025-07-24T11:47:04.585887576Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 38792fbc495cb87b8f70665bb082695f4ccaedded79c46fd30a7090774ba057f
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.15.1/qdrant-1.15.1.tgz
+    version: 1.15.1
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.15.0
         - kind: fixed
           description: Use correct value in readOnlyApiKey check
@@ -1634,4 +1665,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-18T13:14:02.636655014Z"
+generated: "2025-07-24T11:47:04.586186233Z"
