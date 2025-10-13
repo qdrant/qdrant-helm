@@ -266,6 +266,9 @@ spec:
         {{- end }}
       spec:
         storageClassName: {{ .Values.persistence.storageClassName }}
+        {{- if .Values.persistence.volumeAttributesClassName }}
+        volumeAttributesClassName: {{ .Values.persistence.volumeAttributesClassName }}
+        {{- end }}
         accessModes:
         {{- range .Values.persistence.accessModes }}
           - {{ . | quote }}
@@ -284,6 +287,9 @@ spec:
         {{- end }}
       spec:
         storageClassName: {{ .Values.snapshotPersistence.storageClassName }}
+        {{- if .Values.snapshotPersistence.volumeAttributesClassName }}
+        volumeAttributesClassName: {{ .Values.snapshotPersistence.volumeAttributesClassName }}
+        {{- end }}
         accessModes:
         {{- range .Values.snapshotPersistence.accessModes }}
           - {{ . | quote }}
