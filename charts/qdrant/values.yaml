@@ -10,7 +10,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 args: ["./config/initialize.sh"]
-env: {}
+env: []
   # - name: QDRANT_ALLOW_RECOVERY_MODE
   #   value: true
 
