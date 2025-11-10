@@ -33,7 +33,7 @@ jobs:
           files=$(gofmt -l .) && echo $files && [ -z "$files" ]
 
       - name: Golang CI Lint
-        uses: golangci/golangci-lint-action@v8
+        uses: golangci/golangci-lint-action@v9
         with:
           working-directory: test
           version: v2.1.6 # Specify the golangci-lint version, so we are stable
