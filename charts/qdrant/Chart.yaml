@@ -20,3 +20,13 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: Update Qdrant to v1.16.0
+    - kind: added
+      description: Add support for `volumeAttributesClass` for PVCs
+      links:
+        - name: GitHub Pull Request
+          url: https://github.com/qdrant/qdrant-helm/pull/396
+    - kind: fixed
+      description: Fix Helm warning because of wrong data type in env default value
+      links:
+        - name: GitHub Pull Request
+          url: https://github.com/qdrant/qdrant-helm/pull/398
