@@ -5,6 +5,42 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.16.0
+        - kind: added
+          description: Add support for `volumeAttributesClass` for PVCs
+          links:
+            - name: GitHub Pull Request
+              url: https://github.com/qdrant/qdrant-helm/pull/396
+        - kind: fixed
+          description: Fix Helm warning because of wrong data type in env default value
+          links:
+            - name: GitHub Pull Request
+              url: https://github.com/qdrant/qdrant-helm/pull/398
+    apiVersion: v2
+    appVersion: v1.16.0
+    created: "2025-11-17T15:24:47.033880697Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 3293ec2e8746677fd58ae9a47cfebe44bb2a54c2771de7a3c352c7507cbec14a
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.16.0/qdrant-1.16.0.tgz
+    version: 1.16.0
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.15.5
     apiVersion: v2
     appVersion: v1.15.5
@@ -1769,4 +1805,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2025-09-30T13:15:58.404008183Z"
+generated: "2025-11-17T15:24:47.034203092Z"
