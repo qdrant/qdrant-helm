@@ -217,6 +217,15 @@ metrics:
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
     ##
     relabelings: []
+    ## Authorization to apply to the metrics endpoint for the cases when the API key(s) are configured externally
+    ## ref: https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1.SafeAuthorization
+    ##
+    authorization: {}
+    # authorization:
+    #   type: Bearer
+    #   credentials:
+    #     name: external-secret-with-api-key
+    #     key: api-key
 
 serviceAccount:
   annotations: {}
