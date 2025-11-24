@@ -183,6 +183,8 @@ config:
       enable_tls: false
     consensus:
       tick_period_ms: 100
+  service:
+    enable_tls: false
 
 sidecarContainers: []
 # sidecarContainers:
