@@ -6,6 +6,7 @@ metadata:
   name: "{{ include "qdrant.fullname" . }}-test-db-interaction"
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
+    {{- include "qdrant.additionalLabels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
 {{- with .Values.additionalAnnotations }}
@@ -52,6 +53,7 @@ metadata:
   name: "{{ include "qdrant.fullname" . }}-test-db-interaction"
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
+    {{- include "qdrant.additionalLabels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
 {{- with .Values.additionalAnnotations }}
