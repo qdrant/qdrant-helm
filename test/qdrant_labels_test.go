@@ -37,8 +37,8 @@ func TestStatefulSetLabels(t *testing.T) {
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
 
-	require.Contains(t, statefulSet.ObjectMeta.Labels, "example.com/customLabel")
-	require.Equal(t, statefulSet.ObjectMeta.Labels["example.com/customLabel"], "customValue")
+	require.Contains(t, statefulSet.Labels, "example.com/customLabel")
+	require.Equal(t, statefulSet.Labels["example.com/customLabel"], "customValue")
 }
 
 func TestIngressLabels(t *testing.T) {
@@ -64,8 +64,8 @@ func TestIngressLabels(t *testing.T) {
 	var ingress networkingv1.Ingress
 	helm.UnmarshalK8SYaml(t, output, &ingress)
 
-	require.Contains(t, ingress.ObjectMeta.Labels, "example.com/customLabel")
-	require.Equal(t, ingress.ObjectMeta.Labels["example.com/customLabel"], "customValue")
+	require.Contains(t, ingress.Labels, "example.com/customLabel")
+	require.Equal(t, ingress.Labels["example.com/customLabel"], "customValue")
 }
 
 func TestServiceAccountLabels(t *testing.T) {
@@ -90,6 +90,6 @@ func TestServiceAccountLabels(t *testing.T) {
 	var serviceAccount v1.ServiceAccount
 	helm.UnmarshalK8SYaml(t, output, &serviceAccount)
 
-	require.Contains(t, serviceAccount.ObjectMeta.Labels, "example.com/customLabel")
-	require.Equal(t, serviceAccount.ObjectMeta.Labels["example.com/customLabel"], "customValue")
+	require.Contains(t, serviceAccount.Labels, "example.com/customLabel")
+	require.Equal(t, serviceAccount.Labels["example.com/customLabel"], "customValue")
 }
