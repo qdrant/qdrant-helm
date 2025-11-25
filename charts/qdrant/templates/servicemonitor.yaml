@@ -28,7 +28,10 @@ spec:
       relabelings:
 {{ tpl (toYaml .Values.metrics.serviceMonitor.relabelings | indent 8) . }}
 {{- end }}
-{{- if .Values.readOnlyApiKey }}
+{{- if .Values.metrics.serviceMonitor.authorization }}
+      authorization:
+{{ tpl (toYaml .Values.metrics.serviceMonitor.authorization | indent 8) . }}
+{{- else if .Values.readOnlyApiKey }}
       authorization:
         type: Bearer
         credentials:
