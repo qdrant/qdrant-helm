@@ -5,6 +5,37 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.16.1
+        - kind: added
+          description: Add custom authorization support for ServiceMonitor
+          links:
+            - name: GitHub Pull Request
+              url: https://github.com/qdrant/qdrant-helm/pull/407
+    apiVersion: v2
+    appVersion: v1.16.1
+    created: "2025-11-26T12:50:06.787180539Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 7e63e9a814c38d14c4295efd985f8847c2db92515f75f13e5c9ef39a6a42608d
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.16.1/qdrant-1.16.1.tgz
+    version: 1.16.1
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.16.0
         - kind: added
           description: Add support for `volumeAttributesClass` for PVCs
@@ -1805,4 +1836,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-17T15:24:47.034203092Z"
+generated: "2025-11-26T12:50:06.78752294Z"
