@@ -1,6 +1,6 @@
 # Changelog
 
-## [qdrant-1.16.1](https://github.com/qdrant/qdrant-helm/tree/qdrant-1.16.1) (2025-11-25)
+## [qdrant-1.16.1](https://github.com/qdrant/qdrant-helm/tree/qdrant-1.16.1) (2025-11-26)
 
 - Update Qdrant to v1.16.1
 - Add custom authorization support for ServiceMonitor [#407](https://github.com/qdrant/qdrant-helm/pull/407)
