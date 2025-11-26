@@ -20,3 +20,8 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: Update Qdrant to v1.16.1
+    - kind: added
+      description: Add custom authorization support for ServiceMonitor
+      links:
+        - name: GitHub Pull Request
+          url: https://github.com/qdrant/qdrant-helm/pull/407
