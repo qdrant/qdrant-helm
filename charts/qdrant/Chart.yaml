@@ -13,20 +13,15 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 1.16.0
-appVersion: v1.16.0
+version: 1.16.1
+appVersion: v1.16.1
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.16.0
+      description: Update Qdrant to v1.16.1
     - kind: added
-      description: Add support for `volumeAttributesClass` for PVCs
+      description: Add custom authorization support for ServiceMonitor
       links:
         - name: GitHub Pull Request
-          url: https://github.com/qdrant/qdrant-helm/pull/396
-    - kind: fixed
-      description: Fix Helm warning because of wrong data type in env default value
-      links:
-        - name: GitHub Pull Request
-          url: https://github.com/qdrant/qdrant-helm/pull/398
+          url: https://github.com/qdrant/qdrant-helm/pull/407
