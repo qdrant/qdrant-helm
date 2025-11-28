@@ -1,15 +1,16 @@
 package test
 
 import (
+	"path/filepath"
+	"strings"
+	"testing"
+
 	"github.com/gruntwork-io/terratest/modules/helm"
 	"github.com/gruntwork-io/terratest/modules/k8s"
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
 	monitoringv1 "github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring/v1"
 	"github.com/stretchr/testify/require"
-	"path/filepath"
-	"strings"
-	"testing"
 )
 
 func TestRelabelings(t *testing.T) {
@@ -64,4 +65,89 @@ func TestMetricRelabelings(t *testing.T) {
 
 	require.Equal(t, "source", string(serviceMonitor.Spec.Endpoints[0].MetricRelabelConfigs[0].SourceLabels[0]))
 	require.Equal(t, "drop", serviceMonitor.Spec.Endpoints[0].MetricRelabelConfigs[0].Action)
+}
+
+func TestCustomAuthorization(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	options := &helm.Options{
+		SetJsonValues: map[string]string{
+			"metrics.serviceMonitor.enabled":       `true`,
+			"metrics.serviceMonitor.authorization": `{"type":"Bearer","credentials":{"name":"secret","key":"token"}}`,
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
+
+	var serviceMonitor monitoringv1.ServiceMonitor
+	helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
+
+	require.Equal(t, "Bearer", serviceMonitor.Spec.Endpoints[0].Authorization.Type)
+	require.Equal(t, "secret", serviceMonitor.Spec.Endpoints[0].Authorization.Credentials.Name)
+	require.Equal(t, "token", serviceMonitor.Spec.Endpoints[0].Authorization.Credentials.Key)
+}
+
+func TestReadOnlyApiKeyAuthorization(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	options := &helm.Options{
+		SetJsonValues: map[string]string{
+			"readOnlyApiKey":                 `"foo"`,
+			"apiKey":                         `"bar"`,
+			"metrics.serviceMonitor.enabled": `true`,
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
+
+	var serviceMonitor monitoringv1.ServiceMonitor
+	helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
+
+	require.Equal(t, "Bearer", serviceMonitor.Spec.Endpoints[0].Authorization.Type)
+	require.Equal(t, "qdrant-apikey", serviceMonitor.Spec.Endpoints[0].Authorization.Credentials.Name)
+	require.Equal(t, "read-only-api-key", serviceMonitor.Spec.Endpoints[0].Authorization.Credentials.Key)
+}
+
+func TestApiKeyAuthorization(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	options := &helm.Options{
+		SetJsonValues: map[string]string{
+			"apiKey":                         `"bar"`,
+			"metrics.serviceMonitor.enabled": `true`,
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
+
+	var serviceMonitor monitoringv1.ServiceMonitor
+	helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
+
+	require.Equal(t, "Bearer", serviceMonitor.Spec.Endpoints[0].Authorization.Type)
+	require.Equal(t, "qdrant-apikey", serviceMonitor.Spec.Endpoints[0].Authorization.Credentials.Name)
+	require.Equal(t, "api-key", serviceMonitor.Spec.Endpoints[0].Authorization.Credentials.Key)
 }
