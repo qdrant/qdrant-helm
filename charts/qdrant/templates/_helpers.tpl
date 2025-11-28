@@ -52,6 +52,17 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Additional (global) labels
+*/}}
+{{- define "qdrant.additionalLabels" -}}
+{{- with .Values.additionalLabels }}
+{{- range $key, $value := . }}
+{{ $key }}: {{ $value | quote }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "qdrant.serviceAccountName" -}}

@@ -8,7 +8,7 @@ Linting is done with `helm lint`.
 
 Prerequisites:
 
-* Helm
+* Helm (version >= 3.10)
 
 ```bash
 brew install helm
@@ -26,7 +26,7 @@ Unit tests are in the `./test` directory and written in Go with [terratest](http
 
 Prerequisites:
 
-* Go
+* Go (version >= 1.24.1)
 
 ```bash
 brew install go

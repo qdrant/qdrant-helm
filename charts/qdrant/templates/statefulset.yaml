@@ -4,9 +4,7 @@ metadata:
   name: {{ include "qdrant.fullname" . }}
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
-{{- with .Values.additionalLabels }}
-{{- toYaml . | nindent 4 }}
-{{- end }}
+    {{- include "qdrant.additionalLabels" . | nindent 4 }}
 {{- with .Values.additionalAnnotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -30,6 +28,7 @@ spec:
       {{- end }}
       labels:
         {{- include "qdrant.selectorLabels" . | nindent 8 }}
+        {{- include "qdrant.additionalLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
