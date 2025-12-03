@@ -13,15 +13,10 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 1.16.1
-appVersion: v1.16.1
+version: 1.16.2
+appVersion: v1.16.2
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.16.1
-    - kind: added
-      description: Add custom authorization support for ServiceMonitor
-      links:
-        - name: GitHub Pull Request
-          url: https://github.com/qdrant/qdrant-helm/pull/407
+      description: Update Qdrant to v1.16.2
