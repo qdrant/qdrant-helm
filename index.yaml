@@ -5,6 +5,32 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.16.2
+    apiVersion: v2
+    appVersion: v1.16.2
+    created: "2025-12-04T11:14:54.478440011Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 62f2e7404d6d47604757f452d1af16489c89123ab72b44b08bca1a094f458def
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.16.2/qdrant-1.16.2.tgz
+    version: 1.16.2
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.16.1
         - kind: added
           description: Add custom authorization support for ServiceMonitor
@@ -1836,4 +1862,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-26T12:50:06.78752294Z"
+generated: "2025-12-04T11:14:54.478732636Z"
