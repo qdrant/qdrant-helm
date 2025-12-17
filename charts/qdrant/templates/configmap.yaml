@@ -4,6 +4,7 @@ metadata:
   name: {{ include "qdrant.fullname" . }}
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
+    {{- include "qdrant.additionalLabels" . | nindent 4 }}
 {{- with .Values.additionalAnnotations }}
   annotations:
     {{- toYaml . | nindent 4 }}

@@ -4,6 +4,7 @@ metadata:
   name: {{ include "qdrant.fullname" . }}-headless
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
+    {{- include "qdrant.additionalLabels" . | nindent 4 }}
     app.kubernetes.io/component: cluster-discovery
 {{- with .Values.service.additionalLabels }}
 {{- toYaml . | nindent 4 }}

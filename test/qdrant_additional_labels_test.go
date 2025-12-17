@@ -29,7 +29,7 @@ func TestAdditionalLabelsAreSetOnStatefulset(t *testing.T) {
 
 	options := &helm.Options{
 		SetJsonValues: map[string]string{
-			"additionalLabels":         `{"test": "additionalLabels"}`,
+			"additionalLabels":         `{"additionalTest": "additionalLabels"}`,
 			"podLabels":                `{"test": "podLabels"}`,
 			"service.additionalLabels": `{"test": "serviceAdditionalLabels"}`,
 		},
@@ -41,8 +41,8 @@ func TestAdditionalLabelsAreSetOnStatefulset(t *testing.T) {
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
 
-	require.Contains(t, statefulSet.Labels, "test")
-	require.Equal(t, "additionalLabels", statefulSet.Labels["test"])
+	require.Contains(t, statefulSet.Labels, "additionalTest")
+	require.Equal(t, "additionalLabels", statefulSet.Labels["additionalTest"])
 	require.Contains(t, statefulSet.Spec.Template.Labels, "test")
 	require.Equal(t, "podLabels", statefulSet.Spec.Template.Labels["test"])
 }
