@@ -260,7 +260,7 @@ spec:
         name: {{ .Values.persistence.storageVolumeName | default "qdrant-storage" }}
         labels:
           app: {{ template "qdrant.name" . }}
-          {{- with .Values.persistence.labels }}
+          {{- with .Values.persistence.additionalLabels }}
           {{- toYaml . | nindent 10 }}
           {{- end }}
         {{- with .Values.persistence.annotations }}
@@ -284,7 +284,7 @@ spec:
         name: {{ .Values.snapshotPersistence.snapshotsVolumeName | default "qdrant-snapshots" }}
         labels:
           app: {{ template "qdrant.name" . }}
-          {{- with .Values.snapshotPersistence.labels }}
+          {{- with .Values.snapshotPersistence.additionalLabels }}
           {{- toYaml . | nindent 10 }}
           {{- end }}
         {{- with .Values.snapshotPersistence.annotations }}

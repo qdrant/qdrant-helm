@@ -152,3 +152,33 @@ func TestAdditionalLabelsAreSetOnIngress(t *testing.T) {
 	require.Contains(t, ingress.Labels, "test")
 	require.Equal(t, "ingressAdditionalLabels", ingress.Labels["test"])
 }
+
+func TestAdditionalLabelsAreSetOnPvcs(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	options := &helm.Options{
+		SetJsonValues: map[string]string{
+			"persistence.additionalLabels":         `{"test": "additionalPersistenceLabel"}`,
+			"snapshotPersistence.enabled":          `true`,
+			"snapshotPersistence.additionalLabels": `{"test": "additionalSnapshotPersistenceLabel"}`,
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+
+	var sts appsv1.StatefulSet
+	helm.UnmarshalK8SYaml(t, output, &sts)
+
+	require.Contains(t, sts.Spec.VolumeClaimTemplates[0].Labels, "test")
+	require.Equal(t, "additionalPersistenceLabel", sts.Spec.VolumeClaimTemplates[0].Labels["test"])
+	require.Contains(t, sts.Spec.VolumeClaimTemplates[1].Labels, "test")
+	require.Equal(t, "additionalSnapshotPersistenceLabel", sts.Spec.VolumeClaimTemplates[1].Labels["test"])
+}
