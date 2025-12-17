@@ -145,7 +145,7 @@ persistence:
   accessModes: ["ReadWriteOnce"]
   size: 10Gi
   annotations: {}
-  labels: {}
+  additionalLabels: {}
   # storageVolumeName: qdrant-storage
   # storageSubPath: ""
   # storageClassName: local-path
@@ -159,7 +159,7 @@ snapshotPersistence:
   accessModes: ["ReadWriteOnce"]
   size: 10Gi
   annotations: {}
-  labels: {}
+  additionalLabels: {}
   # snapshotsVolumeName: qdrant-snapshots
   # snapshotsSubPath: ""
   # You can change the storageClassName to ensure snapshots are saved to cold storage.
