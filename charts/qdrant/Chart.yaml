@@ -13,10 +13,25 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 1.16.2
-appVersion: v1.16.2
+version: 1.16.3
+appVersion: v1.16.3
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.16.2
+      description: Update Qdrant to v1.16.3
+    - kind: added
+      description: Add support for global additional labels
+      links:
+        - name: GitHub Pull Request
+          url: https://github.com/qdrant/qdrant-helm/pull/424
+    - kind: added
+      description: Add support for setting persistent volume claim labels
+      links:
+        - name: GitHub Pull Request
+          url: https://github.com/qdrant/qdrant-helm/pull/418
+    - kind: fixed
+      description: Add the ability to set minReadySecond
+      links:
+        - name: GitHub Pull Request
+          url: https://github.com/qdrant/qdrant-helm/pull/417
