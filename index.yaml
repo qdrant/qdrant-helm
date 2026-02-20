@@ -5,6 +5,37 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.17.0
+        - kind: fixed
+          description: Remove duplicate helm values top level field .additionalLabels
+          links:
+            - name: GitHub Pull Request
+              url: https://github.com/qdrant/qdrant-helm/pull/428
+    apiVersion: v2
+    appVersion: v1.17.0
+    created: "2026-02-20T12:47:00.680357997Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 0e61a6e59f4f7157e102803922e5651eec3ff4e703f153bdbeadf34a76af41bf
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.17.0/qdrant-1.17.0.tgz
+    version: 1.17.0
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.16.3
         - kind: added
           description: Add support for global additional labels
@@ -1903,4 +1934,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2025-12-22T09:43:08.395133603Z"
+generated: "2026-02-20T12:47:00.680592103Z"
