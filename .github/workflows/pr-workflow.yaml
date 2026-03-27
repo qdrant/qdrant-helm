@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
 
       - name: Run lint
         run: make lint
 
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
         with:
           go-version: '^1.24.1'
           cache-dependency-path: go.sum
@@ -33,7 +33,7 @@ jobs:
           files=$(gofmt -l .) && echo $files && [ -z "$files" ]
 
       - name: Golang CI Lint
-        uses: golangci/golangci-lint-action@v9
+        uses: golangci/golangci-lint-action@1e7e51e771db61008b38414a730f564565cf7c20 # v9.2.0
         with:
           working-directory: test
           version: v2.1.6 # Specify the golangci-lint version, so we are stable
@@ -43,7 +43,7 @@ jobs:
         run: make test-unit
 
       - name: Setup BATS
-        uses: mig4/setup-bats@v1
+        uses: mig4/setup-bats@af9a00deb21b5d795cabfeaa8d9060410377686d # v1.2.0
         with:
           bats-version: 1.11.1
 
