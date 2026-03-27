@@ -19,13 +19,13 @@ jobs:
 
       - uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
         with:
-          go-version: '^1.24.1'
+          go-version: '^1.26.1'
           cache-dependency-path: go.sum
 
       - name: Run kubeconform
         shell: bash
         run: |
-          go install github.com/yannh/kubeconform/cmd/kubeconform@v0.6.7
+          go install github.com/yannh/kubeconform/cmd/kubeconform@v0.7.0
           helm template charts/qdrant | kubeconform --summary -output pretty -schema-location default -schema-location "https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json"
 
       - name: Check Go Formatting
@@ -36,7 +36,7 @@ jobs:
         uses: golangci/golangci-lint-action@1e7e51e771db61008b38414a730f564565cf7c20 # v9.2.0
         with:
           working-directory: test
-          version: v2.1.6 # Specify the golangci-lint version, so we are stable
+          version: v2.11.4 # Specify the golangci-lint version, so we are stable
           args: --timeout 10m # Increase the timeout to 10 minutes
 
       - name: Run unit tests
@@ -45,7 +45,7 @@ jobs:
       - name: Setup BATS
         uses: mig4/setup-bats@af9a00deb21b5d795cabfeaa8d9060410377686d # v1.2.0
         with:
-          bats-version: 1.11.1
+          bats-version: 1.13.0
 
       - name: Run integration tests
         run: make test-integration
