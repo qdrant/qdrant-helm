@@ -13,15 +13,10 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 1.17.0
-appVersion: v1.17.0
+version: 1.17.1
+appVersion: v1.17.1
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.17.0
-    - kind: fixed
-      description: Remove duplicate helm values top level field .additionalLabels
-      links:
-        - name: GitHub Pull Request
-          url: https://github.com/qdrant/qdrant-helm/pull/428
+      description: Update Qdrant to v1.17.1
