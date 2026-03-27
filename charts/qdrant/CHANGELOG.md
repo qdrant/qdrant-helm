@@ -1,6 +1,5 @@
 # Changelog
 
-## [qdrant-1.17.0](https://github.com/qdrant/qdrant-helm/tree/qdrant-1.17.0) (2026-02-20)
+## [qdrant-1.17.1](https://github.com/qdrant/qdrant-helm/tree/qdrant-1.17.1) (2026-03-27)
 
-- Update Qdrant to v1.17.0
-- Remove duplicate helm values top level field `.additionalLabels` [#428](https://github.com/qdrant/qdrant-helm/pull/428)
+- Update Qdrant to v1.17.1
