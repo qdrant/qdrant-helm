@@ -54,7 +54,7 @@ spec:
       {{- if and .Values.updateVolumeFsOwnership (not .Values.image.useUnprivilegedImage) }}
       {{- if and .Values.containerSecurityContext .Values.containerSecurityContext.runAsUser }}
       - name: ensure-dir-ownership
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        image: "{{ include "qdrant.image" . }}"
         command:
           - chown
           - -R
@@ -86,7 +86,7 @@ spec:
         {{- toYaml .Values.sidecarContainers | trim | nindent 8 }}
         {{- end}}
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}{{ .Values.image.useUnprivilegedImage | ternary "-unprivileged" "" }}"
+          image: "{{ include "qdrant.image" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: QDRANT_INIT_FILE_PATH
