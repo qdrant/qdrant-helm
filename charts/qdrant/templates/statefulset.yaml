@@ -64,6 +64,8 @@ spec:
           {{- if and .Values.snapshotRestoration.enabled .Values.snapshotRestoration.pvcName }}
           - {{ .Values.snapshotRestoration.mountPath }}
           {{- end }}
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
         volumeMounts:
           - name: {{ .Values.persistence.storageVolumeName | default "qdrant-storage" }}
             mountPath: /qdrant/storage
