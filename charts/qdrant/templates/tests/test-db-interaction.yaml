@@ -45,7 +45,7 @@ spec:
 {{- toYaml .Values.additionalVolumes | default "" | nindent 4 }}
     {{- end}}
   restartPolicy: Never
-  serviceAccountName: {{ include "qdrant.fullname" . }}
+  serviceAccountName: {{ include "qdrant.serviceAccountName" . }}
 ---
 apiVersion: v1
 kind: ConfigMap
