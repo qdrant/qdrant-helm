@@ -236,9 +236,7 @@ spec:
         {{- tpl (toYaml .) $ | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "qdrant.serviceAccountName" . }}
-      {{- with .Values.automountServiceAccountToken }}
-      automountServiceAccountToken: {{ . }}
-      {{- end }}
+      automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}
       volumes:
         - name: qdrant-config
           configMap:
