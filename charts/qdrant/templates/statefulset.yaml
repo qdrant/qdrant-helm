@@ -50,6 +50,9 @@ spec:
       {{- if .Values.shareProcessNamespace }}
       shareProcessNamespace: {{ .Values.shareProcessNamespace }}
       {{- end }}
+      {{- if hasKey .Values "terminationGracePeriodSeconds" }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      {{- end }}
       initContainers:
       {{- if and .Values.updateVolumeFsOwnership (not .Values.image.useUnprivilegedImage) }}
       {{- if and .Values.containerSecurityContext .Values.containerSecurityContext.runAsUser }}
