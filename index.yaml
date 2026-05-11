@@ -5,6 +5,37 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.18.0
+        - kind: added
+          description: Add support for setting terminationGracePeriodSeconds
+          links:
+            - name: GitHub Pull Request
+              url: https://github.com/qdrant/qdrant-helm/pull/449
+    apiVersion: v2
+    appVersion: v1.18.0
+    created: "2026-05-11T15:27:48.806427853Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 25b0eaa4ea48173e5a9c54c6b3d466f3ff29ae93f2ca6738ef9f5c2daf6f8414
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.18.0/qdrant-1.18.0.tgz
+    version: 1.18.0
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.17.1
     apiVersion: v2
     appVersion: v1.17.1
@@ -1960,4 +1991,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-27T11:20:49.429774625Z"
+generated: "2026-05-11T15:27:48.806621947Z"
