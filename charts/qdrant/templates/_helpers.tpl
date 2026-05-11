@@ -63,6 +63,39 @@ Additional (global) labels
 {{- end }}
 
 {{/*
+Container image reference for the qdrant container.
+Prefers `image.digest` (immutable, content-addressed) when set, rendering
+`repository@digest`. Otherwise falls back to `repository:tag` with the optional
+`-unprivileged` suffix. When using `digest`, the digest must already point to
+the desired image variant.
+*/}}
+{{- define "qdrant.image" -}}
+{{- if .Values.image.digest -}}
+{{- printf "%s@%s" .Values.image.repository .Values.image.digest -}}
+{{- else -}}
+{{- $tag := .Values.image.tag | default .Chart.AppVersion -}}
+{{- $suffix := ternary "-unprivileged" "" .Values.image.useUnprivilegedImage -}}
+{{- printf "%s:%s%s" .Values.image.repository $tag $suffix -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Semantic-version portion of the qdrant image tag.
+Strips an optional `@sha256:…` suffix from `image.tag` (e.g. `v1.17.1@sha256:…`,
+which Renovate emits when digest-pinning) and falls back to `Chart.AppVersion`
+when the tag is empty. Used by chart logic that needs a valid semver such as
+the readiness-probe-path selection.
+*/}}
+{{- define "qdrant.image.semver" -}}
+{{- $tag := .Values.image.tag | default .Chart.AppVersion -}}
+{{- if contains "@" $tag -}}
+{{- (split "@" $tag)._0 -}}
+{{- else -}}
+{{- $tag -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "qdrant.serviceAccountName" -}}
