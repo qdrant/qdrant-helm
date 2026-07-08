@@ -4,6 +4,11 @@ image:
   repository: docker.io/qdrant/qdrant
   pullPolicy: IfNotPresent
   tag: ""
+  # Optional image digest (e.g. "sha256:..."). When set, it is appended to the
+  # image reference (repo:tag@digest) so the pull is content-addressed while
+  # the tag stays a plain semver for the chart's version checks.
+  # Note: with useUnprivilegedImage, provide the digest of the -unprivileged variant.
+  digest: ""
   useUnprivilegedImage: false
 
 imagePullSecrets: []
