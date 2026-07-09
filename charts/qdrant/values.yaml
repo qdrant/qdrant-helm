@@ -188,6 +188,38 @@ config:
   service:
     enable_tls: false
 
+# additionalInitContainers allows injecting extra init containers into the Qdrant pod.
+# Init containers run to completion sequentially before the main Qdrant container starts,
+# making them the correct place for node-level setup that must be done before Qdrant loads
+# its collections (e.g. raising vm.max_map_count so mmap-heavy workloads do not hit
+# ENOMEM when the number of virtual memory areas exceeds the kernel default of 65530).
+#
+# The chart already provides an 'ensure-dir-ownership' init container; entries defined
+# here are appended after it.
+#
+# Example — raise vm.max_map_count on the host node so Qdrant can mmap many shards:
+#
+#   additionalInitContainers:
+#     - name: set-vm-max-map-count
+#       # busybox is sufficient; any image with sysctl works.
+#       image: busybox
+#       # sysctl writes to the host kernel parameter because the container shares the
+#       # host kernel namespace when privileged: true. The value 262144 is Qdrant's
+#       # documented recommendation for production deployments with many collections.
+#       command: ['sysctl', '-w', 'vm.max_map_count=262144']
+#       securityContext:
+#         privileged: true
+#       resources:
+#         requests:
+#           cpu: 1m
+#           memory: 1Mi
+#
+# When to use this instead of sidecarContainers:
+#   - The action must complete *before* Qdrant starts (strict ordering guarantee).
+#   - The action is a one-shot setup step with no ongoing process needed afterwards.
+#   - You want the pod to fail fast if setup fails (init container failure blocks the pod).
+additionalInitContainers: []
+
 sidecarContainers: []
 # sidecarContainers:
 #   - name: my-sidecar
