@@ -86,3 +86,38 @@ func TestOverwriteImage(t *testing.T) {
 
 	require.Equal(t, "test/repo:v1.6.0-unprivileged", container.Image)
 }
+
+func TestDigestImagePreferred(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	options := &helm.Options{
+		SetValues: map[string]string{
+			"image.repository": "docker.io/qdrant/qdrant",
+			"image.tag":        "v1.6.0",
+			"image.digest":     "sha256:abc123def456",
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+
+	var statefulSet appsv1.StatefulSet
+	helm.UnmarshalK8SYaml(t, output, &statefulSet)
+
+	container, _ := lo.Find(statefulSet.Spec.Template.Spec.Containers, func(container corev1.Container) bool {
+		return container.Name == "qdrant"
+	})
+
+	// digest should be used with @ and no -unprivileged suffix
+	require.Equal(t, "docker.io/qdrant/qdrant@sha256:abc123def456", container.Image)
+	// init container should also use the digest image (default unprivilegedImage=false)
+	require.GreaterOrEqual(t, len(statefulSet.Spec.Template.Spec.InitContainers), 1)
+	require.Equal(t, "docker.io/qdrant/qdrant@sha256:abc123def456", statefulSet.Spec.Template.Spec.InitContainers[0].Image)
+}
