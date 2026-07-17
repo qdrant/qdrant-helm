@@ -3,6 +3,7 @@ apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: {{ include "qdrant.fullname" . }}
+  namespace: {{ .Values.namespace | default .Release.Namespace }}
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
     {{- include "qdrant.additionalLabels" . | nindent 4 }}
