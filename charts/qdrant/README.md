@@ -56,7 +56,7 @@ Running a distributed cluster just needs a few changes in your `values.yaml` fil
 Increase the number of replicas to the desired number of nodes and set `config.cluster.enabled` to true.
 
 Depending on your environment or cloud provider you might need to change the service in the `values.yaml` as well.
-For example on AWS EKS you would need to change the `cluster.type` to `NodePort`.
+For example on AWS EKS you would need to change the `service.type` to `NodePort`.
 
 ## Updating StatefulSets
 
