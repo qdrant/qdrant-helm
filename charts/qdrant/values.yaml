@@ -40,6 +40,20 @@ service:
       protocol: TCP
       checksEnabled: false
 
+headlessService:
+  # Set to false to disable the headless service entirely.
+  # Useful when cluster mode is disabled (config.cluster.enabled: false).
+  enabled: true
+  # Overrides service.annotations for the headless service.
+  # null (default): inherits service.annotations (backwards-compatible behaviour).
+  # {}: no annotations on the headless service.
+  # {key: val}: only these annotations.
+  annotations: null
+  # Overrides service.additionalLabels for the headless service.
+  # null (default): inherits service.additionalLabels.
+  # {}: no additional labels on the headless service.
+  additionalLabels: null
+
 ingress:
   enabled: false
   ingressClassName: ""
