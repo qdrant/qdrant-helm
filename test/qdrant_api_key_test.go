@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -22,22 +23,22 @@ func TestStringApiKey(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"apiKey": `"test_api_key"`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
 
-	output = helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
+	output = helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
 
 	var secret corev1.Secret
 	helm.UnmarshalK8SYaml(t, output, &secret)
@@ -69,22 +70,22 @@ func TestRandomApiKey(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"apiKey": `true`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
 
-	output = helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
+	output = helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
 
 	var secret corev1.Secret
 	helm.UnmarshalK8SYaml(t, output, &secret)
@@ -116,15 +117,15 @@ func TestNoApiKey(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues:  map[string]string{},
+		SetJSONValues:  map[string]string{},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
@@ -152,22 +153,22 @@ func TestStringReadOnlyApiKey(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"readOnlyApiKey": `"test_api_key"`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
 
-	output = helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
+	output = helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
 
 	var secret corev1.Secret
 	helm.UnmarshalK8SYaml(t, output, &secret)
@@ -199,22 +200,22 @@ func TestRandomReadOnlyApiKey(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"readOnlyApiKey": `true`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
 
-	output = helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
+	output = helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
 
 	var secret corev1.Secret
 	helm.UnmarshalK8SYaml(t, output, &secret)
@@ -246,23 +247,23 @@ func TestAdminAndReadOnlyApiKey(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"readOnlyApiKey": `true`,
 			"apiKey":         `true`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
 
-	output = helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
+	output = helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
 
 	var secret corev1.Secret
 	helm.UnmarshalK8SYaml(t, output, &secret)

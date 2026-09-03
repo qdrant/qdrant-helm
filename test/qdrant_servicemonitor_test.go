@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -20,18 +21,18 @@ func TestRelabelings(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"metrics.serviceMonitor.enabled":     `true`,
 			"metrics.serviceMonitor.relabelings": `[{"sourceLabels": ["source"], "targetLabel": "target"}]`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
 
 	var serviceMonitor monitoringv1.ServiceMonitor
 	helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
@@ -47,18 +48,18 @@ func TestMetricRelabelings(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"metrics.serviceMonitor.enabled":           `true`,
 			"metrics.serviceMonitor.metricRelabelings": `[{"sourceLabels": ["source"], "action": "drop"}]`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
 
 	var serviceMonitor monitoringv1.ServiceMonitor
 	helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
@@ -74,18 +75,18 @@ func TestCustomAuthorization(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"metrics.serviceMonitor.enabled":       `true`,
 			"metrics.serviceMonitor.authorization": `{"type":"Bearer","credentials":{"name":"secret","key":"token"}}`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
 
 	var serviceMonitor monitoringv1.ServiceMonitor
 	helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
@@ -102,11 +103,11 @@ func TestReadOnlyApiKeyAuthorization(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"readOnlyApiKey":                 `"foo"`,
 			"apiKey":                         `"bar"`,
 			"metrics.serviceMonitor.enabled": `true`,
@@ -114,7 +115,7 @@ func TestReadOnlyApiKeyAuthorization(t *testing.T) {
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
 
 	var serviceMonitor monitoringv1.ServiceMonitor
 	helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
@@ -131,18 +132,18 @@ func TestApiKeyAuthorization(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"apiKey":                         `"bar"`,
 			"metrics.serviceMonitor.enabled": `true`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
 
 	var serviceMonitor monitoringv1.ServiceMonitor
 	helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
