@@ -1,15 +1,17 @@
 package test
 
 import (
+	"context"
+	"path/filepath"
+	"strings"
+	"testing"
+
 	"github.com/gruntwork-io/terratest/modules/helm"
 	"github.com/gruntwork-io/terratest/modules/k8s"
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/stretchr/testify/require"
 	networkingv1 "k8s.io/api/networking/v1"
-	"path/filepath"
-	"strings"
-	"testing"
 )
 
 func TestIngressWithIngressClassName(t *testing.T) {
@@ -19,18 +21,18 @@ func TestIngressWithIngressClassName(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"ingress.enabled":          `true`,
 			"ingress.ingressClassName": `"nginx"`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/ingress.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/ingress.yaml"})
 
 	var ingress networkingv1.Ingress
 	helm.UnmarshalK8SYaml(t, output, &ingress)
@@ -45,11 +47,11 @@ func TestIngressWithTls(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"ingress.enabled": `true`,
 			"ingress.hosts":   `[{"host":"test.qdrant.local","paths":[{"path":"/","pathType":"Prefix","servicePort": 6333}]}]`,
 			"ingress.tls":     `[{"hosts":["test.qdrant.local"],"secretName":"test-secret"}]`,
@@ -57,7 +59,7 @@ func TestIngressWithTls(t *testing.T) {
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/ingress.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/ingress.yaml"})
 
 	var ingress networkingv1.Ingress
 	helm.UnmarshalK8SYaml(t, output, &ingress)

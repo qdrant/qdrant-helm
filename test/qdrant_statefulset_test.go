@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -20,15 +21,15 @@ func TestContainerSecurityContextUserAndGroupDefault(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues:  map[string]string{},
+		SetJSONValues:  map[string]string{},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	statefulsetOutput := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	statefulsetOutput := helm.RenderRemoteTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, statefulsetOutput, &statefulSet)
@@ -45,11 +46,11 @@ func TestContainerSecurityContextUserAndGroupLargeValues(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"containerSecurityContext": `{
 				"runAsUser": 1000640000,
 				"runAsGroup": 1000840000
@@ -61,7 +62,7 @@ func TestContainerSecurityContextUserAndGroupLargeValues(t *testing.T) {
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	statefulsetOutput := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	statefulsetOutput := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, statefulsetOutput, &statefulSet)
@@ -78,11 +79,11 @@ func TestCanAttachVolumeAttributesClassToPersistence(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"persistence": `{
 				"volumeAttributesClassName": "my-class"
 			}`,
@@ -94,7 +95,7 @@ func TestCanAttachVolumeAttributesClassToPersistence(t *testing.T) {
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	statefulsetOutput := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	statefulsetOutput := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, statefulsetOutput, &statefulSet)

@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -24,11 +25,11 @@ func TestAdditionalLabelsAreSetOnStatefulset(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"additionalLabels":         `{"additionalTest": "additionalLabels"}`,
 			"podLabels":                `{"test": "podLabels"}`,
 			"service.additionalLabels": `{"test": "serviceAdditionalLabels"}`,
@@ -36,7 +37,7 @@ func TestAdditionalLabelsAreSetOnStatefulset(t *testing.T) {
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
@@ -54,17 +55,17 @@ func TestAdditionalLabelsAreSetOnService(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"service.additionalLabels": `{"test": "serviceAdditionalLabels"}`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/service.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/service.yaml"})
 
 	var service corev1.Service
 	helm.UnmarshalK8SYaml(t, output, &service)
@@ -80,17 +81,17 @@ func TestAdditionalLabelsAreSetOnServiceHeadless(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"service.additionalLabels": `{"test": "serviceAdditionalLabels"}`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/service-headless.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/service-headless.yaml"})
 
 	var service corev1.Service
 	helm.UnmarshalK8SYaml(t, output, &service)
@@ -106,18 +107,18 @@ func TestAdditionalLabelsAreSetOnServiceMonitor(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"metrics.serviceMonitor.enabled":          `true`,
 			"metrics.serviceMonitor.additionalLabels": `{"test": "serviceMonitorAdditionalLabels"}`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
 
 	var serviceMonitor monitoringv1.ServiceMonitor
 	helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
@@ -133,18 +134,18 @@ func TestAdditionalLabelsAreSetOnIngress(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"ingress.enabled":          `true`,
 			"ingress.additionalLabels": `{"test": "ingressAdditionalLabels"}`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/ingress.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/ingress.yaml"})
 
 	var ingress networkingv1.Ingress
 	helm.UnmarshalK8SYaml(t, output, &ingress)
@@ -160,11 +161,11 @@ func TestAdditionalLabelsAreSetOnPvcs(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"persistence.additionalLabels":         `{"test": "additionalPersistenceLabel"}`,
 			"snapshotPersistence.enabled":          `true`,
 			"snapshotPersistence.additionalLabels": `{"test": "additionalSnapshotPersistenceLabel"}`,
@@ -172,7 +173,7 @@ func TestAdditionalLabelsAreSetOnPvcs(t *testing.T) {
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var sts appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &sts)
