@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "qdrant.fullname" . }}-headless
+  namespace: {{ .Values.namespace | default .Release.Namespace }}
   labels:
     {{- include "qdrant.labels" . | nindent 4 }}
     {{- include "qdrant.additionalLabels" . | nindent 4 }}
