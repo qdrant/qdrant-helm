@@ -5,6 +5,32 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.19.1
+    apiVersion: v2
+    appVersion: v1.19.1
+    created: "2026-09-04T15:36:02.682043277Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 4562eb295c2d98ad9dbb625a729fcb593d315f2538d0200035aac37521f12b17
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.19.1/qdrant-1.19.1.tgz
+    version: 1.19.1
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.19.0
     apiVersion: v2
     appVersion: v1.19.0
@@ -2095,4 +2121,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2026-08-13T20:59:44.569238689Z"
+generated: "2026-09-04T15:36:02.682307461Z"
