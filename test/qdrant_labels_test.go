@@ -1,10 +1,12 @@
 package test
 
 import (
-	v1 "k8s.io/api/core/v1"
+	"context"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	v1 "k8s.io/api/core/v1"
 
 	"github.com/gruntwork-io/terratest/modules/helm"
 	"github.com/gruntwork-io/terratest/modules/k8s"
@@ -22,17 +24,17 @@ func TestStatefulSetLabels(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"additionalLabels": `{"example.com/customLabel": "customValue"}`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
@@ -48,18 +50,18 @@ func TestIngressLabels(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"ingress.enabled":  `true`,
 			"additionalLabels": `{"example.com/customLabel": "customValue"}`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/ingress.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/ingress.yaml"})
 
 	var ingress networkingv1.Ingress
 	helm.UnmarshalK8SYaml(t, output, &ingress)
@@ -75,17 +77,17 @@ func TestServiceAccountLabels(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"additionalLabels": `{"example.com/customLabel": "customValue"}`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/serviceaccount.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/serviceaccount.yaml"})
 
 	var serviceAccount v1.ServiceAccount
 	helm.UnmarshalK8SYaml(t, output, &serviceAccount)

@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"log"
 	"os"
 	"path/filepath"
@@ -27,14 +28,14 @@ func TestDefaultImage(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)
@@ -63,7 +64,7 @@ func TestOverwriteImage(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
@@ -75,7 +76,7 @@ func TestOverwriteImage(t *testing.T) {
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, output, &statefulSet)

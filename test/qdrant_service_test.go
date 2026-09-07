@@ -1,10 +1,12 @@
 package test
 
 import (
-	"k8s.io/apimachinery/pkg/util/intstr"
+	"context"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"k8s.io/apimachinery/pkg/util/intstr"
 
 	"github.com/gruntwork-io/terratest/modules/helm"
 	"github.com/gruntwork-io/terratest/modules/k8s"
@@ -22,17 +24,17 @@ func TestNodePortsAreSetOnNodePortService(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"service": `{"type": "NodePort", "ports": [{"name": "http", "port": 6333, "targetPort": 6333, "protocol": "TCP", "nodePort": 30333}, {"name": "grpc", "port": 6334, "targetPort": 6334, "protocol": "TCP", "nodePort": 30334}]}`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	statefulsetOutput := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	statefulsetOutput := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, statefulsetOutput, &statefulSet)
@@ -44,7 +46,7 @@ func TestNodePortsAreSetOnNodePortService(t *testing.T) {
 	require.EqualValues(t, 6334, statefulSet.Spec.Template.Spec.Containers[0].Ports[1].ContainerPort)
 	require.Equal(t, corev1.ProtocolTCP, statefulSet.Spec.Template.Spec.Containers[0].Ports[1].Protocol)
 
-	serviceOutput := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/service.yaml"})
+	serviceOutput := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/service.yaml"})
 
 	var service corev1.Service
 	helm.UnmarshalK8SYaml(t, serviceOutput, &service)
@@ -69,17 +71,17 @@ func TestNodePortsAreDefaultsOnClusterIpService(t *testing.T) {
 	releaseName := "qdrant"
 	require.NoError(t, err)
 
-	namespaceName := "qdrant-" + strings.ToLower(random.UniqueId())
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
 	logger.Log(t, "Namespace: %s\n", namespaceName)
 
 	options := &helm.Options{
-		SetJsonValues: map[string]string{
+		SetJSONValues: map[string]string{
 			"service": `{"type": "ClusterIP", "ports": [{"name": "http", "port": 6333, "targetPort": 6333, "protocol": "TCP"}, {"name": "grpc", "port": 6334, "targetPort": 6334, "protocol": "TCP"}]}`,
 		},
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	statefulSetOutput := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	statefulSetOutput := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, statefulSetOutput, &statefulSet)
@@ -91,7 +93,7 @@ func TestNodePortsAreDefaultsOnClusterIpService(t *testing.T) {
 	require.EqualValues(t, 6334, statefulSet.Spec.Template.Spec.Containers[0].Ports[1].ContainerPort)
 	require.Equal(t, corev1.ProtocolTCP, statefulSet.Spec.Template.Spec.Containers[0].Ports[1].Protocol)
 
-	serviceOutput := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/service.yaml"})
+	serviceOutput := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/service.yaml"})
 
 	var service corev1.Service
 	helm.UnmarshalK8SYaml(t, serviceOutput, &service)
