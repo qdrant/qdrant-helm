@@ -29,7 +29,7 @@ func TestContainerSecurityContextUserAndGroupDefault(t *testing.T) {
 		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
 	}
 
-	statefulsetOutput := helm.RenderRemoteTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+	statefulsetOutput := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
 
 	var statefulSet appsv1.StatefulSet
 	helm.UnmarshalK8SYaml(t, statefulsetOutput, &statefulSet)
