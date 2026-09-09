@@ -7,6 +7,7 @@ image:
   useUnprivilegedImage: false
 
 imagePullSecrets: []
+namespace: ""  
 nameOverride: ""
 fullnameOverride: ""
 args: ["./config/initialize.sh"]

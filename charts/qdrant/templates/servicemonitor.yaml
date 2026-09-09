@@ -9,6 +9,7 @@ metadata:
 {{- toYaml . | nindent 4 }}
 {{- end }}
   name: {{ include "qdrant.fullname" . }}
+  namespace: {{ .Values.namespace | default .Release.Namespace }}
 {{- with .Values.additionalAnnotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
