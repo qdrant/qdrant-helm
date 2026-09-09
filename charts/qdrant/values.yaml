@@ -233,6 +233,7 @@ metrics:
 
 serviceAccount:
   annotations: {}
+  automountServiceAccountToken: false
 
 priorityClassName: ""
 
