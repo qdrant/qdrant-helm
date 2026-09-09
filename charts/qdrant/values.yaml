@@ -232,6 +232,8 @@ metrics:
     #     key: api-key
 
 serviceAccount:
+  create: true
+  name: ""
   annotations: {}
 
 priorityClassName: ""
