@@ -143,3 +143,19 @@ Port to use for inter cluster communication
 {{- define "qdrant.p2p.port" -}}
 {{- default 6335 .Values.config.cluster.p2p.port -}}
 {{- end -}}
+
+{{/*
+Build the full container image reference, preferring digest over tag.
+If a digest is provided, uses the @digest form. Otherwise uses :tag (or Chart.AppVersion) and appends -unprivileged when requested.
+*/}}
+{{- define "qdrant.image" -}}
+{{- $repo := .Values.image.repository -}}
+{{- $digest := .Values.image.digest -}}
+{{- $tag := default .Chart.AppVersion .Values.image.tag -}}
+{{- $suffix := ternary "-unprivileged" "" .Values.image.useUnprivilegedImage -}}
+{{- if $digest -}}
+{{- printf "%s@%s" $repo $digest -}}
+{{- else -}}
+{{- printf "%s:%s%s" $repo $tag $suffix -}}
+{{- end -}}
+{{- end -}}
