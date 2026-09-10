@@ -4,6 +4,14 @@ image:
   repository: docker.io/qdrant/qdrant
   pullPolicy: IfNotPresent
   tag: ""
+  # SHA256 digest of the image (e.g. `sha256:abc123…`). When set, the container
+  # is referenced as `repository@digest` instead of `repository:tag`, providing
+  # immutable, content-addressed pulls. The digest takes precedence over the
+  # `-unprivileged` suffix, so it must already point to the desired variant.
+  # `tag` is still used by chart logic that relies on the qdrant version
+  # (e.g. selecting the readiness probe path); set both `tag` and `digest` so
+  # the digest pins the image while the tag drives version-aware rendering.
+  digest: ""
   useUnprivilegedImage: false
 
 imagePullSecrets: []
