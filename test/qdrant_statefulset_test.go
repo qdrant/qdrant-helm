@@ -102,3 +102,44 @@ func TestCanAttachVolumeAttributesClassToPersistence(t *testing.T) {
 	require.Equal(t, "my-class", *statefulSet.Spec.VolumeClaimTemplates[0].Spec.VolumeAttributesClassName)
 	require.Equal(t, "my-class", *statefulSet.Spec.VolumeClaimTemplates[1].Spec.VolumeAttributesClassName)
 }
+
+func TestEnvValueFromSupportsTemplating(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	require.NoError(t, err)
+
+	releaseName := "qdrant"
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	options := &helm.Options{
+		SetJSONValues: map[string]string{
+			"env": `[
+				{
+					"name": "TEST_SECRET",
+					"valueFrom": {
+						"secretKeyRef": {
+							"name": "{{ .Release.Name }}-secret",
+							"key": "api-key"
+						}
+					}
+				}
+			]`,
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/statefulset.yaml"})
+
+	var statefulSet appsv1.StatefulSet
+	helm.UnmarshalK8SYaml(t, output, &statefulSet)
+
+	env := statefulSet.Spec.Template.Spec.Containers[0].Env
+	require.Len(t, env, 2)
+	require.Equal(t, "TEST_SECRET", env[1].Name)
+	require.NotNil(t, env[1].ValueFrom)
+	require.NotNil(t, env[1].ValueFrom.SecretKeyRef)
+	require.Equal(t, "qdrant-secret", env[1].ValueFrom.SecretKeyRef.Name)
+	require.Equal(t, "api-key", env[1].ValueFrom.SecretKeyRef.Key)
+}
