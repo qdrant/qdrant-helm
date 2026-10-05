@@ -53,9 +53,8 @@ spec:
       {{- if hasKey .Values "terminationGracePeriodSeconds" }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- end }}
+      {{- if and .Values.updateVolumeFsOwnership (not .Values.image.useUnprivilegedImage) .Values.containerSecurityContext .Values.containerSecurityContext.runAsUser }}
       initContainers:
-      {{- if and .Values.updateVolumeFsOwnership (not .Values.image.useUnprivilegedImage) }}
-      {{- if and .Values.containerSecurityContext .Values.containerSecurityContext.runAsUser }}
       - name: ensure-dir-ownership
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         command:
@@ -81,7 +80,6 @@ spec:
           {{- if and .Values.snapshotRestoration.enabled .Values.snapshotRestoration.pvcName }}
           - name: qdrant-snapshot-restoration
             mountPath: {{ .Values.snapshotRestoration.mountPath }}
-          {{- end }}
       {{- end }}
       {{- end }}
       containers:
@@ -239,6 +237,7 @@ spec:
         {{- tpl (toYaml .) $ | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "qdrant.fullname" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.automountServiceAccountToken }}
       volumes:
         - name: qdrant-config
           configMap:
