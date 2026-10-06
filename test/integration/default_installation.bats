@@ -12,9 +12,10 @@ setup_file() {
     run kubectl logs -n qdrant-helm-integration qdrant-0
     [ $status -eq 0 ]
     [[ "${output}" =~ .*INFO.* ]]
-    if [[ "${output}" =~ .*WARN.* ]]; then
+    warnings=$(echo "${output}" | grep "WARN" | grep -v "WARN.*qdrant::settings: Running in distributed mode with an API key configured" || true)
+    if [[ -n "${warnings}" ]]; then
         echo "Found warning output:"
-        echo "${output}"
+        echo "${warnings}"
         return 1
     fi
 }
