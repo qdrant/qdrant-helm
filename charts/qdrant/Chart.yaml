@@ -13,10 +13,20 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 1.19.1
-appVersion: v1.19.1
+version: 1.19.2
+appVersion: v1.19.2
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.19.1
+      description: Update Qdrant to v1.19.2
+    - kind: added
+      description: Support exisiting ServiceAccount
+      links:
+        - name: GitHub Pull Request
+          url: https://github.com/qdrant/qdrant-helm/pull/482
+    - kind: added
+      description: Support templating in env valueFrom
+      links:
+        - name: GitHub Pull Request
+          url: https://github.com/qdrant/qdrant-helm/pull/509
