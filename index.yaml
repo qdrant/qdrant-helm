@@ -5,6 +5,42 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.19.2
+        - kind: added
+          description: Support exisiting ServiceAccount
+          links:
+            - name: GitHub Pull Request
+              url: https://github.com/qdrant/qdrant-helm/pull/482
+        - kind: added
+          description: Support templating in env valueFrom
+          links:
+            - name: GitHub Pull Request
+              url: https://github.com/qdrant/qdrant-helm/pull/509
+    apiVersion: v2
+    appVersion: v1.19.2
+    created: "2026-10-06T13:09:29.024338476Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 2811cff3992052b131aed7af1d42cb8a760f111c40f56cfbba519425252143f8
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.19.2/qdrant-1.19.2.tgz
+    version: 1.19.2
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.19.1
     apiVersion: v2
     appVersion: v1.19.1
@@ -2121,4 +2157,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2026-09-04T15:36:02.682307461Z"
+generated: "2026-10-06T13:09:29.024535585Z"
