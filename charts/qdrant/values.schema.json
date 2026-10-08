@@ -185,26 +185,26 @@
     "podLabels": { "type": "object" },
     "resources": { "type": "object" },
     "containerSecurityContext": {
-      "type": "object",
-      "properties": {
-        "runAsNonRoot": { "type": "boolean" },
-        "runAsUser": { "type": "integer", "minimum": 0 },
-        "runAsGroup": { "type": "integer", "minimum": 0 },
-        "allowPrivilegeEscalation": { "type": "boolean" },
-        "privileged": { "type": "boolean" },
-        "readOnlyRootFilesystem": { "type": "boolean" }
-      }
-    },
-    "podSecurityContext": {
-      "type": "object",
-      "properties": {
-        "fsGroup": { "type": "integer", "minimum": 0 },
-        "fsGroupChangePolicy": {
-          "type": "string",
-          "enum": ["Always", "OnRootMismatch"]
+        "type": ["object", "boolean"],
+        "properties": {
+            "runAsNonRoot": { "type": "boolean" },
+            "runAsUser": { "type": "integer", "minimum": 0 },
+            "runAsGroup": { "type": "integer", "minimum": 0 },
+            "allowPrivilegeEscalation": { "type": "boolean" },
+            "privileged": { "type": "boolean" },
+            "readOnlyRootFilesystem": { "type": "boolean" }
         }
-      }
-    },
+        },
+        "podSecurityContext": {
+        "type": ["object", "boolean"],
+        "properties": {
+            "fsGroup": { "type": "integer", "minimum": 0 },
+            "fsGroupChangePolicy": {
+            "type": "string",
+            "enum": ["Always", "OnRootMismatch"]
+            }
+        }
+        },
     "lifecycle": { "type": "object" },
     "updateVolumeFsOwnership": { "type": "boolean" },
     "nodeSelector": { "type": "object" },
