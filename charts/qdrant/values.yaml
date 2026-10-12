@@ -57,6 +57,21 @@ ingress:
     #    - example-domain.com
     #   secretName: tls-secret-name
 
+# Gateway API HTTPRoute, can be used alongside or instead of ingress.
+# TLS is terminated by the Gateway listener, not by the route.
+httpRoute:
+  enabled: false
+  additionalLabels: {}
+  annotations: {}
+  parentRefs: []
+    # - name: my-gateway
+    #   namespace: gateway-system
+    #   sectionName: https
+  hostnames: []
+    # - example-domain.com
+  pathPrefix: /
+  servicePort: 6333
+
 livenessProbe:
   enabled: false
   initialDelaySeconds: 5
