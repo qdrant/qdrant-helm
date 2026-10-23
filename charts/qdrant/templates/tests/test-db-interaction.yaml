@@ -21,9 +21,14 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      env:
+        - name: HOME
+          value: /tmp/home
       volumeMounts:
         - mountPath: /app
           name: test-script
+        - mountPath: /tmp/home
+          name: home
         {{- if .Values.additionalVolumeMounts }}
 {{- toYaml .Values.additionalVolumeMounts | default "" | nindent 8 }}
         {{- end}}
@@ -45,6 +50,8 @@ spec:
     - name: test-script
       configMap:
         name: "{{ include "qdrant.fullname" . }}-test-db-interaction"
+    - name: home
+      emptyDir: {}
     {{- if .Values.additionalVolumes }}
 {{- toYaml .Values.additionalVolumes | default "" | nindent 4 }}
     {{- end}}
