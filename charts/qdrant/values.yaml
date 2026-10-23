@@ -4,6 +4,7 @@ image:
   repository: docker.io/qdrant/qdrant
   pullPolicy: IfNotPresent
   tag: ""
+  digest: ""
   useUnprivilegedImage: false
 
 imagePullSecrets: []
