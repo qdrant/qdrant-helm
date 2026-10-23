@@ -1,6 +1,6 @@
 module github.com/qdrant/qdrant-helm
 
-go 1.27.1
+go 1.27.3
 
 require (
 	github.com/ghodss/yaml v1.0.0
