@@ -17,6 +17,10 @@ spec:
     - name: test-script
       image: {{ .Values.chartTests.dbInteraction.image | quote }}
       args: ['bash', '/app/entrypoint.sh']
+      {{- with .Values.chartTests.dbInteraction.containerSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       volumeMounts:
         - mountPath: /app
           name: test-script
