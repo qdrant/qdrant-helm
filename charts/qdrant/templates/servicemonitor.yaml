@@ -19,7 +19,11 @@ spec:
       interval: {{ .Values.metrics.serviceMonitor.scrapeInterval }}
       path: {{ .Values.metrics.serviceMonitor.targetPath }}
       port: {{ .Values.metrics.serviceMonitor.targetPort }}
-      scheme: http
+      scheme: {{ if and .Values.config.service .Values.config.service.enable_tls }}https{{ else }}http{{ end }}
+{{- with .Values.metrics.serviceMonitor.tlsConfig }}
+      tlsConfig:
+        {{- toYaml . | nindent 8 }}
+{{- end }}
       scrapeTimeout: {{ .Values.metrics.serviceMonitor.scrapeTimeout }}
 {{- if .Values.metrics.serviceMonitor.metricRelabelings }}
       metricRelabelings:

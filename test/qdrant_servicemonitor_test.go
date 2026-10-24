@@ -152,3 +152,61 @@ func TestApiKeyAuthorization(t *testing.T) {
 	require.Equal(t, "qdrant-apikey", serviceMonitor.Spec.Endpoints[0].Authorization.Credentials.Name)
 	require.Equal(t, "api-key", serviceMonitor.Spec.Endpoints[0].Authorization.Credentials.Key)
 }
+
+func TestServiceMonitorScheme(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	for tlsEnabled, expectedScheme := range map[string]string{"false": "http", "true": "https"} {
+		namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
+		logger.Log(t, "Namespace: %s\n", namespaceName)
+
+		options := &helm.Options{
+			SetJSONValues: map[string]string{
+				"metrics.serviceMonitor.enabled": `true`,
+				"config.service.enable_tls":      tlsEnabled,
+			},
+			KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+		}
+
+		output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
+
+		var serviceMonitor monitoringv1.ServiceMonitor
+		helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
+
+		require.Equal(t, expectedScheme, string(*serviceMonitor.Spec.Endpoints[0].Scheme))
+	}
+}
+
+func TestServiceMonitorTLSConfig(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	options := &helm.Options{
+		SetJSONValues: map[string]string{
+			"metrics.serviceMonitor.enabled":   `true`,
+			"config.service.enable_tls":        `true`,
+			"metrics.serviceMonitor.tlsConfig": `{"serverName": "qdrant.example.com", "insecureSkipVerify": true}`,
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/servicemonitor.yaml"})
+
+	var serviceMonitor monitoringv1.ServiceMonitor
+	helm.UnmarshalK8SYaml(t, output, &serviceMonitor)
+
+	tlsConfig := serviceMonitor.Spec.Endpoints[0].TLSConfig
+	require.NotNil(t, tlsConfig)
+	require.Equal(t, "qdrant.example.com", *tlsConfig.ServerName)
+	require.True(t, *tlsConfig.InsecureSkipVerify)
+}
