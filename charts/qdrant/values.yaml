@@ -258,6 +258,7 @@ podDisruptionBudget:
 # false: no api key will be configured
 # true: an api key will be auto-generated
 # string: the given string will be set as an apikey
+#   quote keys that look like numbers, e.g. "0123", as YAML would otherwise change them
 # Also supports reading in from an external secret using
 # valueFrom:
 #   secretKeyRef:
@@ -269,6 +270,7 @@ podDisruptionBudget:
 # false: no read-only api key will be configured
 # true: an read-only api key will be auto-generated
 # string: the given string will be set as a read-only apikey
+#   quote keys that look like numbers, e.g. "0123", as YAML would otherwise change them
 # Also supports reading in from an external secret using
 # valueFrom:
 #   secretKeyRef:
