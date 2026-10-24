@@ -27,7 +27,7 @@ spec:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-      {{- if or .Values.apiKey .Values.readOnlyApiKey }}
+      {{- if include "qdrant.createApiKeySecret" . }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
       {{- end }}
       {{- with .Values.podAnnotations }}
@@ -94,6 +94,14 @@ spec:
           env:
             - name: QDRANT_INIT_FILE_PATH
               value: /qdrant/init/.qdrant-initialized
+          {{- if include "qdrant.apiKeyValueFrom" . }}
+            - name: QDRANT__SERVICE__API_KEY
+              valueFrom: {{- toYaml .Values.apiKey.valueFrom | nindent 16 }}
+          {{- end }}
+          {{- if include "qdrant.readOnlyApiKeyValueFrom" . }}
+            - name: QDRANT__SERVICE__READ_ONLY_API_KEY
+              valueFrom: {{- toYaml .Values.readOnlyApiKey.valueFrom | nindent 16 }}
+          {{- end }}
           {{- range .Values.env }}
             - name: {{ .name }}
               {{- if .valueFrom }}
@@ -199,7 +207,7 @@ spec:
           - name: qdrant-config
             mountPath: /qdrant/config/production.yaml
             subPath: production.yaml
-          {{- if or .Values.apiKey .Values.readOnlyApiKey }}
+          {{- if include "qdrant.createApiKeySecret" . }}
           - name: qdrant-secret
             mountPath: /qdrant/config/local.yaml
             subPath: local.yaml
@@ -255,7 +263,7 @@ spec:
         {{- end }}
         - name: qdrant-init
           emptyDir: {}
-        {{- if or .Values.apiKey .Values.readOnlyApiKey }}
+        {{- if include "qdrant.createApiKeySecret" . }}
         - name: qdrant-secret
           secret:
             secretName: {{ include "qdrant.fullname" . }}-apikey
