@@ -57,6 +57,25 @@ ingress:
     #    - example-domain.com
     #   secretName: tls-secret-name
 
+# Separate Ingress for gRPC traffic. Many ingress controllers cannot serve REST and gRPC
+# from the same Ingress, so this routes to the gRPC service port (6334) instead.
+grpcIngress:
+  enabled: false
+  ingressClassName: ""
+  additionalLabels: {}
+  annotations: {}
+    # nginx.ingress.kubernetes.io/backend-protocol: GRPC
+  hosts:
+    - host: grpc.example-domain.com
+      paths:
+        - path: /
+          pathType: Prefix
+          servicePort: 6334
+  tls: []
+    # - hosts:
+    #    - grpc.example-domain.com
+    #   secretName: tls-secret-name
+
 livenessProbe:
   enabled: false
   initialDelaySeconds: 5

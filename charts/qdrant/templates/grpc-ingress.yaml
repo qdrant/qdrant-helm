@@ -1,0 +1,53 @@
+{{- if .Values.grpcIngress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "qdrant.fullname" . }}-grpc
+  labels:
+    {{- include "qdrant.labels" . | nindent 4 }}
+    {{- include "qdrant.additionalLabels" . | nindent 4 }}
+    {{- with .Values.grpcIngress.additionalLabels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+{{- if or .Values.grpcIngress.annotations .Values.additionalAnnotations }}
+  annotations:
+{{- with .Values.additionalAnnotations }}
+    {{- toYaml . | nindent 4 }}
+{{- end }}
+{{- with .Values.grpcIngress.annotations }}
+    {{- toYaml . | nindent 4 }}
+{{- end }}
+{{- end }}
+spec:
+  {{- if .Values.grpcIngress.ingressClassName }}
+  ingressClassName: {{ .Values.grpcIngress.ingressClassName }}
+  {{- end }}
+  {{- with .Values.grpcIngress.hosts }}
+  rules:
+    {{- range . }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path | quote }}
+            pathType: {{ .pathType | default "Prefix" | quote }}
+            backend:
+              service:
+                name: {{ default .serviceName (include "qdrant.fullname" $) }}
+                port:
+                  number: {{ .servicePort }}
+          {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.grpcIngress.tls }}
+  tls:
+    {{- range .Values.grpcIngress.tls}}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName | quote }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
