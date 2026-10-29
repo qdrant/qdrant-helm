@@ -1,3 +1,4 @@
+{{- if .Values.chartTests.dbInteraction.enabled }}
 {{- $root := . }}
 {{- $namespace := .Release.Namespace }}
 apiVersion: v1
@@ -126,3 +127,4 @@ data:
     -d '{"vector":[0.2, 0.1, 0.9, 0.7],"limit":3}' \
     -H  "${API_KEY_HEADER}" \
     $QDRANT_URL/collections/${QDRANT_COLLECTION}/points/search
+{{- end }}

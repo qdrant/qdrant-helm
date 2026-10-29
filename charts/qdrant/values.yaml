@@ -286,6 +286,9 @@ additionalVolumeMounts: []
 
 chartTests:
   dbInteraction:
+    # Set to false to skip rendering the `helm test` hook resources (Pod and ConfigMap),
+    # e.g. for tools that apply hook resources like `skaffold render`
+    enabled: true
     image: registry.suse.com/bci/bci-base:latest
     resources:
       requests:
