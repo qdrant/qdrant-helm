@@ -56,4 +56,104 @@ func TestAdditionalVolumeAndVolumeMount(t *testing.T) {
 
 	require.Equal(t, "/mount/path", volumeMount.MountPath)
 	require.Equal(t, "500Mi", volume.EmptyDir.SizeLimit.String())
+	require.NotContains(t, statefulSet.Spec.Template.Spec.InitContainers[0].Command, "/mount/path")
+	require.Len(t, statefulSet.Spec.Template.Spec.InitContainers[0].VolumeMounts, 2)
+}
+
+func TestAdditionalVolumeOwnership(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	require.NoError(t, err)
+
+	options := &helm.Options{
+		SetJSONValues: map[string]string{
+			"additionalVolumes": `[
+				{"name":"snapshots","nfs":{"server":"nfs.example.com","path":"/"}},
+				{"name":"credentials","secret":{"secretName":"credentials"}},
+				{"name":"untouched","emptyDir":{}}
+			]`,
+			"additionalVolumeMounts": `[
+				{"name":"snapshots","mountPath":"/qdrant/efs snapshots","subPath":"snapshots","updateFsOwnership":true},
+				{"name":"credentials","mountPath":"/credentials","readOnly":true,"updateFsOwnership":true},
+				{"name":"untouched","mountPath":"/untouched","updateFsOwnership":false}
+			]`,
+		},
+	}
+
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, "qdrant", []string{"templates/statefulset.yaml"})
+	var statefulSet appsv1.StatefulSet
+	helm.UnmarshalK8SYaml(t, output, &statefulSet)
+
+	initContainer := statefulSet.Spec.Template.Spec.InitContainers[0]
+	require.Equal(t, []string{"chown", "-R", "1000:3000", "/qdrant/storage", "/qdrant/snapshots", "/qdrant/efs snapshots"}, initContainer.Command)
+	require.Len(t, initContainer.VolumeMounts, 3)
+	selectedMount := corev1.VolumeMount{
+		Name: "snapshots", MountPath: "/qdrant/efs snapshots", SubPath: "snapshots",
+	}
+	require.Contains(t, initContainer.VolumeMounts, selectedMount)
+
+	container, found := lo.Find(statefulSet.Spec.Template.Spec.Containers, func(container corev1.Container) bool {
+		return container.Name == "qdrant"
+	})
+	require.True(t, found)
+	require.Contains(t, container.VolumeMounts, selectedMount)
+	require.Contains(t, container.VolumeMounts, corev1.VolumeMount{
+		Name: "credentials", MountPath: "/credentials", ReadOnly: true,
+	})
+	require.Contains(t, container.VolumeMounts, corev1.VolumeMount{
+		Name: "untouched", MountPath: "/untouched",
+	})
+	// This chart option must never leak into Kubernetes VolumeMount objects.
+	require.NotContains(t, output, "updateFsOwnership")
+
+	testOutput := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, "qdrant", []string{"templates/tests/test-db-interaction.yaml"})
+	var testPods []corev1.Pod
+	helm.UnmarshalK8SYamls(t, testOutput, &testPods, func(pod corev1.Pod) bool {
+		return pod.Kind == "Pod"
+	})
+	require.Len(t, testPods, 1)
+	require.Len(t, testPods[0].Spec.Containers, 1)
+	require.Contains(t, testPods[0].Spec.Containers[0].VolumeMounts, selectedMount)
+	require.NotContains(t, testOutput, "updateFsOwnership")
+}
+
+func TestAdditionalVolumeOwnershipRespectsSecuritySettings(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	require.NoError(t, err)
+
+	for name, settings := range map[string]map[string]string{
+		"ownership disabled": {"updateVolumeFsOwnership": "false"},
+		"unprivileged image": {"image.useUnprivilegedImage": "true"},
+		"root user":          {"containerSecurityContext.runAsUser": "0"},
+	} {
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+			settings["additionalVolumes"] = `[{"name":"snapshots","emptyDir":{}}]`
+			settings["additionalVolumeMounts"] = `[{"name":"snapshots","mountPath":"/qdrant/extra-snapshots","updateFsOwnership":true}]`
+			options := &helm.Options{SetJSONValues: settings}
+			output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, "qdrant", []string{"templates/statefulset.yaml"})
+			var statefulSet appsv1.StatefulSet
+			helm.UnmarshalK8SYaml(t, output, &statefulSet)
+			require.Empty(t, statefulSet.Spec.Template.Spec.InitContainers)
+			require.NotContains(t, output, "updateFsOwnership")
+		})
+	}
+}
+
+func TestAdditionalVolumeOwnershipRejectsSubPathExpr(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	require.NoError(t, err)
+	options := &helm.Options{
+		SetJSONValues: map[string]string{
+			"additionalVolumes":      `[{"name":"snapshots","emptyDir":{}}]`,
+			"additionalVolumeMounts": `[{"name":"snapshots","mountPath":"/snapshots","subPathExpr":"$(POD_NAME)","updateFsOwnership":true}]`,
+		},
+	}
+	_, err = helm.RenderTemplateE(t, options, helmChartPath, "qdrant", []string{"templates/statefulset.yaml"})
+	require.ErrorContains(t, err, "updateFsOwnership does not support subPathExpr")
 }
