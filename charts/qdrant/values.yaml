@@ -283,6 +283,9 @@ additionalVolumes: []
 additionalVolumeMounts: []
 # - name: volumeName
 #   mountPath: "/mount/path"
+#   # Opt in to recursive ownership updates by ensure-dir-ownership.
+#   # Requires updateVolumeFsOwnership; read-only mounts are skipped.
+#   updateFsOwnership: true
 
 chartTests:
   dbInteraction:

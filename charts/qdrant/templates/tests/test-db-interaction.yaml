@@ -20,9 +20,9 @@ spec:
       volumeMounts:
         - mountPath: /app
           name: test-script
-        {{- if .Values.additionalVolumeMounts }}
-{{- toYaml .Values.additionalVolumeMounts | default "" | nindent 8 }}
-        {{- end}}
+        {{- range .Values.additionalVolumeMounts }}
+        {{- toYaml (list (omit . "updateFsOwnership")) | nindent 8 }}
+        {{- end }}
       resources:
         {{- toYaml .Values.chartTests.dbInteraction.resources | nindent 8 }}
   {{- with .Values.imagePullSecrets }}
