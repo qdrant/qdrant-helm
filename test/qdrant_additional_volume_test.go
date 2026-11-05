@@ -154,6 +154,6 @@ func TestAdditionalVolumeOwnershipRejectsSubPathExpr(t *testing.T) {
 			"additionalVolumeMounts": `[{"name":"snapshots","mountPath":"/snapshots","subPathExpr":"$(POD_NAME)","updateFsOwnership":true}]`,
 		},
 	}
-	_, err = helm.RenderTemplateE(t, options, helmChartPath, "qdrant", []string{"templates/statefulset.yaml"})
+	_, err = helm.RenderTemplateContextE(t, context.Background(), options, helmChartPath, "qdrant", []string{"templates/statefulset.yaml"})
 	require.ErrorContains(t, err, "updateFsOwnership does not support subPathExpr")
 }
