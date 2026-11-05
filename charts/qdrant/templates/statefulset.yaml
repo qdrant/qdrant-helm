@@ -144,7 +144,7 @@ spec:
             {{- end }}
             {{- if eq .name "http"}}
             httpGet:
-              path: "{{- if semverCompare ">=1.7.3" ($.Values.image.tag | default $.Chart.AppVersion) -}}/readyz{{else}}/{{end}}"
+              path: {{ include "qdrant.readinessPath" $ | quote }}
               port: {{ .targetPort }}
               {{- if and $values.config.service $values.config.service.enable_tls }}
               scheme: HTTPS
