@@ -52,6 +52,7 @@ ingress:
         - path: /
           pathType: Prefix
           servicePort: 6333
+          # serviceName: custom-service # Optional; defaults to the Qdrant service.
   tls: []
     # - hosts:
     #    - example-domain.com

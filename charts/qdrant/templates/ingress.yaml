@@ -33,7 +33,7 @@ spec:
             pathType: {{ .pathType | default "Prefix" | quote }}
             backend:
               service:
-                name: {{ default .serviceName (include "qdrant.fullname" $) }}
+                name: {{ default (include "qdrant.fullname" $) .serviceName }}
                 port:
                   number: {{ .servicePort }}
           {{- end }}
