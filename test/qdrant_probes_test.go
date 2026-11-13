@@ -43,6 +43,26 @@ func TestDefaultProbesOnStatefulset(t *testing.T) {
 			version:           "v1.7.4",
 			readynessEndpoint: "/readyz",
 		},
+		{
+			version:           "latest",
+			readynessEndpoint: "/readyz",
+		},
+		{
+			version:           "dev",
+			readynessEndpoint: "/readyz",
+		},
+		{
+			version:           "v1.15.0-gpu-nvidia",
+			readynessEndpoint: "/readyz",
+		},
+		{
+			version:           "v1.6.0-gpu-nvidia",
+			readynessEndpoint: "/",
+		},
+		{
+			version:           "1.7.2",
+			readynessEndpoint: "/",
+		},
 	}
 
 	for _, test := range tests {
