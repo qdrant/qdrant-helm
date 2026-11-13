@@ -23,7 +23,7 @@ jobs:
           git config user.email "cloud-dev@qdrant.com"
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@cae68fefc6b5f367a0275617c9f83181ba54714f # v1.7.0
+        uses: helm/chart-releaser-action@92c6b97fa9f664492a2592e0d1d80bc6bf378957 # v1.9.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
@@ -45,7 +45,7 @@ jobs:
           go install github.com/halkeye/helm-repo-html@v0.2.1
           /home/runner/go/bin/helm-repo-html
 
-      - uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d # v7.2.0
+      - uses: stefanzweifel/git-auto-commit-action@d0b01107b5db882071f96de5dd4b54961ea93f4c # v7.2.1
         with:
           commit_message: "Update index.html"
 
