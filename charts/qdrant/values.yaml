@@ -230,6 +230,16 @@ metrics:
     #   credentials:
     #     name: external-secret-with-api-key
     #     key: api-key
+    ## TLS configuration to scrape the metrics endpoint when config.service.enable_tls is true
+    ## ref: https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1.TLSConfig
+    ##
+    tlsConfig: {}
+    # tlsConfig:
+    #   serverName: qdrant.example.com
+    #   ca:
+    #     secret:
+    #       name: qdrant-tls
+    #       key: ca.pem
 
 serviceAccount:
   create: true
