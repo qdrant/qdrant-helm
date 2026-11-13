@@ -5,6 +5,47 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.20.1
+        - kind: fixed
+          description: Use the version part of image.tag to pick the readiness probe path
+          links:
+            - name: GitHub Pull Request
+              url: https://github.com/qdrant/qdrant-helm/pull/531
+        - kind: fixed
+          description: Honor ingress backend service name overrides
+          links:
+            - name: GitHub Pull Request
+              url: https://github.com/qdrant/qdrant-helm/pull/536
+        - kind: fixed
+          description: Fix dead RelabelConfig links in values.yaml
+          links:
+            - name: GitHub Pull Request
+              url: https://github.com/qdrant/qdrant-helm/pull/529
+    apiVersion: v2
+    appVersion: v1.20.1
+    created: "2026-11-13T16:34:39.768423058Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 48a49a9bd254010334d814707e26f72bdb2f2bcb2dd80d40f07dd18fefba7943
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.20.1/qdrant-1.20.1.tgz
+    version: 1.20.1
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.20.0
     apiVersion: v2
     appVersion: v1.20.0
@@ -2183,4 +2224,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2026-10-22T16:18:37.601862571Z"
+generated: "2026-11-13T16:34:39.768614626Z"
