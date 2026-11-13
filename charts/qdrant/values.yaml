@@ -215,11 +215,11 @@ metrics:
     targetPort: http
     targetPath: "/metrics"
     ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
+    ## ref: https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1.RelabelConfig
     ##
     metricRelabelings: []
     ## RelabelConfigs to apply to samples before scraping
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
+    ## ref: https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1.RelabelConfig
     ##
     relabelings: []
     ## Authorization to apply to the metrics endpoint for the cases when the API key(s) are configured externally
