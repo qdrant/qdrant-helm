@@ -36,14 +36,22 @@ spec:
       authorization:
         type: Bearer
         credentials:
+{{- if include "qdrant.readOnlyApiKeyValueFrom" . }}
+          {{- toYaml .Values.readOnlyApiKey.valueFrom.secretKeyRef | nindent 10 }}
+{{- else }}
           name: {{ include "qdrant.fullname" . }}-apikey
           key: read-only-api-key
+{{- end }}
 {{- else if .Values.apiKey }}
       authorization:
         type: Bearer
         credentials:
+{{- if include "qdrant.apiKeyValueFrom" . }}
+          {{- toYaml .Values.apiKey.valueFrom.secretKeyRef | nindent 10 }}
+{{- else }}
           name: {{ include "qdrant.fullname" . }}-apikey
           key: api-key
+{{- end }}
 {{- end }}
   selector:
     matchLabels:

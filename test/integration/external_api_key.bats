@@ -15,3 +15,8 @@ setup_file() {
     [ $status -eq 0 ]
     [[ "${output}" =~ .*\"status\":\"ok\".* ]]
 }
+
+@test "external api key authentication fails with no key" {
+    run kubectl exec -n default curl -- curl -s -w " - %{response_code}" http://qdrant.qdrant-helm-integration:6333/collections
+    [ "${output}" = "Must provide an API key or an Authorization bearer token - 401" ]
+}

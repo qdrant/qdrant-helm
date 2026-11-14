@@ -74,20 +74,36 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
+Whether the api key is referenced from an existing secret via valueFrom
+*/}}
+{{- define "qdrant.apiKeyValueFrom" -}}
+{{- if and (kindIs "map" .Values.apiKey) .Values.apiKey.valueFrom -}}true{{- end -}}
+{{- end -}}
+
+{{/*
+Whether the read-only api key is referenced from an existing secret via valueFrom
+*/}}
+{{- define "qdrant.readOnlyApiKeyValueFrom" -}}
+{{- if and (kindIs "map" .Values.readOnlyApiKey) .Values.readOnlyApiKey.valueFrom -}}true{{- end -}}
+{{- end -}}
+
+{{/*
+Whether the chart creates its own <release>-apikey secret,
+i.e. at least one api key is set as a string or generated (true), not referenced via valueFrom
+*/}}
+{{- define "qdrant.createApiKeySecret" -}}
+{{- if or (and .Values.apiKey (not (include "qdrant.apiKeyValueFrom" .))) (and .Values.readOnlyApiKey (not (include "qdrant.readOnlyApiKeyValueFrom" .))) -}}true{{- end -}}
+{{- end -}}
+
+{{/*
 Create secret
+Api keys referenced via valueFrom are not part of it, they are passed to Qdrant as environment variables
 */}}
 {{- define "qdrant.secret" -}}
 {{- $readOnlyApiKey := false }}
 {{- $apiKey := false }}
 {{- if kindIs "map" .Values.apiKey -}}
-{{- if .Values.apiKey.valueFrom -}}
-{{- /* Retrieve the value from the secret as specified in valueFrom */ -}}
-{{- $secretName := .Values.apiKey.valueFrom.secretKeyRef.name -}}
-{{- $secretKey := .Values.apiKey.valueFrom.secretKeyRef.key -}}
-{{- $secretObj := (lookup "v1" "Secret" .Release.Namespace $secretName) | default dict -}}
-{{- $secretData := (get $secretObj "data") | default dict -}}
-{{- $apiKey = (get $secretData $secretKey | b64dec) -}}
-{{- end -}}
+{{- /* valueFrom is passed to Qdrant as an environment variable, see statefulset.yaml */ -}}
 {{- else if .Values.apiKey | toJson | eq "true" -}}
 {{- /* Retrieve existing randomly generated api key or create a new one */ -}}
 {{- $secretObj := (lookup "v1" "Secret" .Release.Namespace (printf "%s-apikey" (include "qdrant.fullname" . ))) | default dict -}}
@@ -97,14 +113,7 @@ Create secret
 {{- $apiKey = .Values.apiKey -}}
 {{- end -}}
 {{- if kindIs "map" .Values.readOnlyApiKey -}}
-{{- if .Values.readOnlyApiKey.valueFrom -}}
-{{- /* Retrieve the value from the secret as specified in valueFrom */ -}}
-{{- $secretName := .Values.readOnlyApiKey.valueFrom.secretKeyRef.name -}}
-{{- $secretKey := .Values.readOnlyApiKey.valueFrom.secretKeyRef.key -}}
-{{- $secretObj := (lookup "v1" "Secret" .Release.Namespace $secretName) | default dict -}}
-{{- $secretData := (get $secretObj "data") | default dict -}}
-{{- $readOnlyApiKey = (get $secretData $secretKey | b64dec) -}}
-{{- end -}}
+{{- /* valueFrom is passed to Qdrant as an environment variable, see statefulset.yaml */ -}}
 {{- else if eq (.Values.readOnlyApiKey | toJson) "true" -}}
 {{- /* retrieve existing randomly generated api key or create new one */ -}}
 {{- $secretObj := (lookup "v1" "Secret" .Release.Namespace (printf "%s-apikey" (include "qdrant.fullname" . ))) | default dict -}}
