@@ -11,11 +11,12 @@ metadata:
     {{- toYaml . | nindent 4 }}
 {{- end }}
 spec:
-  {{- with  .Values.podDisruptionBudget.maxUnavailable}}
-  maxUnavailable: {{ . }}
-  {{- end }}
-  {{- with  .Values.podDisruptionBudget.minAvailable }}
-  minAvailable: {{ . }}
+  {{- $minAvailable := .Values.podDisruptionBudget.minAvailable }}
+  {{- $maxUnavailable := .Values.podDisruptionBudget.maxUnavailable }}
+  {{- if and (not (kindIs "invalid" $minAvailable)) (ne (toString $minAvailable) "") }}
+  minAvailable: {{ $minAvailable }}
+  {{- else if and (not (kindIs "invalid" $maxUnavailable)) (ne (toString $maxUnavailable) "") }}
+  maxUnavailable: {{ $maxUnavailable }}
   {{- end }}
   {{- with  .Values.podDisruptionBudget.unhealthyPodEvictionPolicy }}
   unhealthyPodEvictionPolicy: {{ . }}
