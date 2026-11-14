@@ -253,6 +253,7 @@ podDisruptionBudget:
   maxUnavailable: 1
   # do not enable if you are using not in 1.27
   unhealthyPodEvictionPolicy: ""
+  # minAvailable takes precedence over maxUnavailable when both are set
   # minAvailable: 1
 
 # api key for authentication at qdrant
