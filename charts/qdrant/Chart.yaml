@@ -13,25 +13,15 @@ maintainers:
     url: https://github.com/qdrant
 icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
 type: application
-version: 1.20.1
-appVersion: v1.20.1
+version: 1.20.2
+appVersion: v1.20.2
 annotations:
   artifacthub.io/category: database
   artifacthub.io/changes: |
     - kind: added
-      description: Update Qdrant to v1.20.1
+      description: Update Qdrant to v1.20.2
     - kind: fixed
-      description: Use the version part of image.tag to pick the readiness probe path
+      description: Fix ServiceMonitor scraping over http when TLS is enabled
       links:
         - name: GitHub Pull Request
-          url: https://github.com/qdrant/qdrant-helm/pull/531
-    - kind: fixed
-      description: Honor ingress backend service name overrides
-      links:
-        - name: GitHub Pull Request
-          url: https://github.com/qdrant/qdrant-helm/pull/536
-    - kind: fixed
-      description: Fix dead RelabelConfig links in values.yaml
-      links:
-        - name: GitHub Pull Request
-          url: https://github.com/qdrant/qdrant-helm/pull/529
+          url: https://github.com/qdrant/qdrant-helm/pull/523
