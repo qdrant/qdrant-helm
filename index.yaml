@@ -5,6 +5,37 @@ entries:
       artifacthub.io/category: database
       artifacthub.io/changes: |
         - kind: added
+          description: Update Qdrant to v1.20.2
+        - kind: fixed
+          description: Fix ServiceMonitor scraping over http when TLS is enabled
+          links:
+            - name: GitHub Pull Request
+              url: https://github.com/qdrant/qdrant-helm/pull/523
+    apiVersion: v2
+    appVersion: v1.20.2
+    created: "2026-11-16T16:16:47.043431987Z"
+    description: Qdrant - Vector Database for the next generation of AI applications.
+    digest: 06cc84d863f38ada32d27e3c1475d70445f16a195a4e9a65f46bf6c0dedf84e7
+    home: https://qdrant.tech
+    icon: https://qdrant.github.io/qdrant-helm/logo_with_text.svg
+    keywords:
+    - vector database
+    maintainers:
+    - email: info@qdrant.com
+      name: qdrant
+      url: https://github.com/qdrant
+    name: qdrant
+    sources:
+    - https://github.com/qdrant/qdrant
+    - https://github.com/qdrant/qdrant-helm
+    type: application
+    urls:
+    - https://github.com/qdrant/qdrant-helm/releases/download/qdrant-1.20.2/qdrant-1.20.2.tgz
+    version: 1.20.2
+  - annotations:
+      artifacthub.io/category: database
+      artifacthub.io/changes: |
+        - kind: added
           description: Update Qdrant to v1.20.1
         - kind: fixed
           description: Use the version part of image.tag to pick the readiness probe path
@@ -2224,4 +2255,4 @@ entries:
     urls:
     - https://qdrant.github.io/qdrant-helm/qdrant-0.1.0.tgz
     version: 0.1.0
-generated: "2026-11-13T16:34:39.768614626Z"
+generated: "2026-11-16T16:16:47.044126494Z"
