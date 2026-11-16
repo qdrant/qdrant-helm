@@ -143,3 +143,12 @@ Port to use for inter cluster communication
 {{- define "qdrant.p2p.port" -}}
 {{- default 6335 .Values.config.cluster.p2p.port -}}
 {{- end -}}
+
+{{- define "qdrant.readinessPath" -}}
+{{- $version := regexFind "^v?[0-9]+\\.[0-9]+\\.[0-9]+" (.Values.image.tag | default .Chart.AppVersion) -}}
+{{- if and $version (semverCompare "<1.7.3" $version) -}}
+/
+{{- else -}}
+/readyz
+{{- end -}}
+{{- end -}}
