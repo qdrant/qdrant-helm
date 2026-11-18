@@ -1,0 +1,41 @@
+{{- if .Values.httpRoute.enabled -}}
+{{- if not .Values.httpRoute.parentRefs -}}
+{{- fail "httpRoute.parentRefs must contain at least one parent reference when httpRoute.enabled is true" -}}
+{{- end }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ include "qdrant.fullname" . }}
+  labels:
+    {{- include "qdrant.labels" . | nindent 4 }}
+    {{- include "qdrant.additionalLabels" . | nindent 4 }}
+    {{- with .Values.httpRoute.additionalLabels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+{{- if or .Values.httpRoute.annotations .Values.additionalAnnotations }}
+  annotations:
+{{- with .Values.additionalAnnotations }}
+    {{- toYaml . | nindent 4 }}
+{{- end }}
+{{- with .Values.httpRoute.annotations }}
+    {{- toYaml . | nindent 4 }}
+{{- end }}
+{{- end }}
+spec:
+  parentRefs:
+    {{- toYaml .Values.httpRoute.parentRefs | nindent 4 }}
+  {{- with .Values.httpRoute.hostnames }}
+  hostnames:
+    {{- range . }}
+    - {{ . | quote }}
+    {{- end }}
+  {{- end }}
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: {{ .Values.httpRoute.pathPrefix | quote }}
+      backendRefs:
+        - name: {{ include "qdrant.fullname" . }}
+          port: {{ .Values.httpRoute.servicePort }}
+{{- end }}
