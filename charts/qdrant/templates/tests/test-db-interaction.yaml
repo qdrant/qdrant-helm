@@ -17,6 +17,19 @@ spec:
     - name: test-script
       image: {{ .Values.chartTests.dbInteraction.image | quote }}
       args: ['bash', '/app/entrypoint.sh']
+      {{- if or .Values.apiKey .Values.readOnlyApiKey }}
+      env:
+        - name: QDRANT_API_KEY
+          valueFrom:
+          {{- $key := .Values.apiKey | default .Values.readOnlyApiKey }}
+          {{- if kindIs "map" $key }}
+            {{- toYaml $key.valueFrom | nindent 12 }}
+          {{- else }}
+            secretKeyRef:
+              name: {{ include "qdrant.fullname" . }}-apikey
+              key: {{ ternary "api-key" "read-only-api-key" (not (empty .Values.apiKey)) }}
+          {{- end }}
+      {{- end }}
       volumeMounts:
         - mountPath: /app
           name: test-script
@@ -90,10 +103,8 @@ data:
     {{- end }}
     {{- end }}
     API_KEY_HEADER=""
-    {{- if .Values.apiKey }}
-    API_KEY_HEADER="Api-key: {{ .Values.apiKey }}"
-    {{- else if .Values.readOnlyApiKey }}
-    API_KEY_HEADER="Api-key: {{ .Values.readOnlyApiKey }}"
+    {{- if or .Values.apiKey .Values.readOnlyApiKey }}
+    API_KEY_HEADER="Api-key: ${QDRANT_API_KEY}"
     {{- end }}
 
     # Delete collection if exists
