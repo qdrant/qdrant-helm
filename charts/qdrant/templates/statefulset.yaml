@@ -56,6 +56,15 @@ spec:
       initContainers:
       {{- if and .Values.updateVolumeFsOwnership (not .Values.image.useUnprivilegedImage) }}
       {{- if and .Values.containerSecurityContext .Values.containerSecurityContext.runAsUser }}
+      {{- $additionalOwnershipMounts := list }}
+      {{- range .Values.additionalVolumeMounts }}
+      {{- if and .updateFsOwnership (not .readOnly) }}
+      {{- if .subPathExpr }}
+      {{- fail "additionalVolumeMounts: updateFsOwnership does not support subPathExpr; use a static subPath" }}
+      {{- end }}
+      {{- $additionalOwnershipMounts = append $additionalOwnershipMounts (omit . "updateFsOwnership") }}
+      {{- end }}
+      {{- end }}
       - name: ensure-dir-ownership
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         command:
@@ -66,6 +75,9 @@ spec:
           - /qdrant/snapshots
           {{- if and .Values.snapshotRestoration.enabled .Values.snapshotRestoration.pvcName }}
           - {{ .Values.snapshotRestoration.mountPath }}
+          {{- end }}
+          {{- range $additionalOwnershipMounts }}
+          - {{ .mountPath | quote }}
           {{- end }}
         volumeMounts:
           - name: {{ .Values.persistence.storageVolumeName | default "qdrant-storage" }}
@@ -81,6 +93,9 @@ spec:
           {{- if and .Values.snapshotRestoration.enabled .Values.snapshotRestoration.pvcName }}
           - name: qdrant-snapshot-restoration
             mountPath: {{ .Values.snapshotRestoration.mountPath }}
+          {{- end }}
+          {{- with $additionalOwnershipMounts }}
+          {{- toYaml . | nindent 10 }}
           {{- end }}
       {{- end }}
       {{- end }}
@@ -215,9 +230,9 @@ spec:
             {{- end }}
           - name: qdrant-init
             mountPath: /qdrant/init
-          {{- if .Values.additionalVolumeMounts }}
-{{- toYaml .Values.additionalVolumeMounts | default "" | nindent 10 }}
-          {{- end}}
+          {{- range .Values.additionalVolumeMounts }}
+          {{- toYaml (list (omit . "updateFsOwnership")) | nindent 10 }}
+          {{- end }}
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}

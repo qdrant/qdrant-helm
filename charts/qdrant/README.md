@@ -50,6 +50,41 @@ A modification example is provided there.
 
 You can override any value in the Qdrant configuration by setting the Helm values under the key `config`. Those settings get included verbatim in a file called `config/production.yml` which is explained further here [Qdrant Order and Priority](https://qdrant.tech/documentation/guides/configuration/#order-and-priority) as well as an [example](https://github.com/qdrant/qdrant-helm/blob/b0bb6fc6d3eb9c0813c79bb5a78dc21aebc2b81d/charts/qdrant/values.yaml#L140).
 
+### Ownership of additional volumes
+
+To make an additional writable volume accessible to Qdrant's configured user and
+filesystem group, set `updateFsOwnership: true` on its `additionalVolumeMounts`
+entry. For example, to store snapshots on an existing NFS export:
+
+```yaml
+additionalVolumes:
+  - name: efs-mount
+    nfs:
+      server: nfs.example.com
+      path: /
+additionalVolumeMounts:
+  - name: efs-mount
+    mountPath: /qdrant/efs-snapshots
+    updateFsOwnership: true
+config:
+  storage:
+    snapshots_path: /qdrant/efs-snapshots
+```
+
+The ownership init container mounts the selected volume at the same path and
+subpath as the Qdrant container, then recursively changes its ownership to
+`containerSecurityContext.runAsUser:podSecurityContext.fsGroup`.
+Additional mounts are left untouched unless opted in, and mounts with
+`readOnly: true` are always skipped. The existing `updateVolumeFsOwnership`,
+`image.useUnprivilegedImage`, and `containerSecurityContext.runAsUser` settings
+still control whether the ownership init container runs.
+Use a static `subPath` if needed: opting in with `subPathExpr` is rejected because
+the ownership init container does not share the main container's environment.
+
+The storage backend must permit ownership changes. For NFS exports that prevent
+`chown` (for example, through root squashing), provision the directory with the
+required ownership on the server instead of enabling this option.
+
 ### Distributed setup
 
 Running a distributed cluster just needs a few changes in your `values.yaml` file.
