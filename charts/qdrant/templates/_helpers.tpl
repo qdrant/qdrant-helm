@@ -74,6 +74,24 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
+Api key given as a plain value, as a string.
+Numbers are converted: --set turns 12345 into an integer, and a values file or --reuse-values into a float.
+Whole numbers are written without decimals; anything else can't be converted back to the original key.
+Note: an unquoted number in a values file is already changed by YAML (e.g. 0123 becomes 83), it has to be quoted.
+*/}}
+{{- define "qdrant.apiKeyString" -}}
+{{- if kindIs "string" .value -}}
+{{- .value -}}
+{{- else if kindIs "int64" .value -}}
+{{- .value | toString -}}
+{{- else if and (kindIs "float64" .value) (eq .value (floor .value)) (lt .value 9007199254740992.0) (gt .value -9007199254740992.0) -}}
+{{- .value | int64 | toString -}}
+{{- else -}}
+{{- fail (printf "%s must be a string, quote it in your values file: %s: \"<key>\"" .name .name) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Create secret
 */}}
 {{- define "qdrant.secret" -}}
@@ -94,7 +112,7 @@ Create secret
 {{- $secretData := (get $secretObj "data") | default dict -}}
 {{- $apiKey = (get $secretData "api-key" | b64dec) | default (randAlphaNum 32) -}}
 {{- else if .Values.apiKey -}}
-{{- $apiKey = .Values.apiKey -}}
+{{- $apiKey = include "qdrant.apiKeyString" (dict "name" "apiKey" "value" .Values.apiKey) -}}
 {{- end -}}
 {{- if kindIs "map" .Values.readOnlyApiKey -}}
 {{- if .Values.readOnlyApiKey.valueFrom -}}
@@ -111,7 +129,7 @@ Create secret
 {{- $secretData := (get $secretObj "data") | default dict -}}
 {{- $readOnlyApiKey = (get $secretData "read-only-api-key" | b64dec) | default (randAlphaNum 32) -}}
 {{- else if .Values.readOnlyApiKey -}}
-{{- $readOnlyApiKey = .Values.readOnlyApiKey -}}
+{{- $readOnlyApiKey = include "qdrant.apiKeyString" (dict "name" "readOnlyApiKey" "value" .Values.readOnlyApiKey) -}}
 {{- end -}}
 {{- if and $apiKey $readOnlyApiKey -}}
 api-key: {{ $apiKey | b64enc }}

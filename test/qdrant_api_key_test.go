@@ -288,3 +288,85 @@ func TestAdminAndReadOnlyApiKey(t *testing.T) {
 
 	require.Regexp(t, "^service:\n  api_key: [a-zA-Z0-9]+\n  read_only_api_key: [a-zA-Z0-9]+$", string(secret.Data["local.yaml"]))
 }
+
+func TestNumericApiKey(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	// --set turns a numeric key into an integer
+	options := &helm.Options{
+		SetValues: map[string]string{
+			"apiKey":         "12345",
+			"readOnlyApiKey": "67890",
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
+
+	var secret corev1.Secret
+	helm.UnmarshalK8SYaml(t, output, &secret)
+
+	require.Equal(t, "12345", string(secret.Data["api-key"]))
+	require.Equal(t, "67890", string(secret.Data["read-only-api-key"]))
+	require.Equal(t, "service:\n  api_key: 12345\n  read_only_api_key: 67890", string(secret.Data["local.yaml"]))
+}
+
+func TestNumericApiKeyFromValues(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
+	logger.Log(t, "Namespace: %s\n", namespaceName)
+
+	// Values files and --reuse-values turn a numeric key into a float
+	options := &helm.Options{
+		SetJSONValues: map[string]string{
+			"apiKey":         `12345`,
+			"readOnlyApiKey": `9007199254740991`,
+		},
+		KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+	}
+
+	output := helm.RenderTemplateContext(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
+
+	var secret corev1.Secret
+	helm.UnmarshalK8SYaml(t, output, &secret)
+
+	require.Equal(t, "12345", string(secret.Data["api-key"]))
+	require.Equal(t, "9007199254740991", string(secret.Data["read-only-api-key"]))
+}
+
+func TestNonIntegerNumericApiKeyFails(t *testing.T) {
+	t.Parallel()
+
+	helmChartPath, err := filepath.Abs("../charts/qdrant")
+	releaseName := "qdrant"
+	require.NoError(t, err)
+
+	for _, value := range []string{`1.5`, `12345678901234567890`} {
+		namespaceName := "qdrant-" + strings.ToLower(random.UniqueID())
+		logger.Log(t, "Namespace: %s\n", namespaceName)
+
+		// The original key can't be recovered from a fraction or a rounded large number
+		options := &helm.Options{
+			SetJSONValues: map[string]string{
+				"apiKey": value,
+			},
+			KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+		}
+
+		_, err := helm.RenderTemplateContextE(t, context.Background(), options, helmChartPath, releaseName, []string{"templates/secret.yaml"})
+
+		require.ErrorContains(t, err, "apiKey must be a string")
+	}
+}
