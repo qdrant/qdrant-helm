@@ -1,3 +1,4 @@
+{{- if .Values.headlessService.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -6,15 +7,23 @@ metadata:
     {{- include "qdrant.labels" . | nindent 4 }}
     {{- include "qdrant.additionalLabels" . | nindent 4 }}
     app.kubernetes.io/component: cluster-discovery
-{{- with .Values.service.additionalLabels }}
+{{- $additionalLabels := .Values.service.additionalLabels }}
+{{- if not (kindIs "invalid" .Values.headlessService.additionalLabels) }}
+  {{- $additionalLabels = .Values.headlessService.additionalLabels }}
+{{- end }}
+{{- with $additionalLabels }}
 {{- toYaml . | nindent 4 }}
 {{- end }}
-{{- if or .Values.service.annotations .Values.additionalAnnotations }}
+{{- $annotations := .Values.service.annotations }}
+{{- if not (kindIs "invalid" .Values.headlessService.annotations) }}
+  {{- $annotations = .Values.headlessService.annotations }}
+{{- end }}
+{{- if or $annotations .Values.additionalAnnotations }}
   annotations:
 {{- with .Values.additionalAnnotations }}
     {{- toYaml . | nindent 4 }}
 {{- end }}
-{{- with .Values.service.annotations }}
+{{- with $annotations }}
     {{- toYaml . | nindent 4 }}
 {{- end }}
 {{- end }}
@@ -33,3 +42,4 @@ spec:
     {{- end }}
   selector:
     {{- include "qdrant.selectorLabels" . | nindent 4 }}
+{{- end }}
