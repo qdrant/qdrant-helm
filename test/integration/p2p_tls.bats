@@ -9,8 +9,8 @@ setup_file() {
 
     kubectl create ns qdrant-p2ptlstest
     kubectl -n qdrant-p2ptlstest create secret generic test-tls --from-file=tls.key="test/integration/assets/tls.key" --from-file=tls.crt="test/integration/assets/tls.crt" --from-file=ca.pem="test/integration/assets/ca.pem"
-    helm upgrade --install qdrant charts/qdrant -n qdrant-p2ptlstest --wait -f test/integration/assets/tls-p2p-values.yaml
-    kubectl rollout status statefulset qdrant -n qdrant-p2ptlstest
+    helm upgrade --install qdrant charts/qdrant -n qdrant-p2ptlstest -f test/integration/assets/tls-p2p-values.yaml
+    kubectl rollout status statefulset qdrant -n qdrant-p2ptlstest --timeout 5m
 }
 
 @test "Connection with https" {
